@@ -34,21 +34,32 @@ export default function CareDetail() {
     <>
       <PageHero eyebrow={content.eyebrow} title={content.title} desc={content.intro} image={content.image} crumbs={[{ label: "Obesity Treatment Options", to: "/obesity-treatment-options" }, { label: content.eyebrow }]} />
       <section className="py-24 sm:py-32">
-        <div className={isDietAndLifestyle ? "mx-auto max-w-4xl px-5 sm:px-8" : "mx-auto grid max-w-7xl items-start gap-14 px-5 sm:px-8 lg:grid-cols-12"}>
+        <div className={isDietAndLifestyle ? "mx-auto grid max-w-7xl items-start gap-12 px-5 sm:px-8 lg:grid-cols-12" : "mx-auto grid max-w-7xl items-start gap-14 px-5 sm:px-8 lg:grid-cols-12"}>
+          {isDietAndLifestyle && <Reveal className="lg:col-span-5 lg:sticky lg:top-28">
+            <div className="overflow-hidden rounded-[2rem] shadow-[0_25px_60px_-30px_rgba(17,75,44,0.35)]">
+              <img src={content.image} alt="Diet and lifestyle management" className="h-[420px] w-full object-cover sm:h-[520px]" />
+            </div>
+            <div className="mt-5 rounded-2xl bg-brand-50 p-5">
+              <div className="text-sm font-bold uppercase tracking-widest text-brand-700">Lifelong support</div>
+              <p className="mt-2 text-sm leading-relaxed text-steel">Your plan is reviewed and adapted as your health and lifestyle needs change.</p>
+            </div>
+          </Reveal>}
           {!isDietAndLifestyle && <Reveal className="lg:col-span-5">
             <img src={content.image} alt="" className="h-[520px] w-full rounded-[2rem] object-cover" />
           </Reveal>}
           <div className={isDietAndLifestyle ? "" : "lg:col-span-7"}>
             {isDietAndLifestyle ? (
-              <>
-                <img src={content.image} alt="" className="mb-10 h-[360px] w-full rounded-[2rem] object-cover sm:h-[440px]" />
-                <h2 className="text-3xl font-extrabold">An individualised plan may include:</h2>
+              <div className="lg:col-span-7 rounded-[2rem] bg-white p-7 shadow-[0_25px_60px_-35px_rgba(17,75,44,0.3)] sm:p-10">
+                <div className="text-sm font-bold uppercase tracking-widest text-brand-600">Personalised care plan</div>
+                <h2 className="mt-3 text-3xl font-extrabold leading-tight">An individualised plan may include:</h2>
                 <ul className="mt-8 space-y-4">
-                  {content.points.map((point) => <li key={point} className="flex gap-4 leading-relaxed"><CheckCircle2 className="mt-0.5 shrink-0 text-brand-500" />{point}</li>)}
+                  {content.points.map((point, index) => <li key={point} className="flex items-start gap-4 rounded-2xl bg-mist p-4 leading-relaxed"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-500 text-sm font-bold text-white">{index + 1}</span><span>{point}</span></li>)}
                 </ul>
-                <p className="mt-8 leading-relaxed text-steel">{content.closing}</p>
-                <p className="mt-4 leading-relaxed text-steel">{content.followUp}</p>
-              </>
+                <div className="mt-8 border-t border-ink/10 pt-6">
+                  <p className="leading-relaxed text-steel">{content.closing}</p>
+                  <p className="mt-4 leading-relaxed text-steel">{content.followUp}</p>
+                </div>
+              </div>
             ) : (
               <>
             <SectionHeading eyebrow="Individualised Care" title="A plan designed around your health and lifestyle." desc="Some people may require additional treatment, such as medication, endoscopic procedures or bariatric surgery. A clinical assessment helps identify the right next step." />
