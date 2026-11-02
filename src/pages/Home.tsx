@@ -176,9 +176,9 @@ function AboutIntro() {
         </Reveal>
 
         <div>
-          <SectionHeading eyebrow="Meet Your Surgeon" title={<>Dr. Mehul Vikani — <span className="text-gradient">precision with compassion.</span></>} desc="A leading laparoscopic bariatric and metabolic surgeon, Dr. Vikani has dedicated his career to helping people overcome obesity and its related diseases through safe, minimally invasive surgery and a holistic, lifelong care programme." />
+          <SectionHeading eyebrow="Meet Your Surgeon" title={<>Dr. Mehul Vikani — <span className="text-gradient">Consultant Bariatric & Metabolic Surgeon.</span></>} desc="Dr. Mehul Vikani specialises in bariatric and metabolic surgery and the surgical and non-surgical management of obesity." />
           <Reveal delay={0.15} className="mt-8 grid gap-4 sm:grid-cols-2">
-            {["MS (General Surgery)", "Fellowship in Bariatric Surgery", "5,000+ laparoscopic procedures", "Member – IFSO & OSSI", "International training (Europe & Asia)", "Speaker at national conferences"].map((t) => (
+            {["MBBS, MS (General Surgery)", "FMAS, FALS, FIAGES & Bariatric Fellowship", "IFSO, OSSI, ASI & IAGES", "International training in Taiwan and Belgium", "Sleeve gastrectomy and gastric bypass", "Medical registration: G-43101"].map((t) => (
               <div key={t} className="flex items-start gap-3 text-sm font-medium"><CheckCircle2 size={18} className="mt-0.5 shrink-0 text-brand-500" />{t}</div>
             ))}
           </Reveal>

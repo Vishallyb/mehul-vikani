@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, CheckCircle2, CalendarDays, User, Phone, Stethoscope } from "lucide-react";
-import { TREATMENTS, CONTACT } from "../data/site";
+import { CONTACT } from "../data/site";
 import { LogoMark } from "./Logo";
 
 type Ctx = { open: (treatment?: string) => void };
@@ -14,11 +14,18 @@ type AppointmentFormData = {
   email: string;
   treatment: string;
   date: string;
-  mode: string;
   message: string;
 };
 
 const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send";
+const DOCX_TREATMENTS = [
+  "Diet and Lifestyle",
+  "Weight-Loss Medications and Injections",
+  "Intragastric Balloon",
+  "Sleeve Gastrectomy",
+  "Mini Gastric Bypass (OAGB)",
+  "Roux-en-Y Gastric Bypass",
+];
 
 export function AppointmentProvider({ children }: { children: ReactNode }) {
   const [isOpen, setOpen] = useState(false);
@@ -37,7 +44,7 @@ export function AppointmentProvider({ children }: { children: ReactNode }) {
 
 export function AppointmentForm({ preset = "", compact = false }: { preset?: string; compact?: boolean }) {
   const [done, setDone] = useState(false);
-  const [form, setForm] = useState<AppointmentFormData>({ name: "", phone: "", email: "", treatment: preset, date: "", mode: "In-Clinic", message: "" });
+  const [form, setForm] = useState<AppointmentFormData>({ name: "", phone: "", email: "", treatment: preset, date: "", message: "" });
   const [err, setErr] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const set = (k: keyof AppointmentFormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setForm({ ...form, [k]: e.target.value });
@@ -73,7 +80,6 @@ export function AppointmentForm({ preset = "", compact = false }: { preset?: str
             from_email: form.email || "Not provided",
             treatment: form.treatment || "General Consultation",
             appointment_date: form.date || "Not specified",
-            appointment_mode: form.mode,
             message: form.message || "No additional message",
           },
         }),
@@ -124,20 +130,12 @@ export function AppointmentForm({ preset = "", compact = false }: { preset?: str
           <Stethoscope size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-steel" />
           <select value={form.treatment} onChange={set("treatment")} className={"treatment-select " + field + " appearance-none pl-11"}>
             <option value="">Select Treatment</option>
-            {TREATMENTS.map((t) => <option key={t.slug}>{t.title}</option>)}
-            <option>General Consultation</option>
+            {DOCX_TREATMENTS.map((treatment) => <option key={treatment}>{treatment}</option>)}
           </select>
         </div>
         <div className="relative">
           <CalendarDays size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-steel" />
           <input value={form.date} onChange={set("date")} type="date" className={field + " pl-11"} />
-        </div>
-        <div className="flex rounded-xl bg-mist p-1">
-          {["In-Clinic", "Video Call"].map((m) => (
-            <button type="button" key={m} onClick={() => setForm({ ...form, mode: m })} className={`flex-1 rounded-lg py-2.5 text-sm font-semibold transition ${form.mode === m ? "bg-white text-brand-600 shadow" : "text-steel"}`}>
-              {m}
-            </button>
-          ))}
         </div>
       </div>
       {!compact && <textarea value={form.message} onChange={set("message")} rows={3} placeholder="Tell us briefly about your concern (optional)" className={field} />}
