@@ -1,5 +1,5 @@
 import { Link, useParams, Navigate } from "react-router-dom";
-import { CheckCircle2, Clock3, BedDouble, TrendingDown, Phone, ArrowRight, UserCheck } from "lucide-react";
+import { Phone, ArrowRight } from "lucide-react";
 import { TREATMENTS, CONTACT, FAQS } from "../data/site";
 import { PageHero, Reveal, Eyebrow, CTABanner } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
@@ -17,59 +17,16 @@ export default function TreatmentDetail() {
     <>
       <PageHero eyebrow={t.tag} title={t.title} desc={t.short} image={t.image} crumbs={[{ label: "Treatments", to: "/treatments" }, { label: t.title }]} />
 
-      <div className="relative z-10 mx-auto -mt-12 max-w-7xl px-5 sm:px-8">
-        <Reveal className="grid gap-px overflow-hidden rounded-3xl bg-ink/5 shadow-2xl sm:grid-cols-3">
-          {[{ i: Clock3, l: "Procedure Time", v: t.duration }, { i: BedDouble, l: "Hospital Stay", v: t.stay }, { i: TrendingDown, l: "Expected Result", v: t.loss }].map((x) => (
-            <div key={x.l} className="flex items-center gap-4 bg-white p-7">
-              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-50 text-brand-600"><x.i /></div>
-              <div><div className="text-xs font-bold uppercase tracking-widest text-steel">{x.l}</div><div className="font-display text-lg font-extrabold">{x.v}</div></div>
-            </div>
-          ))}
-        </Reveal>
-      </div>
-
       <section className="py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-12">
           <div className="space-y-16 lg:col-span-8">
             <Reveal>
               <Eyebrow>Overview</Eyebrow>
               <h2 className="mt-3 text-3xl font-extrabold">What is {t.title}?</h2>
-              <p className="mt-5 text-lg leading-relaxed text-steel">{t.overview}</p>
+              <div className="mt-5 space-y-4 text-lg leading-relaxed text-steel">
+                {(t.docxContent || [t.overview]).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              </div>
               <img src={t.image} alt="" className="mt-8 h-80 w-full rounded-[2rem] object-cover" />
-            </Reveal>
-
-            <Reveal>
-              <Eyebrow>Benefits</Eyebrow>
-              <h2 className="mt-3 text-3xl font-extrabold">Key benefits</h2>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                {t.benefits.map((b) => (
-                  <div key={b} className="flex items-center gap-3 rounded-2xl bg-mist p-5 font-semibold"><CheckCircle2 className="shrink-0 text-brand-500" />{b}</div>
-                ))}
-              </div>
-            </Reveal>
-
-            <Reveal>
-              <Eyebrow>Eligibility</Eyebrow>
-              <h2 className="mt-3 text-3xl font-extrabold">Who is it for?</h2>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                {t.candidates.map((c) => (
-                  <div key={c} className="flex items-center gap-3 rounded-2xl border border-brand-100 p-5"><UserCheck className="shrink-0 text-brand-500" />{c}</div>
-                ))}
-              </div>
-            </Reveal>
-
-            <Reveal>
-              <Eyebrow>Process</Eyebrow>
-              <h2 className="mt-3 text-3xl font-extrabold">Your treatment journey</h2>
-              <div className="mt-8 space-y-0">
-                {t.steps.map((s, k) => (
-                  <div key={s.t} className="relative flex gap-6 pb-10 last:pb-0">
-                    {k < t.steps.length - 1 && <div className="absolute left-6 top-12 h-full w-px bg-brand-200" />}
-                    <div className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full bg-brand-500 font-display font-black text-white">{k + 1}</div>
-                    <div className="pt-1.5"><h3 className="text-lg font-extrabold">{s.t}</h3><p className="mt-1 text-steel">{s.d}</p></div>
-                  </div>
-                ))}
-              </div>
             </Reveal>
 
             <Reveal>

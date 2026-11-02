@@ -50,6 +50,7 @@ export type Treatment = {
   benefits: string[];
   candidates: string[];
   steps: { t: string; d: string }[];
+  docxContent?: string[];
 };
 
 export const TREATMENTS: Treatment[] = [
@@ -64,6 +65,13 @@ export const TREATMENTS: Treatment[] = [
     loss: "60–70% excess weight",
     overview:
       "Sleeve gastrectomy removes a large portion of the stomach, leaving a narrow, sleeve-shaped stomach. The reduced stomach capacity helps limit food intake, while changes in gut hormones may influence hunger and fullness. It is generally performed laparoscopically without bypassing the small intestine. Potential risks include bleeding, infection, staple-line leakage and blood clots; longer-term considerations include reflux, nutritional deficiencies and possible weight regain.",
+    docxContent: [
+      "Sleeve gastrectomy is a bariatric and metabolic surgical procedure in which a large portion of the stomach is removed, leaving a narrow, sleeve-shaped stomach.",
+      "The reduced stomach capacity helps limit food intake. Changes in gut hormones may also influence hunger and feelings of fullness. The procedure is generally performed laparoscopically and does not involve bypassing the small intestine.",
+      "It may be considered for individuals who meet the clinical criteria for bariatric surgery. Potential benefits include weight reduction and improvement in certain obesity-related conditions, including type 2 diabetes.",
+      "As with any major operation, risks include bleeding, infection, staple-line leakage and blood clots. Longer-term considerations include acid reflux, nutritional deficiencies and possible weight regain.",
+      "Sleeve gastrectomy is permanent and requires long-term nutritional monitoring and medical follow-up.",
+    ],
     benefits: [
       "Significant & sustained weight loss",
       "Reduced hunger hormone (ghrelin)",
@@ -91,6 +99,12 @@ export const TREATMENTS: Treatment[] = [
     loss: "70–80% excess weight",
     overview:
       "Roux-en-Y Gastric Bypass creates a small stomach pouch connected to the small intestine, with a second intestinal connection forming the characteristic Y-shaped arrangement. It reduces food intake and changes nutrient flow and metabolic signalling. It may be considered for selected patients with obesity and associated metabolic conditions, including some patients with significant reflux. Lifelong supplementation, regular blood tests and medical follow-up are required.",
+    docxContent: [
+      "Roux-en-Y Gastric Bypass (RYGB) is a bariatric and metabolic surgical procedure in which a small stomach pouch is created and connected to the small intestine. A second intestinal connection forms a characteristic Y-shaped arrangement.",
+      "The procedure reduces food intake and changes the pathway of food through the digestive system, influencing nutrient absorption and metabolic signalling.",
+      "It may be considered for selected individuals with obesity and associated metabolic conditions. It may also be considered in certain patients with significant gastro-oesophageal reflux, following individual assessment.",
+      "Potential complications include bleeding, leakage, bowel obstruction, marginal ulcers, dumping syndrome and nutritional deficiencies. Lifelong vitamin and mineral supplementation, regular blood tests and medical follow-up are required.",
+    ],
     benefits: ["Highest diabetes remission rates", "Cures severe acid reflux (GERD)", "Durable long-term weight loss", "Improves cholesterol & BP", "Proven over 50+ years", "Better quality of life"],
     candidates: ["BMI ≥ 40 kg/m²", "Uncontrolled type-2 diabetes", "Severe GERD with obesity", "Patients with sweet-eating habits"],
     steps: [
@@ -111,6 +125,12 @@ export const TREATMENTS: Treatment[] = [
     loss: "70–85% excess weight",
     overview:
       "Mini Gastric Bypass, also known as One Anastomosis Gastric Bypass (OAGB), creates a long, narrow stomach pouch connected to a loop of the small intestine through a single surgical connection. It works through reduced food intake, changes in gut hormone signalling and altered nutrient absorption. Potential risks include bleeding, leakage, nutritional deficiencies, marginal ulcers, dumping syndrome and bile reflux. Lifelong vitamin and mineral supplementation and monitoring are important.",
+    docxContent: [
+      "Mini Gastric Bypass, also known as One Anastomosis Gastric Bypass (OAGB), is a bariatric and metabolic procedure involving the creation of a long, narrow stomach pouch connected to a loop of the small intestine through a single surgical connection.",
+      "It works through reduced food intake, changes in gut hormone signalling and altered nutrient absorption. The procedure is generally performed laparoscopically.",
+      "It may be considered for selected individuals with obesity and associated metabolic conditions following a comprehensive clinical assessment.",
+      "Potential risks include bleeding, leakage, nutritional deficiencies, marginal ulcers, dumping syndrome and bile reflux. Lifelong vitamin and mineral supplementation, nutritional monitoring and medical follow-up are important after surgery.",
+    ],
     benefits: ["Single joint – shorter surgery", "Excellent for super-obesity", "Strong metabolic effect", "Reversible & revisable", "Lower complication profile", "Fast recovery"],
     candidates: ["BMI ≥ 45 kg/m²", "Long-standing type-2 diabetes", "Failed previous sleeve or band", "High-volume eaters"],
     steps: [
@@ -131,6 +151,12 @@ export const TREATMENTS: Treatment[] = [
     loss: "10–15% body weight",
     overview:
       "An intragastric balloon is a temporary, non-surgical option for selected individuals with obesity. A balloon is placed inside the stomach to occupy space and increase fullness. Treatment duration varies by balloon system; many fluid-filled balloons are designed for approximately six months. Nausea, vomiting, discomfort and reflux may occur, and dietary guidance, lifestyle change and regular follow-up are essential.",
+    docxContent: [
+      "An intragastric balloon is a temporary, non-surgical treatment option for selected individuals with obesity. A balloon is placed inside the stomach to occupy space and increase feelings of fullness, which may help reduce food intake.",
+      "Placement methods and treatment duration vary according to the balloon system. Many fluid-filled balloons are designed for approximately six months, while other devices may have different approved durations.",
+      "Nausea, vomiting, abdominal discomfort and reflux may occur, particularly during the initial period. Less common but serious complications can include balloon migration, obstruction, bleeding or perforation.",
+      "The balloon does not permanently change stomach anatomy. Dietary guidance, lifestyle modification and regular follow-up are essential during treatment and after removal, as weight regain may occur.",
+    ],
     benefits: ["No incisions or scars", "Day-care procedure", "Temporary & removable", "Kick-starts lifestyle change", "Bridge to safer surgery", "Quick return to routine"],
     candidates: ["BMI 27–35 kg/m²", "Not keen on surgery", "Pre-surgery weight reduction", "Fatty liver patients"],
     steps: [

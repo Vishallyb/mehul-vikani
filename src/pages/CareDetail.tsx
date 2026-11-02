@@ -9,15 +9,15 @@ const CONTENT = {
     eyebrow: "Diet and Lifestyle",
     title: "Build habits that support lasting health.",
     image: IMG.salad,
-    intro: "Obesity is a chronic health condition influenced by nutrition, physical activity, sleep, genetics and metabolism. Diet and lifestyle management are important components of its treatment.",
-    points: ["Balanced nutrition with adequate protein and appropriate portion sizes.", "Regular physical activity, including aerobic and strength-based exercises.", "Healthy sleep habits and stress management.", "Behavioural changes to support sustainable eating patterns.", "Long-term follow-up to monitor progress and modify the plan when required."],
+    intro: "Obesity is a chronic health condition influenced by multiple factors, including nutrition, physical activity, sleep, genetics and metabolism. Diet and lifestyle management are important components of its treatment.",
+    points: ["Balanced nutrition with adequate protein and appropriate portion sizes.", "Regular physical activity, including aerobic and strength-based exercises.", "Healthy sleep habits and stress management.", "Behavioural changes to support sustainable eating patterns.", "The plan should be tailored to each individual's health, lifestyle and nutritional requirements.", "Some individuals may require additional treatment, such as medication, endoscopic procedures or bariatric surgery.", "Long-term follow-up helps monitor progress and modify the treatment plan when required."],
   },
   "weight-loss-medications": {
     eyebrow: "Weight-Loss Medications and Injections",
     title: "Medical support, with careful monitoring.",
     image: IMG.healthyWall2,
-    intro: "Prescription medications may be considered when lifestyle measures alone are insufficient or when additional medical treatment is clinically indicated.",
-    points: ["Semaglutide acts on the GLP-1 pathway involved in appetite, fullness and glucose control.", "Tirzepatide acts on both GIP and GLP-1 pathways.", "Treatment requires an individual medical assessment and regular monitoring.", "Possible side effects include nausea, vomiting, diarrhoea, constipation and abdominal discomfort.", "Medication should only be used under medical supervision with nutrition, activity and follow-up.", "Weight regain may occur after treatment is stopped."],
+    intro: "Prescription medications may be considered as part of obesity management when lifestyle measures alone are insufficient or when additional medical treatment is clinically indicated.",
+    points: ["Some medicines act on hormonal pathways involved in appetite regulation, fullness and blood glucose control.", "Semaglutide acts on the GLP-1 pathway, and tirzepatide acts on both GIP and GLP-1 pathways.", "Treatment requires an individual medical assessment and regular monitoring.", "Common side effects may include nausea, vomiting, diarrhoea, constipation and abdominal discomfort.", "Certain medicines also have specific contraindications and precautions.", "Medication should only be used under medical supervision, alongside appropriate nutrition, physical activity and follow-up.", "Weight regain may occur after treatment is stopped."],
   },
 } as const;
 
