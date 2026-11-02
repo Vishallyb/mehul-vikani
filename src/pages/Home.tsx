@@ -40,14 +40,20 @@ function Hero() {
           src={s.img}
           alt=""
           initial={{ opacity: 0, scale: 1.2 }}
-          animate={{ opacity: 0.55, scale: 1.05 }}
+          animate={{ opacity: 0.9, scale: 1.05 }}
           exit={{ opacity: 0 }}
           transition={{ opacity: { duration: 1.2 }, scale: { duration: 7, ease: "linear" } }}
           className="absolute inset-0 h-full w-full object-cover"
         />
       </AnimatePresence>
-      <div className="hero-green-overlay absolute inset-0" aria-hidden="true" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-brand-800 to-transparent" />
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden="true"
+        style={{
+          background: "linear-gradient(90deg, rgba(10, 78, 46, 0.3) 0%, rgba(19, 105, 64, 0.16) 48%, rgba(47, 137, 88, 0.02) 100%)",
+        }}
+      />
+      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-brand-800/35 to-transparent" />
       <div className="pixel-grid absolute inset-0 opacity-25" />
 
       {/* decorative pixels */}
@@ -57,7 +63,7 @@ function Hero() {
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-12">
+      <div className="hero-content-readable relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <AnimatePresence mode="wait">
             <motion.div key={i} initial="h" animate="s" exit="x" variants={{ s: { transition: { staggerChildren: 0.12 } } }}>

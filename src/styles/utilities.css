@@ -6,8 +6,13 @@
 .hero-green-overlay {
   z-index: 0;
   background:
-    linear-gradient(90deg, rgba(14, 94, 58, 0.06), rgba(31, 132, 82, 0.06)),
-    linear-gradient(90deg, rgba(7, 73, 45, 0.18) 0%, rgba(19, 110, 67, 0.12) 52%, rgba(42, 119, 77, 0.05) 100%);
+    linear-gradient(
+      90deg,
+      rgba(12, 78, 48, 0.78) 0%,
+      rgba(18, 93, 59, 0.52) 42%,
+      rgba(25, 99, 64, 0.2) 72%,
+      rgba(25, 99, 64, 0.08) 100%
+    );
   pointer-events: none;
 }
 
@@ -16,6 +21,16 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.hero-content-readable h1,
+.hero-content-readable p,
+.hero-content-readable .text-white {
+  text-shadow: 0 2px 12px rgba(0, 45, 28, 0.45);
+}
+
+.hero-content-readable h1 .text-brand-400 {
+  text-shadow: 0 2px 12px rgba(0, 45, 28, 0.3);
 }
 
 .glass {

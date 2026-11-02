@@ -83,11 +83,17 @@ export function PageHero({ title, eyebrow, desc, image, crumbs }: { title: React
         initial={{ scale: 1.15 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.8, ease: "easeOut" }}
-        className="absolute inset-0 h-full w-full object-cover opacity-35"
+        className="absolute inset-0 h-full w-full object-cover opacity-75"
       />
-      <div className="hero-green-overlay absolute inset-0" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden="true"
+        style={{
+          background: "linear-gradient(90deg, rgba(10, 78, 46, 0.3) 0%, rgba(19, 105, 64, 0.16) 48%, rgba(47, 137, 88, 0.02) 100%)",
+        }}
+      />
       <div className="pixel-grid absolute inset-0 opacity-30" />
-      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="hero-content-readable relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="mb-6 flex flex-wrap items-center gap-1 text-sm text-white/60">
             <Link to="/" className="hover:text-brand-300">Home</Link>
