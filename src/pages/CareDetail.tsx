@@ -1,5 +1,4 @@
 import { useParams, Navigate } from "react-router-dom";
-import { CheckCircle2 } from "lucide-react";
 import { IMG } from "../data/site";
 import { PageHero, Reveal, CTABanner } from "../components/ui";
 import "../styles/care-detail.css";
