@@ -74,7 +74,7 @@ export function Counter({ value, suffix = "" }: { value: number; suffix?: string
   return <span ref={ref}>{n.toLocaleString("en-IN")}{suffix}</span>;
 }
 
-export function PageHero({ title, eyebrow, desc, image, crumbs }: { title: ReactNode; eyebrow: string; desc?: string; image: string; crumbs: { label: string; to?: string }[] }) {
+export function PageHero({ title, desc, image, crumbs }: { title: ReactNode; eyebrow: string; desc?: string; image: string; crumbs: { label: string; to?: string }[] }) {
   return (
     <section className="relative overflow-hidden bg-ink pb-20 pt-40 sm:pb-28 sm:pt-48">
       <motion.img
@@ -89,24 +89,23 @@ export function PageHero({ title, eyebrow, desc, image, crumbs }: { title: React
         className="pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
         style={{
-          background: "linear-gradient(90deg, rgba(10, 78, 46, 0.3) 0%, rgba(19, 105, 64, 0.16) 48%, rgba(47, 137, 88, 0.02) 100%)",
+          background: "linear-gradient(90deg, rgba(8, 63, 39, 0.66) 0%, rgba(13, 83, 52, 0.42) 48%, rgba(20, 91, 58, 0.18) 100%)",
         }}
       />
       <div className="pixel-grid absolute inset-0 opacity-30" />
       <div className="hero-content-readable relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <div className="mb-6 flex flex-wrap items-center gap-1 text-sm text-white/60">
+          <div className="mb-6 flex flex-wrap items-center gap-1 text-sm text-white/75">
             <Link to="/" className="hover:text-brand-300">Home</Link>
-            {crumbs.map((c) => (
-              <span key={c.label} className="flex items-center gap-1">
+            {crumbs.map((crumb) => (
+              <span key={crumb.label} className="flex items-center gap-1">
                 <ChevronRight size={14} />
-                {c.to ? <Link to={c.to} className="hover:text-brand-300">{c.label}</Link> : <span className="text-brand-300">{c.label}</span>}
+                {crumb.to ? <Link to={crumb.to} className="hover:text-brand-300">{crumb.label}</Link> : <span className="text-brand-300">{crumb.label}</span>}
               </span>
             ))}
           </div>
-          <Eyebrow light>{eyebrow}</Eyebrow>
-          <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">{title}</h1>
-          {desc && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">{desc}</p>}
+          <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">{title}</h1>
+          {desc && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white">{desc}</p>}
         </motion.div>
       </div>
     </section>
