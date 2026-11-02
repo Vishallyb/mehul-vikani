@@ -1,0 +1,24 @@
+@theme {
+  --color-brand-50: #eef8f2;
+  --color-brand-100: #d5eedf;
+  --color-brand-200: #acdcbf;
+  --color-brand-300: #7bc59a;
+  --color-brand-400: #4caa74;
+  --color-brand-500: #2b8c57;
+  --color-brand-600: #237447;
+  --color-brand-700: #1d5d3a;
+  --color-brand-800: #174a2f;
+  --color-brand-900: #0f3320;
+  --color-ink: #114b2c;
+  --color-ink-soft: #17603a;
+  --color-steel: #4f7a62;
+  --color-mist: #eef7f1;
+
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

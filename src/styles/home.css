@@ -1,0 +1,19 @@
+/* Home page styles */
+
+.home-journey h3 {
+  color: #fff;
+}
+
+.why-us-card:hover {
+  background-color: var(--color-brand-500) !important;
+}
+
+.why-us-card:hover h3,
+.why-us-card:hover p {
+  color: #fff !important;
+}
+
+.why-us-card:hover > div:nth-child(2) {
+  background-color: var(--color-brand-500) !important;
+  color: #fff !important;
+}

@@ -1,0 +1,348 @@
+export const CONTACT = {
+  phone: "+91 98765 43210",
+  phoneRaw: "+919876543210",
+  whatsapp: "919876543210",
+  email: "care@drmehulvikani.com",
+  address: "Advanced Bariatric & Laparoscopic Centre, Ring Road, Surat, Gujarat 395002",
+  hours: "Mon – Sat : 10:00 AM – 7:00 PM",
+  emergency: "24×7 Emergency Support",
+};
+
+const px = (id: number, w = 1200, h = 800) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`;
+
+export const IMG = {
+  doctor: px(17686797, 900, 1200),
+  surgeonFocus: px(39299840, 900, 1200),
+  surgeryTeam: px(33907383, 1600, 1000),
+  surgeryTeam2: px(33916261, 1600, 1000),
+  or1: px(8853183, 1600, 1000),
+  or2: px(7583367, 1600, 1000),
+  or3: px(13697927, 1600, 1000),
+  celebrate: px(35914124, 1600, 1000),
+  surgeons: px(11759659, 900, 1200),
+  surgeryVert: px(11674664, 900, 1200),
+  jeans: px(7991921, 900, 1200),
+  jeans2: px(7991919, 900, 1200),
+  healthyWall: px(6669028, 1400, 900),
+  healthyWall2: px(6669024, 900, 1200),
+  salad: px(5622195, 1400, 900),
+  consult1: px(7659869, 1400, 900),
+  consult2: px(8460125, 1400, 900),
+  consult3: px(39192334, 1400, 900),
+  consult4: px(7579823, 1400, 900),
+  consult5: px(8460095, 1400, 900),
+  food1: px(842545, 1400, 900),
+  food2: px(1591226, 1400, 900),
+  food3: px(29138860, 1400, 900),
+};
+
+export type Treatment = {
+  slug: string;
+  title: string;
+  short: string;
+  tag: string;
+  image: string;
+  duration: string;
+  stay: string;
+  loss: string;
+  overview: string;
+  benefits: string[];
+  candidates: string[];
+  steps: { t: string; d: string }[];
+};
+
+export const TREATMENTS: Treatment[] = [
+  {
+    slug: "sleeve-gastrectomy",
+    title: "Laparoscopic Sleeve Gastrectomy",
+    short: "The world's most performed weight-loss surgery — reduces stomach size by ~75% for lasting results.",
+    tag: "Most Popular",
+    image: IMG.or1,
+    duration: "60–90 mins",
+    stay: "2–3 days",
+    loss: "60–70% excess weight",
+    overview:
+      "Sleeve gastrectomy removes a large portion of the stomach, leaving a narrow, sleeve-shaped stomach. The reduced stomach capacity helps limit food intake, while changes in gut hormones may influence hunger and fullness. It is generally performed laparoscopically without bypassing the small intestine. Potential risks include bleeding, infection, staple-line leakage and blood clots; longer-term considerations include reflux, nutritional deficiencies and possible weight regain.",
+    benefits: [
+      "Significant & sustained weight loss",
+      "Reduced hunger hormone (ghrelin)",
+      "No foreign device or re-routing of intestine",
+      "Improves diabetes, BP, sleep apnea & joint pain",
+      "Minimal scars with keyhole technique",
+      "Return to work in 7–10 days",
+    ],
+    candidates: ["BMI ≥ 37.5 kg/m²", "BMI ≥ 32.5 with diabetes, BP or sleep apnea", "Failed diet & lifestyle attempts", "Age 18–65 years"],
+    steps: [
+      { t: "Pre-op Evaluation", d: "Blood tests, endoscopy, dietician & anaesthesia consult." },
+      { t: "Keyhole Surgery", d: "Stomach is reshaped via 4–5 small incisions under general anaesthesia." },
+      { t: "Early Mobilisation", d: "Walk within hours, liquids from day one, discharge in 2–3 days." },
+      { t: "Lifelong Follow-up", d: "Structured diet stages, supplements and regular reviews." },
+    ],
+  },
+  {
+    slug: "gastric-bypass",
+    title: "Roux-en-Y Gastric Bypass",
+    short: "The gold-standard procedure for severe obesity and type-2 diabetes with powerful metabolic effects.",
+    tag: "Gold Standard",
+    image: IMG.or2,
+    duration: "2–2.5 hrs",
+    stay: "3 days",
+    loss: "70–80% excess weight",
+    overview:
+      "Roux-en-Y Gastric Bypass creates a small stomach pouch connected to the small intestine, with a second intestinal connection forming the characteristic Y-shaped arrangement. It reduces food intake and changes nutrient flow and metabolic signalling. It may be considered for selected patients with obesity and associated metabolic conditions, including some patients with significant reflux. Lifelong supplementation, regular blood tests and medical follow-up are required.",
+    benefits: ["Highest diabetes remission rates", "Cures severe acid reflux (GERD)", "Durable long-term weight loss", "Improves cholesterol & BP", "Proven over 50+ years", "Better quality of life"],
+    candidates: ["BMI ≥ 40 kg/m²", "Uncontrolled type-2 diabetes", "Severe GERD with obesity", "Patients with sweet-eating habits"],
+    steps: [
+      { t: "Metabolic Work-up", d: "Detailed hormonal, cardiac and nutritional evaluation." },
+      { t: "Pouch Creation", d: "A 30 ml stomach pouch is created laparoscopically." },
+      { t: "Intestinal Bypass", d: "The pouch is joined to a limb of small intestine." },
+      { t: "Recovery & Support", d: "Vitamin plan, dietician coaching and diabetes monitoring." },
+    ],
+  },
+  {
+    slug: "mini-gastric-bypass",
+    title: "Mini Gastric Bypass (OAGB)",
+    short: "A simpler, single-connection bypass with strong weight loss and diabetes resolution.",
+    tag: "Advanced",
+    image: IMG.or3,
+    duration: "75–100 mins",
+    stay: "2–3 days",
+    loss: "70–85% excess weight",
+    overview:
+      "Mini Gastric Bypass, also known as One Anastomosis Gastric Bypass (OAGB), creates a long, narrow stomach pouch connected to a loop of the small intestine through a single surgical connection. It works through reduced food intake, changes in gut hormone signalling and altered nutrient absorption. Potential risks include bleeding, leakage, nutritional deficiencies, marginal ulcers, dumping syndrome and bile reflux. Lifelong vitamin and mineral supplementation and monitoring are important.",
+    benefits: ["Single joint – shorter surgery", "Excellent for super-obesity", "Strong metabolic effect", "Reversible & revisable", "Lower complication profile", "Fast recovery"],
+    candidates: ["BMI ≥ 45 kg/m²", "Long-standing type-2 diabetes", "Failed previous sleeve or band", "High-volume eaters"],
+    steps: [
+      { t: "Assessment", d: "Endoscopy & nutritional screening." },
+      { t: "Gastric Tube", d: "A long narrow pouch is fashioned." },
+      { t: "Single Anastomosis", d: "Joined to intestine ~150–200 cm downstream." },
+      { t: "Follow-up", d: "Supplements & periodic blood tests." },
+    ],
+  },
+  {
+    slug: "metabolic-surgery",
+    title: "Metabolic Surgery for Diabetes",
+    short: "Surgery that targets type-2 diabetes at its root — many patients stop insulin & tablets.",
+    tag: "Diabetes",
+    image: IMG.consult3,
+    duration: "90–120 mins",
+    stay: "2–3 days",
+    loss: "Up to 80% diabetes remission",
+    overview:
+      "Metabolic surgery changes the hormonal signals between the gut, pancreas and brain. For patients with poorly controlled type-2 diabetes, it can achieve remission or drastically reduce medication — often within weeks, even before major weight loss occurs.",
+    benefits: ["Remission of type-2 diabetes", "Reduced or zero insulin need", "Protects heart, kidneys & eyes", "Improves fatty liver", "Lowers cardiovascular risk", "Better energy levels"],
+    candidates: ["Type-2 diabetes with BMI ≥ 27.5", "HbA1c uncontrolled on medicines", "C-peptide adequate", "Diabetes duration < 10 yrs ideal"],
+    steps: [
+      { t: "Diabetes Profiling", d: "HbA1c, C-peptide & endocrinology review." },
+      { t: "Procedure Choice", d: "Bypass / sleeve with transit bipartition." },
+      { t: "Surgery", d: "Minimally invasive keyhole operation." },
+      { t: "Medication Tapering", d: "Gradual reduction under supervision." },
+    ],
+  },
+  {
+    slug: "intragastric-balloon",
+    title: "Intragastric Balloon",
+    short: "A non-surgical, endoscopic option for moderate weight loss — no cuts, no scars.",
+    tag: "Non-Surgical",
+    image: IMG.consult1,
+    duration: "20–30 mins",
+    stay: "Day care",
+    loss: "10–15% body weight",
+    overview:
+      "An intragastric balloon is a temporary, non-surgical option for selected individuals with obesity. A balloon is placed inside the stomach to occupy space and increase fullness. Treatment duration varies by balloon system; many fluid-filled balloons are designed for approximately six months. Nausea, vomiting, discomfort and reflux may occur, and dietary guidance, lifestyle change and regular follow-up are essential.",
+    benefits: ["No incisions or scars", "Day-care procedure", "Temporary & removable", "Kick-starts lifestyle change", "Bridge to safer surgery", "Quick return to routine"],
+    candidates: ["BMI 27–35 kg/m²", "Not keen on surgery", "Pre-surgery weight reduction", "Fatty liver patients"],
+    steps: [
+      { t: "Consultation", d: "Eligibility check & counselling." },
+      { t: "Endoscopic Placement", d: "Under light sedation, 20 minutes." },
+      { t: "Guided Diet", d: "Monthly dietician & coach support." },
+      { t: "Removal", d: "Endoscopic removal at 6–12 months." },
+    ],
+  },
+  {
+    slug: "revision-surgery",
+    title: "Revision Bariatric Surgery",
+    short: "Expert correction for weight regain or complications after a previous bariatric procedure.",
+    tag: "Specialised",
+    image: IMG.surgeryTeam2,
+    duration: "2–3 hrs",
+    stay: "3–4 days",
+    loss: "Individualised",
+    overview:
+      "Some patients experience weight regain, reflux or other issues after earlier weight-loss surgery. Revision surgery converts or corrects the original procedure — for example, sleeve-to-bypass — to restore effective, safe results. It demands advanced expertise, which is a cornerstone of our practice.",
+    benefits: ["Treats weight regain", "Resolves reflux after sleeve", "Corrects band complications", "Customised approach", "Advanced laparoscopic expertise", "Renewed results"],
+    candidates: ["Weight regain after surgery", "Severe reflux after sleeve", "Band slippage / erosion", "Inadequate weight loss"],
+    steps: [
+      { t: "Detailed Imaging", d: "CT, barium study & endoscopy." },
+      { t: "Surgical Planning", d: "Choosing the optimal conversion." },
+      { t: "Revision Surgery", d: "Performed laparoscopically." },
+      { t: "Intensive Follow-up", d: "Close nutritional monitoring." },
+    ],
+  },
+  {
+    slug: "laparoscopic-surgery",
+    title: "Advanced Laparoscopic Surgery",
+    short: "Keyhole surgery for gallbladder stones, hernia, appendix and other GI conditions.",
+    tag: "General",
+    image: IMG.surgeryTeam,
+    duration: "45–120 mins",
+    stay: "1–2 days",
+    loss: "—",
+    overview:
+      "Beyond bariatrics, Dr. Vikani performs advanced laparoscopic procedures including gallbladder removal, inguinal & ventral hernia repair, appendectomy and hiatus hernia surgery — all with minimal pain, tiny scars and fast recovery.",
+    benefits: ["Tiny incisions", "Less pain & blood loss", "Faster recovery", "Lower infection risk", "Better cosmetic result", "Short hospital stay"],
+    candidates: ["Gallbladder stones", "Inguinal / umbilical hernia", "Hiatus hernia & GERD", "Appendicitis"],
+    steps: [
+      { t: "Diagnosis", d: "Ultrasound / CT and clinical exam." },
+      { t: "Pre-op Prep", d: "Fitness & anaesthesia check." },
+      { t: "Keyhole Surgery", d: "Performed with HD laparoscopy." },
+      { t: "Discharge", d: "Usually within 24–48 hours." },
+    ],
+  },
+  {
+    slug: "endoscopic-sleeve",
+    title: "Endoscopic Sleeve Gastroplasty",
+    short: "Incision-free stomach reduction using internal sutures through an endoscope.",
+    tag: "Scarless",
+    image: IMG.consult4,
+    duration: "60 mins",
+    stay: "1 day",
+    loss: "15–20% body weight",
+    overview:
+      "ESG reduces stomach volume from the inside using an endoscopic suturing device — no cuts on the abdomen. It's a middle path between balloons and surgery for patients wanting meaningful weight loss with minimal downtime.",
+    benefits: ["No abdominal incisions", "Overnight stay", "Stomach is not removed", "Back to work in 2–3 days", "Lower risk profile", "Repeatable if needed"],
+    candidates: ["BMI 30–40 kg/m²", "Prefer non-surgical route", "Fit for sedation", "Committed to lifestyle change"],
+    steps: [
+      { t: "Evaluation", d: "Endoscopy & nutrition review." },
+      { t: "Endoscopic Suturing", d: "Stomach folded from inside." },
+      { t: "Liquid Diet", d: "Progressive diet over 4 weeks." },
+      { t: "Coaching", d: "12-month lifestyle programme." },
+    ],
+  },
+];
+
+export const STATS = [
+  { value: 5000, suffix: "+", label: "Successful Surgeries" },
+  { value: 15, suffix: "+", label: "Years of Experience" },
+  { value: 98, suffix: "%", label: "Patient Satisfaction" },
+  { value: 80, suffix: "%", label: "Diabetes Remission" },
+];
+
+export const TESTIMONIALS = [
+  { name: "Priya Shah", age: 34, lost: "42 kg", proc: "Sleeve Gastrectomy", img: IMG.jeans, text: "I had tried every diet for 10 years. Dr. Vikani and his team gave me my life back. I lost 42 kg in 11 months and my PCOS is under control. The care before and after surgery was outstanding." },
+  { name: "Rakesh Patel", age: 48, lost: "38 kg", proc: "Gastric Bypass", img: IMG.consult2, text: "I was on insulin for 8 years. Three months after surgery I stopped all diabetes medicines. Dr. Vikani explained everything patiently — I felt safe at every step." },
+  { name: "Neha Desai", age: 29, lost: "31 kg", proc: "Mini Gastric Bypass", img: IMG.healthyWall2, text: "The hospital stay was just two days, and I was walking the same evening. The dietician follow-ups kept me on track. Best decision of my life!" },
+  { name: "Imran Sheikh", age: 41, lost: "55 kg", proc: "Sleeve Gastrectomy", img: IMG.consult5, text: "My sleep apnea and knee pain are gone. I can play with my kids again. Huge thanks to Dr. Mehul Vikani — truly a world-class surgeon with a kind heart." },
+  { name: "Kavita Joshi", age: 52, lost: "27 kg", proc: "Metabolic Surgery", img: IMG.salad, text: "My HbA1c went from 9.8 to 5.9. The team's guidance on food and exercise was so practical. I recommend Dr. Vikani to everyone struggling with weight and sugar." },
+];
+
+export const BLOGS = [
+  {
+    slug: "is-bariatric-surgery-safe",
+    title: "Is Bariatric Surgery Safe? Myths vs Facts",
+    cat: "Awareness",
+    date: "12 Jan 2026",
+    read: "6 min",
+    img: IMG.or2,
+    excerpt: "Modern laparoscopic weight-loss surgery is as safe as gallbladder surgery. Here's what the science really says.",
+    body: [
+      "One of the most common questions we hear is: 'Is weight-loss surgery risky?' The short answer is that modern laparoscopic bariatric surgery has a safety profile comparable to routine procedures like gallbladder removal or knee replacement.",
+      "Myth 1 – You'll regain all the weight. Fact: Long-term studies show most patients maintain 50–70% excess weight loss even after 10 years when they follow dietary guidance.",
+      "Myth 2 – It's a cosmetic surgery. Fact: Bariatric surgery is a medical treatment for obesity, a chronic disease linked to diabetes, heart disease, sleep apnea and several cancers.",
+      "Myth 3 – You'll be on a liquid diet forever. Fact: Liquids are only for the first 2 weeks, followed by soft foods, and most patients return to normal healthy meals in 6–8 weeks.",
+      "Speak to an experienced bariatric surgeon to understand whether you're a candidate and which procedure suits your body and lifestyle.",
+    ],
+  },
+  {
+    slug: "diet-after-sleeve",
+    title: "Your Diet Roadmap After Sleeve Gastrectomy",
+    cat: "Nutrition",
+    date: "28 Dec 2025",
+    read: "8 min",
+    img: IMG.food1,
+    excerpt: "From clear liquids to regular meals — a week-by-week guide to eating well after weight-loss surgery.",
+    body: [
+      "Nutrition is the foundation of success after bariatric surgery. Your new stomach needs time to heal and adapt, which is why we follow a staged diet plan.",
+      "Week 1–2 (Clear & full liquids): Water, coconut water, clear soups, buttermilk and protein shakes. Sip slowly, aim for 1.5–2 litres a day.",
+      "Week 3–4 (Pureed foods): Dal soup, moong khichdi puree, paneer blended, curd and smooth vegetable soups.",
+      "Week 5–6 (Soft foods): Soft idli, upma, scrambled eggs, well-cooked vegetables and soft paneer.",
+      "Week 7 onwards (Regular healthy diet): Protein first, then vegetables, then carbs. Eat slowly and stop as soon as you feel full. Continue lifelong vitamins.",
+    ],
+  },
+  {
+    slug: "diabetes-surgery-explained",
+    title: "Can Surgery Really Cure Type-2 Diabetes?",
+    cat: "Metabolic",
+    date: "10 Dec 2025",
+    read: "5 min",
+    img: IMG.consult3,
+    excerpt: "Metabolic surgery is changing how we treat diabetes. Learn how it works and who benefits most.",
+    body: [
+      "Metabolic surgery changes gut hormones such as GLP-1 and PYY, improving insulin sensitivity — often within days of surgery, long before significant weight loss.",
+      "International diabetes bodies now recommend metabolic surgery for patients with type-2 diabetes and obesity whose sugar is inadequately controlled with medicines.",
+      "Best results are seen in patients with shorter duration of diabetes and good pancreatic reserve (measured by C-peptide).",
+      "Up to 80% of patients achieve remission or major reduction in medications, protecting their heart, kidneys and eyes in the long run.",
+    ],
+  },
+  {
+    slug: "bmi-what-it-means",
+    title: "Understanding BMI: When Should You Consider Surgery?",
+    cat: "Awareness",
+    date: "22 Nov 2025",
+    read: "4 min",
+    img: IMG.healthyWall,
+    excerpt: "BMI thresholds for Asians are lower. Know your number and what it means for your health.",
+    body: [
+      "Body Mass Index (BMI) is your weight in kg divided by the square of your height in metres. For Asian Indians, health risks begin at lower BMI levels than in Western populations.",
+      "Asian guidelines suggest bariatric surgery may be considered at a BMI ≥ 37.5, or ≥ 32.5 with obesity-related conditions like diabetes or hypertension.",
+      "Metabolic surgery may be considered for uncontrolled diabetes from a BMI of 27.5.",
+      "Use our BMI calculator and book a consultation for a personalised assessment.",
+    ],
+  },
+  {
+    slug: "exercise-after-surgery",
+    title: "Getting Active Again: Exercise After Bariatric Surgery",
+    cat: "Lifestyle",
+    date: "05 Nov 2025",
+    read: "5 min",
+    img: IMG.jeans2,
+    excerpt: "Movement accelerates recovery and protects muscle. Here's a safe, progressive plan.",
+    body: [
+      "Walking begins on the day of surgery. In the first month, aim for gentle 20–30 minute walks daily.",
+      "From month two, add light resistance training to preserve muscle mass while you lose fat.",
+      "By month three, most patients can do yoga, swimming, cycling or gym workouts — always with guidance.",
+      "Consistency matters more than intensity. Find an activity you enjoy and make it part of your new life.",
+    ],
+  },
+  {
+    slug: "choosing-right-procedure",
+    title: "Sleeve vs Bypass: Choosing the Right Procedure",
+    cat: "Procedures",
+    date: "18 Oct 2025",
+    read: "7 min",
+    img: IMG.or3,
+    excerpt: "Both are excellent operations. The right choice depends on your BMI, health conditions and eating habits.",
+    body: [
+      "Sleeve gastrectomy is simpler, involves no intestinal re-routing and is ideal for most patients with obesity.",
+      "Gastric bypass is preferred for patients with severe acid reflux, long-standing diabetes or sweet-eating habits.",
+      "Mini gastric bypass offers a middle ground with excellent results in super-obese patients.",
+      "Your surgeon will consider your medical history, endoscopy findings and goals to recommend the best option.",
+    ],
+  },
+];
+
+export const FAQS = [
+  { cat: "General", q: "What is obesity, and how is it diagnosed?", a: "Obesity is a chronic, multifactorial health condition involving excess body fat that may affect overall health. Assessment includes BMI, waist circumference, medical history and obesity-related health conditions." },
+  { cat: "General", q: "Can obesity be managed without surgery?", a: "Yes. Depending on the degree of obesity and individual health needs, management may include dietary changes, physical activity, behavioural support and prescription medications. Some individuals may require endoscopic or surgical treatment." },
+  { cat: "Medication", q: "Are weight-loss injections safe?", a: "Prescription medications such as semaglutide and tirzepatide may be used in appropriately selected individuals. They can have side effects and contraindications, so treatment requires medical supervision and regular monitoring." },
+  { cat: "Non-Surgical", q: "What is an intragastric balloon?", a: "An intragastric balloon is a temporary device placed inside the stomach to help increase fullness and reduce food intake. It is generally combined with dietary guidance and lifestyle modifications. Suitability and duration depend on the balloon system and individual assessment." },
+  { cat: "Surgery", q: "Who can undergo bariatric surgery?", a: "Bariatric surgery may be considered for individuals meeting established clinical criteria based on BMI, obesity-related conditions and overall health. A comprehensive medical assessment is necessary to determine eligibility." },
+  { cat: "Surgery", q: "What are the different types of bariatric surgery?", a: "Common procedures include sleeve gastrectomy, mini gastric bypass (OAGB) and Roux-en-Y gastric bypass (RYGB). Each differs in its surgical technique, effects on digestion, potential benefits and risks." },
+  { cat: "Surgery", q: "Is bariatric surgery safe?", a: "Bariatric surgery is an established treatment for appropriately selected individuals, but it carries potential risks like any major operation. These include bleeding, infection, leakage, blood clots and nutritional deficiencies. Individual risks should be discussed before surgery." },
+  { cat: "Recovery", q: "How long does recovery take after bariatric surgery?", a: "Recovery varies depending on the procedure and individual health. Most patients gradually resume their daily activities, following medical advice regarding diet, exercise and return to work." },
+  { cat: "Recovery", q: "Will I need vitamins and supplements after bariatric surgery?", a: "Yes. Vitamin and mineral supplementation is generally required after bariatric surgery, particularly after gastric bypass procedures. Regular blood investigations and long-term nutritional monitoring are important." },
+  { cat: "Recovery", q: "Can weight return after bariatric surgery?", a: "Yes. Weight regain can occur due to biological, dietary and lifestyle factors. Long-term follow-up, nutritional guidance and appropriate medical management remain important." },
+  { cat: "Metabolic", q: "Can bariatric surgery improve type 2 diabetes?", a: "Bariatric and metabolic surgery may significantly improve blood glucose control and can lead to diabetes remission in some individuals. Outcomes depend on factors such as diabetes duration, pancreatic function and overall health." },
+  { cat: "Recovery", q: "Is lifelong follow-up necessary after bariatric surgery?", a: "Yes. Long-term follow-up helps monitor weight, metabolic health, nutritional status and possible complications. Continued medical and nutritional care is an essential part of treatment." },
+];
