@@ -159,7 +159,7 @@ function Modal({ preset, onClose }: { preset: string; onClose: () => void }) {
         transition={{ type: "spring", damping: 26, stiffness: 260 }}
         className="relative grid max-h-[92vh] w-full max-w-4xl overflow-hidden overflow-y-auto rounded-3xl bg-white shadow-2xl md:grid-cols-5"
       >
-        <div className="relative hidden flex-col justify-between overflow-hidden bg-ink p-8 text-white md:col-span-2 md:flex">
+        <div className="relative hidden flex-col gap-10 overflow-hidden bg-ink p-7 text-white md:col-span-2 md:flex">
           <div className="pixel-grid absolute inset-0 opacity-30" />
           <div className="relative">
             <LogoMark light className="h-12" />
@@ -172,7 +172,7 @@ function Modal({ preset, onClose }: { preset: string; onClose: () => void }) {
             ))}
           </ul>
         </div>
-        <div className="p-6 sm:p-8 md:col-span-3">
+        <div className="p-6 sm:p-7 md:col-span-3">
           <button onClick={onClose} className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-mist transition hover:rotate-90 hover:bg-brand-500 hover:text-white">
             <X size={18} />
           </button>
