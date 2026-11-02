@@ -6,13 +6,13 @@ import { IMG, TREATMENTS } from "../data/site";
 import { PageHero, Reveal, SectionHeading, CTABanner } from "../components/ui";
 import "../styles/treatments.css";
 
-const FILTERS = ["All", "Surgical", "Non-Surgical", "Metabolic"];
+const FILTERS = ["All", "Surgical", "Non-Surgical"];
 const typeOf = (slug: string) =>
-  ["intragastric-balloon", "endoscopic-sleeve"].includes(slug) ? "Non-Surgical" : slug === "metabolic-surgery" || slug === "gastric-bypass" ? "Metabolic" : "Surgical";
+  slug === "intragastric-balloon" ? "Non-Surgical" : "Surgical";
 
 export default function Treatments() {
   const [f, setF] = useState("All");
-  const list = TREATMENTS.filter((t) => f === "All" || typeOf(t.slug) === f || (f === "Surgical" && typeOf(t.slug) === "Metabolic"));
+  const list = TREATMENTS.filter((t) => f === "All" || typeOf(t.slug) === f);
   return (
     <>
       <PageHero eyebrow="Treatments" title={<>Advanced procedures, <span className="text-brand-400">tailored to you.</span></>} desc="From non-surgical options to complex revision surgery — explore the full range of weight-loss and metabolic treatments." image={IMG.or1} crumbs={[{ label: "Treatments" }]} />
