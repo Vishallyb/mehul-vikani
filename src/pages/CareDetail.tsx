@@ -1,7 +1,7 @@
-import { Link, useParams, Navigate } from "react-router-dom";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { useParams, Navigate } from "react-router-dom";
+import { CheckCircle2 } from "lucide-react";
 import { IMG } from "../data/site";
-import { PageHero, Reveal, SectionHeading, CTABanner } from "../components/ui";
+import { PageHero, Reveal, CTABanner } from "../components/ui";
 import "../styles/care-detail.css";
 
 const CONTENT = {
