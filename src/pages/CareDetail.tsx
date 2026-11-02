@@ -41,6 +41,7 @@ export default function CareDetail() {
           <div className={isDietAndLifestyle ? "" : "lg:col-span-7"}>
             {isDietAndLifestyle ? (
               <>
+                <img src={content.image} alt="" className="mb-10 h-[360px] w-full rounded-[2rem] object-cover sm:h-[440px]" />
                 <h2 className="text-3xl font-extrabold">An individualised plan may include:</h2>
                 <ul className="mt-8 space-y-4">
                   {content.points.map((point) => <li key={point} className="flex gap-4 leading-relaxed"><CheckCircle2 className="mt-0.5 shrink-0 text-brand-500" />{point}</li>)}
