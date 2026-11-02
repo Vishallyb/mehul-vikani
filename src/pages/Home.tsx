@@ -50,7 +50,7 @@ function Hero() {
         className="pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
         style={{
-          background: "linear-gradient(90deg, rgba(10, 78, 46, 0.3) 0%, rgba(19, 105, 64, 0.16) 48%, rgba(47, 137, 88, 0.02) 100%)",
+          background: "linear-gradient(90deg, rgba(7, 57, 36, 0.62) 0%, rgba(12, 77, 48, 0.38) 42%, rgba(25, 99, 64, 0.08) 72%, transparent 100%)",
         }}
       />
       <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-brand-800/35 to-transparent" />
@@ -69,8 +69,8 @@ function Hero() {
             <motion.div key={i} initial="h" animate="s" exit="x" variants={{ s: { transition: { staggerChildren: 0.12 } } }}>
               {[
                 <Eyebrow light key="e">{s.eyebrow}</Eyebrow>,
-                <h1 key="h" className="mt-5 text-[2.6rem] font-black leading-[1.03] tracking-tight text-white sm:text-6xl lg:text-7xl">{s.title}</h1>,
-                <p key="p" className="mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">{s.desc}</p>,
+                <h1 key="h" className="mt-5 text-[2.6rem] font-black leading-[1.03] tracking-tight text-white drop-shadow-[0_3px_14px_rgba(0,30,18,0.65)] sm:text-6xl lg:text-7xl">{s.title}</h1>,
+                <p key="p" className="mt-6 max-w-xl text-base leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,30,18,0.65)] sm:text-lg">{s.desc}</p>,
               ].map((el, k) => (
                 <motion.div key={k} variants={{ h: { opacity: 0, y: 40 }, s: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }, x: { opacity: 0, y: -20, transition: { duration: 0.3 } } }}>
                   {el}
