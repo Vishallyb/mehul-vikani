@@ -47,9 +47,9 @@ export default function CareDetail() {
           {!isDietAndLifestyle && <Reveal className="lg:col-span-5">
             <img src={content.image} alt="" className="h-[520px] w-full rounded-[2rem] object-cover" />
           </Reveal>}
-          <div className={isDietAndLifestyle ? "" : "lg:col-span-7"}>
+          <div className={isDietAndLifestyle ? "lg:col-span-7" : "lg:col-span-7"}>
             {isDietAndLifestyle ? (
-              <div className="lg:col-span-7 rounded-[2rem] bg-white p-7 shadow-[0_25px_60px_-35px_rgba(17,75,44,0.3)] sm:p-10">
+              <div className="rounded-[2rem] bg-white p-7 shadow-[0_25px_60px_-35px_rgba(17,75,44,0.3)] sm:p-10">
                 <div className="text-sm font-bold uppercase tracking-widest text-brand-600">Personalised care plan</div>
                 <h2 className="mt-3 text-3xl font-extrabold leading-tight">An individualised plan may include:</h2>
                 <ul className="mt-8 space-y-4">
