@@ -20,9 +20,21 @@ main section.py-20 {
   padding-block: 3.5rem;
 }
 
+main.inner-page section.py-24 {
+  padding-block: 2rem;
+}
+
+main.inner-page section.py-20 {
+  padding-block: 2rem;
+}
+
 @media (min-width: 640px) {
   main section.sm\:py-32 {
     padding-block: 5rem;
+  }
+
+  main.inner-page section.sm\:py-32 {
+    padding-block: 3rem;
   }
 }
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { HashRouter, Routes, Route, useLocation, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -30,12 +30,19 @@ function NotFound() {
   );
 }
 
+function normalizeLegacyHashUrl() {
+  const { hash } = window.location;
+  if (!hash.startsWith("#/")) return;
+
+  window.history.replaceState(null, "", hash.slice(1));
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [location.pathname]);
   return (
     <AnimatePresence mode="wait">
-      <motion.main key={location.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
+      <motion.main className={location.pathname === "/" ? "home-page" : "inner-page"} key={location.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -57,8 +64,10 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
+  normalizeLegacyHashUrl();
+
   return (
-    <HashRouter>
+    <BrowserRouter>
       <SiteDataProvider>
       <AppointmentProvider>
         <Preloader />
@@ -69,6 +78,6 @@ export default function App() {
         <FloatingActions />
       </AppointmentProvider>
       </SiteDataProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

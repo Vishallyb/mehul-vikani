@@ -1,6 +1,6 @@
 import { useParams, Navigate } from "react-router-dom";
 import { IMG } from "../data/site";
-import { PageHero, Reveal, CTABanner } from "../components/ui";
+import { PageHero, Reveal } from "../components/ui";
 import "../styles/care-detail.css";
 
 const CONTENT = {
@@ -30,6 +30,11 @@ const CONTENT = {
   },
 } as const;
 
+const HERO_TITLES = {
+  "diet-and-lifestyle": <>Build healthier habits for <span className="text-brand-400">lasting change.</span></>,
+  "weight-loss-medications": <>Medical support for <span className="text-brand-400">sustainable weight management.</span></>,
+} as const;
+
 export default function CareDetail() {
   const { slug } = useParams();
   const content = slug ? CONTENT[slug as keyof typeof CONTENT] : undefined;
@@ -37,7 +42,7 @@ export default function CareDetail() {
   const isDietAndLifestyle = slug === "diet-and-lifestyle";
   return (
     <>
-      <PageHero eyebrow={content.eyebrow} title={content.title} desc={content.intro} image={content.image} crumbs={[{ label: "Obesity Treatment Options", to: "/obesity-treatment-options" }, { label: content.eyebrow }]} />
+      <PageHero eyebrow={content.eyebrow} title={HERO_TITLES[slug as keyof typeof HERO_TITLES]} desc={isDietAndLifestyle ? "Personalised diet and lifestyle support for sustainable weight management." : "Medical treatment options to support clinically supervised weight management."} image={content.image} crumbs={[{ label: "Obesity Treatment Options", to: "/obesity-treatment-options" }, { label: content.eyebrow }]} />
       <section className="py-24 sm:py-32">
         <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 sm:px-8 lg:grid-cols-12">
           <Reveal className="lg:col-span-5 lg:sticky lg:top-28">
@@ -58,8 +63,10 @@ export default function CareDetail() {
           <div className="lg:col-span-7">
             {isDietAndLifestyle ? (
               <div className="rounded-[2rem] bg-white p-7 shadow-[0_25px_60px_-35px_rgba(17,75,44,0.3)] sm:p-10">
-                <div className="text-sm font-bold uppercase tracking-widest text-brand-600">Personalised care plan</div>
-                <h2 className="mt-3 text-3xl font-extrabold leading-tight">An individualised plan may include:</h2>
+                <div className="text-sm font-bold uppercase tracking-widest text-brand-600">{content.eyebrow}</div>
+                <h2 className="mt-3 text-3xl font-extrabold leading-tight">{content.title}</h2>
+                <p className="mt-6 leading-relaxed text-steel">{content.intro}</p>
+                <h3 className="mt-8 text-xl font-extrabold">An individualised plan may include:</h3>
                 <ul className="mt-8 space-y-4">
                   {content.points.map((point, index) => <li key={point} className="flex items-start gap-4 rounded-2xl bg-mist p-4 leading-relaxed"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-500 text-sm font-bold text-white">{index + 1}</span><span>{point}</span></li>)}
                 </ul>
@@ -70,9 +77,10 @@ export default function CareDetail() {
               </div>
             ) : (
               <div className="rounded-[2rem] bg-white p-7 shadow-[0_25px_60px_-35px_rgba(17,75,44,0.3)] sm:p-10">
-                <div className="text-sm font-bold uppercase tracking-widest text-brand-600">Personalised care plan</div>
+                <div className="text-sm font-bold uppercase tracking-widest text-brand-600">{content.eyebrow}</div>
                 <h2 className="mt-3 text-3xl font-extrabold leading-tight">{content.title}</h2>
-                <div className="mt-8 space-y-5 leading-relaxed text-steel">
+                <div className="mt-6 space-y-5 leading-relaxed text-steel">
+                  <p>{content.intro}</p>
                   {content.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 </div>
               </div>
@@ -80,7 +88,6 @@ export default function CareDetail() {
           </div>
         </div>
       </section>
-      {!isDietAndLifestyle && <CTABanner />}
     </>
   );
 }

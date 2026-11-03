@@ -3,7 +3,6 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight, ArrowUpRight } from "lucide-react";
 import { cn } from "../utils/cn";
-import { useAppointment } from "./AppointmentContext";
 
 export function Reveal({ children, delay = 0, y = 40, className }: { children: ReactNode; delay?: number; y?: number; className?: string }) {
   return (
@@ -74,9 +73,9 @@ export function Counter({ value, suffix = "" }: { value: number; suffix?: string
   return <span ref={ref}>{n.toLocaleString("en-IN")}{suffix}</span>;
 }
 
-export function PageHero({ title, desc, image, crumbs }: { title: ReactNode; eyebrow: string; desc?: string; image: string; crumbs: { label: string; to?: string }[] }) {
+export function PageHero({ title, eyebrow, desc, image, crumbs }: { title: ReactNode; eyebrow: string; desc?: string; image: string; crumbs: { label: string; to?: string }[] }) {
   return (
-    <section className="relative overflow-hidden bg-ink pb-20 pt-40 sm:pb-28 sm:pt-48">
+    <section className="page-hero relative overflow-hidden bg-ink pb-10 pt-28 sm:pb-14 sm:pt-32">
       <motion.img
         src={image}
         alt=""
@@ -93,9 +92,14 @@ export function PageHero({ title, desc, image, crumbs }: { title: ReactNode; eye
         }}
       />
       <div className="pixel-grid absolute inset-0 opacity-30" />
-      <div className="hero-content-readable relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="hero-content-readable relative z-10 mx-auto max-w-7xl px-5 text-center sm:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <div className="mb-6 flex flex-wrap items-center gap-1 text-sm text-white/75">
+          <div className="mx-auto mb-7 inline-flex rounded-full border border-brand-300/40 bg-brand-500/20 px-5 py-2 text-sm font-bold text-brand-200 backdrop-blur-sm">
+            {eyebrow}
+          </div>
+          <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">{title}</h1>
+          {desc && <p className="mx-auto mt-7 max-w-3xl text-base leading-relaxed text-white sm:text-lg">{desc}</p>}
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-1 text-sm text-white/75">
             <Link to="/" className="hover:text-brand-300">Home</Link>
             {crumbs.map((crumb) => (
               <span key={crumb.label} className="flex items-center gap-1">
@@ -104,33 +108,8 @@ export function PageHero({ title, desc, image, crumbs }: { title: ReactNode; eye
               </span>
             ))}
           </div>
-          <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">{title}</h1>
-          {desc && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white">{desc}</p>}
         </motion.div>
       </div>
-    </section>
-  );
-}
-
-export function CTABanner() {
-  const { open } = useAppointment();
-  return (
-    <section className="px-5 py-20 sm:px-8">
-      <Reveal className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-brand-500 px-8 py-14 sm:px-14 sm:py-16">
-        <div className="pixel-grid absolute inset-0 opacity-40 [filter:brightness(3)]" />
-        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-2xl" />
-        <div className="absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-ink/20 blur-3xl" />
-        <div className="relative flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
-          <div>
-            <h3 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">Your healthier life is one <br className="hidden sm:block" />consultation away.</h3>
-            <p className="mt-3 max-w-xl text-white/80">Speak with Dr. Mehul Vikani for a personalised weight-loss plan. Confidential, compassionate and evidence-based.</p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Button variant="light" onClick={open}>Book Consultation</Button>
-            <Button variant="dark" to="/obesity-treatment-options">Explore Treatment Options</Button>
-          </div>
-        </div>
-      </Reveal>
     </section>
   );
 }

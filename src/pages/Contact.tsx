@@ -15,9 +15,9 @@ export default function Contact() {
   ];
   return (
     <>
-      <PageHero eyebrow="Contact" title={<>We're here to <span className="text-brand-400">help you.</span></>} desc="Reach out to schedule a consultation or ask us anything about your weight-loss journey." image={IMG.consult5} crumbs={[{ label: "Contact" }]} />
+      <PageHero eyebrow="Contact" title={<>Start your journey with <span className="text-brand-400">our team.</span></>} desc="Reach out to schedule a consultation or ask us anything about your weight-loss journey." image={IMG.consult5} crumbs={[{ label: "Contact" }]} />
 
-      <div className="relative z-10 mx-auto -mt-14 max-w-7xl px-5 sm:px-8">
+      <div className="relative z-10 mx-auto mt-8 max-w-7xl px-5 sm:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map((c, k) => (
             <Reveal key={c.t} delay={k * 0.08}>
@@ -43,7 +43,7 @@ export default function Contact() {
           </Reveal>
           <Reveal delay={0.1} className="flex flex-col gap-6 lg:col-span-5">
             <div className="h-80 overflow-hidden rounded-[2rem] lg:flex-1">
-              <iframe title="map" className="h-full w-full" loading="lazy" src="https://www.google.com/maps?q=Ring+Road+Surat+Gujarat&output=embed" />
+              <iframe title="map" className="h-full w-full" loading="lazy" src={`https://www.google.com/maps?q=${encodeURIComponent(CONTACT.address)}&output=embed`} />
             </div>
             <div className="relative overflow-hidden rounded-[2rem] bg-ink p-8 text-white">
               <div className="pixel-grid absolute inset-0 opacity-25" />

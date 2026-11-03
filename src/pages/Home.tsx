@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  ArrowRight, ArrowLeft, ShieldCheck, Award, HeartPulse, Microscope, Users, Clock3, Star, Quote, CheckCircle2, Play, Activity, Salad, Stethoscope, Sparkles, X,
+  ArrowRight, ArrowLeft, ShieldCheck, Award, HeartPulse, Microscope, Users, Clock3, Star, Quote, Play, Activity, Salad, Stethoscope, Sparkles, X,
 } from "lucide-react";
 import { IMG } from "../data/site";
 import { useSiteData } from "../components/SiteDataContext";
-import { Reveal, SectionHeading, Button, Counter, Eyebrow, CTABanner } from "../components/ui";
+import { Reveal, SectionHeading, Button, Counter, Eyebrow } from "../components/ui";
 import { useAppointment, AppointmentForm } from "../components/AppointmentContext";
 import "../styles/home.css";
 
@@ -81,7 +81,7 @@ function Hero() {
           </AnimatePresence>
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6 }} className="mt-9 flex flex-wrap gap-4">
             <Button onClick={() => open()}>Book Consultation</Button>
-            <Button to="/treatments" variant="light">Explore Treatments</Button>
+            <Button to="/obesity-treatment-options" variant="light">Explore Treatments</Button>
           </motion.div>
 
           <div className="mt-12 flex items-center gap-6">
@@ -144,7 +144,7 @@ function Hero() {
 }
 
 function Marquee() {
-  const items = ["Sleeve Gastrectomy", "Gastric Bypass", "Mini Gastric Bypass", "Metabolic Surgery", "Intragastric Balloon", "Revision Surgery", "Endoscopic Sleeve", "Laparoscopic Surgery"];
+  const items = ["Obesity Treatments", "Diet and Lifestyle", "Weight-Loss Medications & Injections", "Intragastric Balloon", "Sleeve Gastrectomy", "Mini Gastric Bypass", "Roux-en-Y Gastric Bypass"];
   return (
     <div className="overflow-hidden bg-brand-500 py-5">
       <div className="animate-marquee flex w-max gap-12">
@@ -183,11 +183,16 @@ function AboutIntro() {
         </Reveal>
 
         <div>
-          <SectionHeading eyebrow="Meet Your Surgeon" title={<>Dr. Mehul Vikani — <span className="text-gradient">Consultant Bariatric & Metabolic Surgeon.</span></>} desc="Dr. Mehul Vikani specialises in bariatric and metabolic surgery and the surgical and non-surgical management of obesity." />
-          <Reveal delay={0.15} className="mt-8 grid gap-4 sm:grid-cols-2">
-            {["MBBS, MS (General Surgery)", "FMAS, FALS, FIAGES & Bariatric Fellowship", "IFSO, OSSI, ASI & IAGES", "International training in Taiwan and Belgium", "Sleeve gastrectomy and gastric bypass", "Medical registration: G-43101"].map((t) => (
-              <div key={t} className="flex items-start gap-3 text-sm font-medium"><CheckCircle2 size={18} className="mt-0.5 shrink-0 text-brand-500" />{t}</div>
-            ))}
+          <SectionHeading eyebrow="Dr. Mehul Vikani" title={<>MS, FIAGES, FMAS, FALS, FMBS</>} />
+          <Reveal delay={0.15} className="mt-6">
+            <div className="text-lg text-steel">Consultant Bariatric &amp; Metabolic Surgeon</div>
+            <div className="mt-6 space-y-4 leading-relaxed text-steel">
+              <p>Dr. Mehul Vikani is a surgeon specialising in bariatric and metabolic surgery and the surgical and non-surgical management of obesity.</p>
+              <p>His professional training includes exposure to bariatric surgery at Chang Gung Memorial Hospital, Taiwan, and AZ Sint-Jan Hospital, Belgium. His clinical practice encompasses the assessment and management of obesity through individualised treatment approaches, including dietary and lifestyle interventions, medical weight management, and bariatric and metabolic surgery.</p>
+              <p>His surgical practice includes procedures such as sleeve gastrectomy, gastric bypass and revisional bariatric surgery. Treatment options are considered based on each patient&apos;s clinical assessment, medical history and individual requirements.</p>
+              <p>Dr. Vikani&apos;s approach emphasises informed decision-making, appropriate treatment selection, patient safety and long-term follow-up in the management of obesity.</p>
+              <p className="font-bold text-ink">Medical registration details: <span className="font-normal text-steel">G-43101</span></p>
+            </div>
           </Reveal>
           <Reveal delay={0.25} className="mt-10 flex flex-wrap items-center gap-6">
             <Button to="/about" variant="dark">Know More About Doctor</Button>
@@ -495,7 +500,6 @@ export default function Home() {
       <Testimonials />
       <BlogPreview />
       <BookSection />
-      <CTABanner />
     </>
   );
 }

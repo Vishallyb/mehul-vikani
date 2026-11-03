@@ -1,9 +1,9 @@
 export const CONTACT = {
-  phone: "+91 98765 43210",
-  phoneRaw: "+919876543210",
-  whatsapp: "919876543210",
-  email: "care@drmehulvikani.com",
-  address: "Advanced Bariatric & Laparoscopic Centre, Ring Road, Surat, Gujarat 395002",
+  phone: "+91 98750 98484",
+  phoneRaw: "+919875098484",
+  whatsapp: "919875098484",
+  email: "contact@drmehulvikani.com",
+  address: "Mahapujadham Chowk, 150 Ft. Ring Road, Near Balaji Hall, Dholakiya School Road, Rajkot - 360004",
   hours: "Mon – Sat : 10:00 AM – 7:00 PM",
   emergency: "24×7 Emergency Support",
 };
@@ -57,15 +57,15 @@ export type Treatment = {
 export const TREATMENTS: Treatment[] = [
   {
     slug: "sleeve-gastrectomy",
-    title: "Laparoscopic Sleeve Gastrectomy",
-    short: "The world's most performed weight-loss surgery — reduces stomach size by ~75% for lasting results.",
+    title: "Sleeve Gastrectomy",
+    short: "A bariatric and metabolic surgical procedure that creates a narrow, sleeve-shaped stomach.",
     tag: "Most Popular",
     image: IMG.or1,
     duration: "60–90 mins",
     stay: "2–3 days",
     loss: "60–70% excess weight",
     overview:
-      "Sleeve gastrectomy removes a large portion of the stomach, leaving a narrow, sleeve-shaped stomach. The reduced stomach capacity helps limit food intake, while changes in gut hormones may influence hunger and fullness. It is generally performed laparoscopically without bypassing the small intestine. Potential risks include bleeding, infection, staple-line leakage and blood clots; longer-term considerations include reflux, nutritional deficiencies and possible weight regain.",
+      "Sleeve gastrectomy is a bariatric and metabolic surgical procedure in which a large portion of the stomach is removed, leaving a narrow, sleeve-shaped stomach.",
     docxContent: [
       "Sleeve gastrectomy is a bariatric and metabolic surgical procedure in which a large portion of the stomach is removed, leaving a narrow, sleeve-shaped stomach.",
       "The reduced stomach capacity helps limit food intake. Changes in gut hormones may also influence hunger and feelings of fullness. The procedure is generally performed laparoscopically and does not involve bypassing the small intestine.",
@@ -92,14 +92,14 @@ export const TREATMENTS: Treatment[] = [
   {
     slug: "gastric-bypass",
     title: "Roux-en-Y Gastric Bypass",
-    short: "The gold-standard procedure for severe obesity and type-2 diabetes with powerful metabolic effects.",
+    short: "A bariatric and metabolic procedure that creates a small stomach pouch and a Y-shaped intestinal arrangement.",
     tag: "Gold Standard",
     image: IMG.or2,
     duration: "2–2.5 hrs",
     stay: "3 days",
     loss: "70–80% excess weight",
     overview:
-      "Roux-en-Y Gastric Bypass creates a small stomach pouch connected to the small intestine, with a second intestinal connection forming the characteristic Y-shaped arrangement. It reduces food intake and changes nutrient flow and metabolic signalling. It may be considered for selected patients with obesity and associated metabolic conditions, including some patients with significant reflux. Lifelong supplementation, regular blood tests and medical follow-up are required.",
+      "Roux-en-Y Gastric Bypass (RYGB) is a bariatric and metabolic surgical procedure in which a small stomach pouch is created and connected to the small intestine. A second intestinal connection forms a characteristic Y-shaped arrangement.",
     docxContent: [
       "Roux-en-Y Gastric Bypass (RYGB) is a bariatric and metabolic surgical procedure in which a small stomach pouch is created and connected to the small intestine. A second intestinal connection forms a characteristic Y-shaped arrangement.",
       "The procedure reduces food intake and changes the pathway of food through the digestive system, influencing nutrient absorption and metabolic signalling.",
@@ -117,15 +117,15 @@ export const TREATMENTS: Treatment[] = [
   },
   {
     slug: "mini-gastric-bypass",
-    title: "Mini Gastric Bypass (OAGB)",
-    short: "A simpler, single-connection bypass with strong weight loss and diabetes resolution.",
+    title: "Mini Gastric Bypass (One Anastomosis Gastric Bypass)",
+    short: "A bariatric and metabolic procedure using a long, narrow stomach pouch and a single surgical connection.",
     tag: "Advanced",
     image: IMG.or3,
     duration: "75–100 mins",
     stay: "2–3 days",
     loss: "70–85% excess weight",
     overview:
-      "Mini Gastric Bypass, also known as One Anastomosis Gastric Bypass (OAGB), creates a long, narrow stomach pouch connected to a loop of the small intestine through a single surgical connection. It works through reduced food intake, changes in gut hormone signalling and altered nutrient absorption. Potential risks include bleeding, leakage, nutritional deficiencies, marginal ulcers, dumping syndrome and bile reflux. Lifelong vitamin and mineral supplementation and monitoring are important.",
+      "Mini Gastric Bypass, also known as One Anastomosis Gastric Bypass (OAGB), is a bariatric and metabolic procedure involving the creation of a long, narrow stomach pouch connected to a loop of the small intestine through a single surgical connection.",
     docxContent: [
       "Mini Gastric Bypass, also known as One Anastomosis Gastric Bypass (OAGB), is a bariatric and metabolic procedure involving the creation of a long, narrow stomach pouch connected to a loop of the small intestine through a single surgical connection.",
       "It works through reduced food intake, changes in gut hormone signalling and altered nutrient absorption. The procedure is generally performed laparoscopically.",
@@ -144,14 +144,14 @@ export const TREATMENTS: Treatment[] = [
   {
     slug: "intragastric-balloon",
     title: "Intragastric Balloon",
-    short: "A non-surgical, endoscopic option for moderate weight loss — no cuts, no scars.",
+    short: "A temporary, non-surgical treatment option for selected individuals with obesity.",
     tag: "Non-Surgical",
     image: IMG.consult1,
     duration: "20–30 mins",
     stay: "Day care",
     loss: "10–15% body weight",
     overview:
-      "An intragastric balloon is a temporary, non-surgical option for selected individuals with obesity. A balloon is placed inside the stomach to occupy space and increase fullness. Treatment duration varies by balloon system; many fluid-filled balloons are designed for approximately six months. Nausea, vomiting, discomfort and reflux may occur, and dietary guidance, lifestyle change and regular follow-up are essential.",
+      "An intragastric balloon is a temporary, non-surgical treatment option for selected individuals with obesity. A balloon is placed inside the stomach to occupy space and increase feelings of fullness, which may help reduce food intake.",
     docxContent: [
       "An intragastric balloon is a temporary, non-surgical treatment option for selected individuals with obesity. A balloon is placed inside the stomach to occupy space and increase feelings of fullness, which may help reduce food intake.",
       "Placement methods and treatment duration vary according to the balloon system. Many fluid-filled balloons are designed for approximately six months, while other devices may have different approved durations.",
