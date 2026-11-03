@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { GraduationCap, Award, Globe2, BookOpen, HeartHandshake, Target, Eye, CheckCircle2 } from "lucide-react";
-import { IMG, STATS } from "../data/site";
+import { IMG } from "../data/site";
+import { useSiteData } from "../components/SiteDataContext";
 import { PageHero, Reveal, SectionHeading, Counter, CTABanner, Button } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
 import "../styles/about.css";
@@ -22,6 +23,7 @@ const TABS = {
 };
 
 export default function About() {
+  const { STATS } = useSiteData();
   const [tab, setTab] = useState<keyof typeof TABS>("Mission");
   const { open } = useAppointment();
   const T = TABS[tab];

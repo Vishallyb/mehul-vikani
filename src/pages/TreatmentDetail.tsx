@@ -1,16 +1,17 @@
 import { useParams, Navigate } from "react-router-dom";
 import { ArrowRight, Phone } from "lucide-react";
-import { TREATMENTS, CONTACT } from "../data/site";
+import { useSiteData, PageLoading } from "../components/SiteDataContext";
 import { PageHero, Reveal } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
 import "../styles/treatment-detail.css";
 
 export default function TreatmentDetail() {
+  const { TREATMENTS, CONTACT, loaded } = useSiteData();
   const { slug } = useParams();
   const treatment = TREATMENTS.find((item) => item.slug === slug);
   const { open } = useAppointment();
 
-  if (!treatment) return <Navigate to="/treatments" replace />;
+  if (!treatment) return loaded ? <Navigate to="/treatments" replace /> : <PageLoading />;
 
   return (
     <>

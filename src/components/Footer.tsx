@@ -3,10 +3,28 @@ import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, ArrowRight, Send } from "lucide-react";
 import { Facebook, Instagram, Youtube, Linkedin } from "./Social";
 import Logo from "./Logo";
-import { CONTACT, TREATMENTS } from "../data/site";
+import { useSiteData } from "./SiteDataContext";
+import { apiFetch } from "../lib/api";
 
 export default function Footer() {
+  const { CONTACT, TREATMENTS } = useSiteData();
   const [sub, setSub] = useState(false);
+  const [email, setEmail] = useState("");
+  const [subErr, setSubErr] = useState("");
+  const [subbing, setSubbing] = useState(false);
+  const subscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubErr("");
+    setSubbing(true);
+    try {
+      await apiFetch("/subscribers", { method: "POST", body: JSON.stringify({ email: email.trim() }) });
+      setSub(true);
+    } catch (error) {
+      setSubErr(error instanceof Error ? error.message : "Could not subscribe. Please try again.");
+    } finally {
+      setSubbing(false);
+    }
+  };
   return (
     <footer className="relative overflow-hidden bg-ink text-white">
       <div className="pixel-grid absolute inset-0 opacity-20" />
@@ -22,10 +40,13 @@ export default function Footer() {
           {sub ? (
             <p className="rounded-full bg-brand-500/20 px-6 py-4 font-semibold text-brand-300">✓ Thank you for subscribing!</p>
           ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setSub(true); }} className="flex w-full max-w-md rounded-full bg-white/10 p-1.5 ring-1 ring-white/15">
-              <input required type="email" placeholder="Enter your email" className="flex-1 bg-transparent px-5 text-sm outline-none placeholder:text-white/40" />
-              <button className="flex items-center gap-2 rounded-full bg-brand-500 px-5 py-3 text-sm font-bold transition hover:bg-brand-400">Subscribe <Send size={14} /></button>
-            </form>
+            <div className="w-full max-w-md">
+              <form onSubmit={subscribe} className="flex w-full rounded-full bg-white/10 p-1.5 ring-1 ring-white/15">
+                <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className="flex-1 bg-transparent px-5 text-sm outline-none placeholder:text-white/40" />
+                <button disabled={subbing} className="flex items-center gap-2 rounded-full bg-brand-500 px-5 py-3 text-sm font-bold transition hover:bg-brand-400 disabled:opacity-60">{subbing ? "Subscribing..." : "Subscribe"} <Send size={14} /></button>
+              </form>
+              {subErr && <p className="mt-2 px-5 text-sm text-red-300">{subErr}</p>}
+            </div>
           )}
         </div>
 

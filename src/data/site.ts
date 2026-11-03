@@ -42,6 +42,7 @@ export type Treatment = {
   title: string;
   short: string;
   tag: string;
+  category?: "Surgical" | "Non-Surgical";
   image: string;
   duration: string;
   stay: string;

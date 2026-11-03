@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, CheckCircle2, CalendarDays, User, Phone, Stethoscope } from "lucide-react";
-import { CONTACT } from "../data/site";
+import { useSiteData } from "./SiteDataContext";
+import { apiFetch } from "../lib/api";
 import { LogoMark } from "./Logo";
 
 type Ctx = { open: (treatment?: string) => void };
@@ -17,7 +18,6 @@ type AppointmentFormData = {
   message: string;
 };
 
-const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send";
 const DOCX_TREATMENTS = [
   "Diet and Lifestyle",
   "Weight-Loss Medications and Injections",
@@ -43,6 +43,7 @@ export function AppointmentProvider({ children }: { children: ReactNode }) {
 }
 
 export function AppointmentForm({ preset = "", compact = false }: { preset?: string; compact?: boolean }) {
+  const { CONTACT } = useSiteData();
   const [done, setDone] = useState(false);
   const [form, setForm] = useState<AppointmentFormData>({ name: "", phone: "", email: "", treatment: preset, date: "", message: "" });
   const [err, setErr] = useState("");
@@ -55,39 +56,20 @@ export function AppointmentForm({ preset = "", compact = false }: { preset?: str
     if (!/^[+\d\s-]{10,15}$/.test(form.phone)) return setErr("Please enter a valid phone number.");
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return setErr("Please enter a valid email address.");
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    const receiverEmail = import.meta.env.VITE_EMAILJS_RECEIVER_EMAIL || CONTACT.email;
-    if (!serviceId || !templateId || !publicKey) {
-      return setErr("Appointment email service is not configured. Please call us directly.");
-    }
-
     setErr("");
     setSubmitting(true);
     try {
-      const response = await fetch(EMAILJS_ENDPOINT, {
+      await apiFetch("/appointments", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          template_params: {
-            to_email: receiverEmail,
-            from_name: form.name,
-            from_phone: form.phone,
-            from_email: form.email || "Not provided",
-            treatment: form.treatment || "General Consultation",
-            appointment_date: form.date || "Not specified",
-            message: form.message || "No additional message",
-          },
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          email: form.email.trim() || undefined,
+          treatment: form.treatment || undefined,
+          date: form.date || undefined,
+          message: form.message.trim() || undefined,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error(`Email service returned ${response.status}`);
-      }
       setDone(true);
     } catch (error) {
       console.error("Appointment submission failed:", error);

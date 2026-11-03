@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Calendar, Clock, Share2 } from "lucide-react";
-import { BLOGS, IMG } from "../data/site";
+import { IMG } from "../data/site";
+import { useSiteData, PageLoading } from "../components/SiteDataContext";
 import { PageHero, Reveal, CTABanner, Eyebrow } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
 import "../styles/blog.css";
 
 export default function Blog() {
+  const { BLOGS } = useSiteData();
   const cats = ["All", ...Array.from(new Set(BLOGS.map((b) => b.cat)))];
   const [cat, setCat] = useState("All");
   const [feat, ...rest] = BLOGS;
@@ -60,10 +62,11 @@ export default function Blog() {
 }
 
 export function BlogPost() {
+  const { BLOGS, loaded } = useSiteData();
   const { slug } = useParams();
   const b = BLOGS.find((x) => x.slug === slug);
   const { open } = useAppointment();
-  if (!b) return <Navigate to="/blog" replace />;
+  if (!b) return loaded ? <Navigate to="/blog" replace /> : <PageLoading />;
   return (
     <>
       <PageHero eyebrow={b.cat} title={b.title} desc={b.excerpt} image={b.img} crumbs={[{ label: "Blog", to: "/blog" }, { label: b.cat }]} />
@@ -77,11 +80,16 @@ export function BlogPost() {
               <button onClick={() => navigator.clipboard?.writeText(window.location.href)} className="ml-auto flex items-center gap-1.5 font-semibold text-brand-600"><Share2 size={14} />Copy link</button>
             </div>
             <img src={b.img} alt="" className="mb-10 h-96 w-full rounded-[2rem] object-cover" />
-            <div className="space-y-6 text-lg leading-relaxed text-ink/80">
-              {b.body.map((p, k) => (
-                <Reveal key={k}><p className={k === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-6xl first-letter:font-black first-letter:text-brand-500" : ""}>{p}</p></Reveal>
-              ))}
-            </div>
+            {b.content ? (
+              // HTML is sanitized by the backend before it is stored
+              <Reveal><div className="blog-content" dangerouslySetInnerHTML={{ __html: b.content }} /></Reveal>
+            ) : (
+              <div className="space-y-6 text-lg leading-relaxed text-ink/80">
+                {b.body.map((p, k) => (
+                  <Reveal key={k}><p className={k === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-6xl first-letter:font-black first-letter:text-brand-500" : ""}>{p}</p></Reveal>
+                ))}
+              </div>
+            )}
             <div className="mt-12 rounded-[2rem] bg-brand-50 p-8">
               <Eyebrow>Need personal advice?</Eyebrow>
               <p className="mt-3 text-lg font-semibold">Every body is different. Book a one-on-one consultation to get answers specific to you.</p>

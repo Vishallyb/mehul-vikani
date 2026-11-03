@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus, Search, MessageCircle } from "lucide-react";
-import { FAQS, IMG, CONTACT } from "../data/site";
+import { IMG } from "../data/site";
+import { useSiteData } from "../components/SiteDataContext";
 import { PageHero, Reveal, CTABanner } from "../components/ui";
 import "../styles/faq.css";
 
@@ -32,6 +33,7 @@ export function Accordion({ items }: { items: { q: string; a: string }[] }) {
 }
 
 export default function FAQ() {
+  const { FAQS, CONTACT } = useSiteData();
   const cats = ["All", ...Array.from(new Set(FAQS.map((f) => f.cat)))];
   const [cat, setCat] = useState("All");
   const [q, setQ] = useState("");

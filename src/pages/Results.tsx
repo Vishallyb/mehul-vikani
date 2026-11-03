@@ -1,5 +1,6 @@
 import { HeartPulse, TrendingDown, Activity, ShieldCheck } from "lucide-react";
-import { IMG, STATS, TESTIMONIALS } from "../data/site";
+import { IMG } from "../data/site";
+import { useSiteData } from "../components/SiteDataContext";
 import { PageHero, Reveal, SectionHeading, Counter, CTABanner } from "../components/ui";
 import "../styles/results.css";
 
@@ -11,6 +12,7 @@ const RESULT_POINTS = [
 ];
 
 export default function Results() {
+  const { STATS, TESTIMONIALS } = useSiteData();
   return (
     <>
       <PageHero eyebrow="Results" title={<>Results that support a <span className="text-brand-400">healthier life.</span></>} desc="Every result is individual. Our approach combines appropriate treatment selection with long-term medical and nutritional follow-up." image={IMG.celebrate} crumbs={[{ label: "Results" }]} />

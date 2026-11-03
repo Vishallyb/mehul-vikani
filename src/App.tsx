@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FloatingActions, { ScrollProgress, Preloader } from "./components/FloatingActions";
 import { AppointmentProvider } from "./components/AppointmentContext";
+import { SiteDataProvider } from "./components/SiteDataContext";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Achievements from "./pages/Achievements";
@@ -58,6 +59,7 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <HashRouter>
+      <SiteDataProvider>
       <AppointmentProvider>
         <Preloader />
         <ScrollProgress />
@@ -66,6 +68,7 @@ export default function App() {
         <Footer />
         <FloatingActions />
       </AppointmentProvider>
+      </SiteDataProvider>
     </HashRouter>
   );
 }

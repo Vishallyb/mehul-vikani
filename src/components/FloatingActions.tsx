@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowUp, Phone, CalendarCheck } from "lucide-react";
-import { CONTACT } from "../data/site";
+import { useSiteData } from "./SiteDataContext";
 import { useAppointment } from "./AppointmentContext";
 
 export function ScrollProgress() {
@@ -11,6 +11,7 @@ export function ScrollProgress() {
 }
 
 export default function FloatingActions() {
+  const { CONTACT } = useSiteData();
   const [show, setShow] = useState(false);
   const { open } = useAppointment();
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { Award, BookOpen, Globe2, ShieldCheck } from "lucide-react";
-import { IMG, STATS } from "../data/site";
+import { IMG } from "../data/site";
+import { useSiteData } from "../components/SiteDataContext";
 import { PageHero, Reveal, SectionHeading, Counter, CTABanner } from "../components/ui";
 import "../styles/achievements.css";
 
@@ -11,6 +12,7 @@ const ACHIEVEMENTS = [
 ];
 
 export default function Achievements() {
+  const { STATS } = useSiteData();
   return (
     <>
       <PageHero eyebrow="Achievements" title={<>Experience built around <span className="text-brand-400">safe outcomes.</span></>} desc="A focused bariatric and metabolic surgery practice grounded in training, assessment and long-term care." image={IMG.surgeons} crumbs={[{ label: "Achievements" }]} />

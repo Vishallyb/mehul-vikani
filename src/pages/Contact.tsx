@@ -1,10 +1,12 @@
 import { Phone, Mail, MapPin, Clock, Siren } from "lucide-react";
-import { CONTACT, IMG } from "../data/site";
+import { IMG } from "../data/site";
+import { useSiteData } from "../components/SiteDataContext";
 import { PageHero, Reveal, Eyebrow } from "../components/ui";
 import { AppointmentForm } from "../components/AppointmentContext";
 import "../styles/contact.css";
 
 export default function Contact() {
+  const { CONTACT } = useSiteData();
   const cards = [
     { i: Phone, t: "Call Us", v: CONTACT.phone, href: `tel:${CONTACT.phoneRaw}` },
     { i: Mail, t: "Email Us", v: CONTACT.email, href: `mailto:${CONTACT.email}` },

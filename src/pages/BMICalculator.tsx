@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Scale, Ruler, Info, ArrowRight } from "lucide-react";
-import { IMG, TREATMENTS } from "../data/site";
+import { IMG } from "../data/site";
+import { useSiteData } from "../components/SiteDataContext";
 import { PageHero, Reveal, SectionHeading, CTABanner } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
 import "../styles/bmi-calculator.css";
@@ -17,6 +18,7 @@ const BANDS = [
 ];
 
 export default function BMICalculator() {
+  const { TREATMENTS } = useSiteData();
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
   const [cm, setCm] = useState(168);
   const [kg, setKg] = useState(98);

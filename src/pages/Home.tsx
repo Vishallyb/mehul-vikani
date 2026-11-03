@@ -4,7 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight, ArrowLeft, ShieldCheck, Award, HeartPulse, Microscope, Users, Clock3, Star, Quote, CheckCircle2, Play, Activity, Salad, Stethoscope, Sparkles, X,
 } from "lucide-react";
-import { IMG, STATS, TESTIMONIALS, BLOGS } from "../data/site";
+import { IMG } from "../data/site";
+import { useSiteData } from "../components/SiteDataContext";
 import { Reveal, SectionHeading, Button, Counter, Eyebrow, CTABanner } from "../components/ui";
 import { useAppointment, AppointmentForm } from "../components/AppointmentContext";
 import "../styles/home.css";
@@ -199,6 +200,7 @@ function AboutIntro() {
 }
 
 function Stats() {
+  const { STATS } = useSiteData();
   return (
     <section className="relative overflow-hidden bg-ink py-20">
       <div className="pixel-grid absolute inset-0 opacity-20" />
@@ -380,6 +382,7 @@ function BMIQuick() {
 }
 
 function Testimonials() {
+  const { TESTIMONIALS } = useSiteData();
   const [i, setI] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setI((p) => (p + 1) % TESTIMONIALS.length), 6000);
@@ -426,6 +429,7 @@ function Testimonials() {
 }
 
 function BlogPreview() {
+  const { BLOGS } = useSiteData();
   return (
     <section className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
