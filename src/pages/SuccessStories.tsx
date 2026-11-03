@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Star, Quote, TrendingDown, Play } from "lucide-react";
 import { IMG, TESTIMONIALS } from "../data/site";
-import { PageHero, Reveal, SectionHeading, CTABanner, Counter } from "../components/ui";
+import { PageHero, Reveal, SectionHeading, Counter } from "../components/ui";
 import "../styles/success-stories.css";
 
 function Compare() {
@@ -26,7 +26,7 @@ function Compare() {
 export default function SuccessStories() {
   return (
     <>
-      <PageHero eyebrow="Success Stories" title={<>Transformations that <span className="text-brand-400">inspire.</span></>} desc="Hear from patients who reclaimed their health, confidence and joy with Dr. Mehul Vikani." image={IMG.celebrate} crumbs={[{ label: "Success Stories" }]} />
+      <PageHero eyebrow="Success Stories" title={<>Real journeys. <span className="text-brand-400">Lasting transformations.</span></>} desc="Hear from patients who reclaimed their health, confidence and joy with Dr. Mehul Vikani." image={IMG.celebrate} crumbs={[{ label: "Success Stories" }]} />
 
       <section className="py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-2">
@@ -86,7 +86,6 @@ export default function SuccessStories() {
           </div>
         </div>
       </section>
-      <CTABanner />
     </>
   );
 }

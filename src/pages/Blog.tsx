@@ -3,7 +3,7 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Calendar, Clock, Share2 } from "lucide-react";
 import { BLOGS, IMG } from "../data/site";
-import { PageHero, Reveal, CTABanner, Eyebrow } from "../components/ui";
+import { PageHero, Reveal, Eyebrow } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
 import "../styles/blog.css";
 
@@ -54,7 +54,6 @@ export default function Blog() {
           </motion.div>
         </div>
       </section>
-      <CTABanner />
     </>
   );
 }
@@ -66,7 +65,7 @@ export function BlogPost() {
   if (!b) return <Navigate to="/blog" replace />;
   return (
     <>
-      <PageHero eyebrow={b.cat} title={b.title} desc={b.excerpt} image={b.img} crumbs={[{ label: "Blog", to: "/blog" }, { label: b.cat }]} />
+      <PageHero eyebrow="Health Blog" title={b.title} desc={b.excerpt} image={b.img} crumbs={[{ label: "Blog", to: "/blog" }, { label: b.cat }]} />
       <section className="py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-12">
           <article className="lg:col-span-8">

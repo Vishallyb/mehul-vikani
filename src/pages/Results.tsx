@@ -1,6 +1,6 @@
 import { HeartPulse, TrendingDown, Activity, ShieldCheck } from "lucide-react";
 import { IMG, STATS, TESTIMONIALS } from "../data/site";
-import { PageHero, Reveal, SectionHeading, Counter, CTABanner } from "../components/ui";
+import { PageHero, Reveal, SectionHeading, Counter } from "../components/ui";
 import "../styles/results.css";
 
 const RESULT_POINTS = [
@@ -13,7 +13,7 @@ const RESULT_POINTS = [
 export default function Results() {
   return (
     <>
-      <PageHero eyebrow="Results" title={<>Results that support a <span className="text-brand-400">healthier life.</span></>} desc="Every result is individual. Our approach combines appropriate treatment selection with long-term medical and nutritional follow-up." image={IMG.celebrate} crumbs={[{ label: "Results" }]} />
+      <PageHero eyebrow="Results" title={<>Progress that supports a <span className="text-brand-400">healthier life.</span></>} desc="Every result is individual and supported by long-term medical and nutritional follow-up." image={IMG.celebrate} crumbs={[{ label: "Results" }]} />
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <SectionHeading center eyebrow="What We Track" title="Progress beyond the weighing scale" />
@@ -33,7 +33,6 @@ export default function Results() {
           <div className="mt-12 space-y-5">{TESTIMONIALS.slice(0, 3).map((t) => <Reveal key={t.name} className="rounded-3xl bg-white p-7 shadow-sm"><p className="leading-relaxed text-steel">“{t.text}”</p><p className="mt-4 font-bold">{t.name} <span className="font-normal text-steel">· {t.proc}</span></p></Reveal>)}</div>
         </div>
       </section>
-      <CTABanner />
     </>
   );
 }

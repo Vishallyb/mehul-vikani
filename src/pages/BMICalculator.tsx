@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Scale, Ruler, Info, ArrowRight } from "lucide-react";
 import { IMG, TREATMENTS } from "../data/site";
-import { PageHero, Reveal, SectionHeading, CTABanner } from "../components/ui";
+import { PageHero, Reveal, SectionHeading } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
 import "../styles/bmi-calculator.css";
 
@@ -46,7 +46,7 @@ export default function BMICalculator() {
 
   return (
     <>
-      <PageHero eyebrow="BMI Calculator" title={<>Know your number. <span className="text-brand-400">Know your options.</span></>} desc="Calculate your Body Mass Index with Asian-Indian cut-offs and check your eligibility for weight-loss surgery." image={IMG.healthyWall} crumbs={[{ label: "BMI Calculator" }]} />
+      <PageHero eyebrow="BMI Calculator" title={<>Understand your BMI. <span className="text-brand-400">Explore your options.</span></>} desc="Calculate your Body Mass Index with Asian-Indian cut-offs and check your eligibility for weight-loss surgery." image={IMG.healthyWall} crumbs={[{ label: "BMI Calculator" }]} />
 
       <section className="py-24">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-2">
@@ -168,7 +168,6 @@ export default function BMICalculator() {
           </div>
         </div>
       </section>
-      <CTABanner />
     </>
   );
 }

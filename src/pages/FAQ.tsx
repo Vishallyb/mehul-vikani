@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus, Search, MessageCircle } from "lucide-react";
 import { FAQS, IMG, CONTACT } from "../data/site";
-import { PageHero, Reveal, CTABanner } from "../components/ui";
+import { PageHero, Reveal } from "../components/ui";
 import "../styles/faq.css";
 
 export function Accordion({ items }: { items: { q: string; a: string }[] }) {
@@ -38,7 +38,7 @@ export default function FAQ() {
   const list = FAQS.filter((f) => (cat === "All" || f.cat === cat) && (f.q + f.a).toLowerCase().includes(q.toLowerCase()));
   return (
     <>
-      <PageHero eyebrow="FAQ" title={<>Answers to your <span className="text-brand-400">questions.</span></>} desc="Everything you need to know about bariatric surgery, recovery, costs and more." image={IMG.consult3} crumbs={[{ label: "FAQ" }]} />
+      <PageHero eyebrow="FAQ" title={<>Clear answers for your <span className="text-brand-400">next step.</span></>} desc="Everything you need to know about bariatric surgery, recovery, costs and more." image={IMG.consult3} crumbs={[{ label: "FAQ" }]} />
       <section className="py-24">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-12">
           <aside className="lg:col-span-4">
@@ -70,7 +70,6 @@ export default function FAQ() {
       <p className="mx-auto max-w-7xl px-5 pb-10 text-sm leading-relaxed text-steel sm:px-8">
         <strong>Medical Disclaimer:</strong> The information provided on this website is intended for general educational purposes only. It does not replace individual medical consultation, diagnosis or treatment. Treatment suitability, potential benefits and risks vary between individuals and require appropriate clinical assessment.
       </p>
-      <CTABanner />
     </>
   );
 }

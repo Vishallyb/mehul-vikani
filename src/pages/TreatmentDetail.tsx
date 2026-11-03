@@ -1,22 +1,26 @@
 import { useParams, Navigate } from "react-router-dom";
-import { ArrowRight, Phone } from "lucide-react";
-import { TREATMENTS, CONTACT } from "../data/site";
+import { TREATMENTS } from "../data/site";
 import { PageHero, Reveal } from "../components/ui";
-import { useAppointment } from "../components/AppointmentContext";
 import "../styles/treatment-detail.css";
+
+const HERO_TITLES = {
+  "intragastric-balloon": <>A temporary step toward <span className="text-brand-400">meaningful progress.</span></>,
+  "sleeve-gastrectomy": <>A proven surgical path to <span className="text-brand-400">lasting change.</span></>,
+  "mini-gastric-bypass": <>Powerful metabolic treatment with <span className="text-brand-400">one connection.</span></>,
+  "gastric-bypass": <>A proven approach to weight and <span className="text-brand-400">metabolic health.</span></>,
+} as const;
 
 export default function TreatmentDetail() {
   const { slug } = useParams();
   const treatment = TREATMENTS.find((item) => item.slug === slug);
-  const { open } = useAppointment();
 
   if (!treatment) return <Navigate to="/treatments" replace />;
 
   return (
     <>
       <PageHero
-        eyebrow={treatment.tag}
-        title={treatment.title}
+        eyebrow={treatment.title}
+        title={HERO_TITLES[slug as keyof typeof HERO_TITLES] || treatment.title}
         desc={treatment.short}
         image={treatment.image}
         crumbs={[{ label: "Treatments", to: "/treatments" }, { label: treatment.title }]}
@@ -38,14 +42,6 @@ export default function TreatmentDetail() {
             <h2 className="mt-3 text-3xl font-extrabold leading-tight">{treatment.title}</h2>
             <div className="mt-8 space-y-5 leading-relaxed text-steel">
               {(treatment.docxContent || [treatment.overview]).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            </div>
-            <div className="mt-8 border-t border-ink/10 pt-6">
-              <button onClick={() => open(treatment.title)} className="inline-flex items-center gap-2 rounded-full bg-brand-500 px-7 py-3.5 text-sm font-bold text-white transition hover:bg-brand-600">
-                Book Consultation <ArrowRight size={16} />
-              </button>
-              <a href={`tel:${CONTACT.phoneRaw}`} className="ml-3 inline-flex items-center gap-2 rounded-full border border-ink/10 px-7 py-3.5 text-sm font-bold text-ink transition hover:bg-mist">
-                <Phone size={16} /> Call us
-              </a>
             </div>
           </div>
         </div>

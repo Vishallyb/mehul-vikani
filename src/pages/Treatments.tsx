@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Clock3, BedDouble, TrendingDown, Check, X as XIcon } from "lucide-react";
 import { IMG, TREATMENTS } from "../data/site";
-import { PageHero, Reveal, SectionHeading, CTABanner } from "../components/ui";
+import { PageHero, Reveal, SectionHeading } from "../components/ui";
 import "../styles/treatments.css";
 
 const FILTERS = ["All", "Surgical", "Non-Surgical"];
@@ -15,7 +15,7 @@ export default function Treatments() {
   const list = TREATMENTS.filter((t) => f === "All" || typeOf(t.slug) === f);
   return (
     <>
-      <PageHero eyebrow="Treatments" title={<>Advanced procedures, <span className="text-brand-400">tailored to you.</span></>} desc="From non-surgical options to complex revision surgery — explore the full range of weight-loss and metabolic treatments." image={IMG.or1} crumbs={[{ label: "Treatments" }]} />
+      <PageHero eyebrow="Treatments" title={<>Advanced procedures, <span className="text-brand-400">tailored to you.</span></>} desc="Explore surgical and non-surgical options for weight-loss and metabolic care." image={IMG.or1} crumbs={[{ label: "Treatments" }]} />
 
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -91,7 +91,6 @@ export default function Treatments() {
           </Reveal>
         </div>
       </section>
-      <CTABanner />
     </>
   );
 }

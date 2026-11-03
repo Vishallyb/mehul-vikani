@@ -9,7 +9,7 @@ import "../styles/header.css";
 
 const NAV = [
   { label: "Home", to: "/" },
-  { label: "About Doctor", to: "/about" },
+  { label: "About the Doctor", to: "/about" },
   { label: "Achievements", to: "/achievements" },
   { label: "Obesity Treatment", to: "/obesity-treatment-options" },
   { label: "Results", to: "/results" },
@@ -20,7 +20,7 @@ const NAV = [
 
 const TREATMENT_MENU = [
   { n: "01", label: "Diet and Lifestyle", to: "/obesity-treatment-options/diet-and-lifestyle", image: IMG.salad, desc: "Nutrition, activity, sleep and sustainable lifestyle support." },
-  { n: "02", label: "Weight-Loss Medications", to: "/obesity-treatment-options/weight-loss-medications", image: IMG.healthyWall2, desc: "Supervised medication and injection treatment options." },
+  { n: "02", label: "Weight-Loss Medications & Injections", to: "/obesity-treatment-options/weight-loss-medications", image: IMG.healthyWall2, desc: "Supervised medication and injection treatment options." },
   { n: "03", label: "Intragastric Balloon", to: "/treatments/intragastric-balloon", image: IMG.consult1, desc: "A temporary, non-surgical endoscopic treatment option." },
   { n: "04", label: "Sleeve Gastrectomy", to: "/treatments/sleeve-gastrectomy", image: IMG.or1, desc: "A laparoscopic procedure that creates a smaller stomach." },
   { n: "05", label: "Mini Gastric Bypass", to: "/treatments/mini-gastric-bypass", image: IMG.or3, desc: "One Anastomosis Gastric Bypass for selected patients." },
@@ -50,7 +50,7 @@ export default function Header() {
                     cn(
                       "flex items-center gap-1 rounded-full px-2.5 py-2 text-[15px] font-semibold transition",
                       isActive || pathname.startsWith("/obesity-treatment-options")
-                        ? "bg-brand-500 text-white"
+                        ? "rounded-none border-b-2 border-brand-500 text-brand-600"
                         : "text-ink hover:bg-brand-500 hover:text-white"
                     )
                   }
@@ -98,7 +98,7 @@ export default function Header() {
                 className={({ isActive }) =>
                   cn(
                     "rounded-full px-2.5 py-2 text-[15px] font-semibold transition",
-                    isActive ? "bg-brand-500 text-white" : "text-ink hover:bg-brand-500 hover:text-white"
+                    isActive ? "rounded-none border-b-2 border-brand-500 text-brand-600" : "text-ink hover:bg-brand-500 hover:text-white"
                   )
                 }
               >
@@ -130,7 +130,18 @@ export default function Header() {
             </div>
             <nav className="mt-10 flex flex-col gap-2">
               {NAV.map((item) => (
-                <NavLink key={item.to} to={item.to} end={item.to === "/"} onClick={() => setMobile(false)} className="rounded-xl px-4 py-3 text-lg font-bold text-white transition hover:bg-brand-500">
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.to === "/"}
+                  onClick={() => setMobile(false)}
+                  className={({ isActive }) => cn(
+                    "rounded-xl px-4 py-3 text-lg font-bold text-white transition hover:bg-brand-500",
+                    isActive || (item.to === "/obesity-treatment-options" && pathname.startsWith("/obesity-treatment-options"))
+                      ? "border-b-2 border-brand-400 text-brand-300"
+                      : ""
+                  )}
+                >
                   {item.label}
                 </NavLink>
               ))}
@@ -143,7 +154,15 @@ export default function Header() {
                   ["Mini Gastric Bypass", "/treatments/mini-gastric-bypass"],
                   ["Roux-en-Y Gastric Bypass", "/treatments/gastric-bypass"],
                 ].map(([label, to]) => (
-                  <NavLink key={to} to={to} onClick={() => setMobile(false)} className="block rounded-xl px-4 py-2.5 text-sm font-semibold text-white/75 transition hover:bg-brand-500 hover:text-white">
+                  <NavLink
+                    key={to}
+                    to={to}
+                    onClick={() => setMobile(false)}
+                    className={({ isActive }) => cn(
+                      "block rounded-xl px-4 py-2.5 text-sm font-semibold text-white/75 transition hover:bg-brand-500 hover:text-white",
+                      isActive ? "border-b-2 border-brand-400 text-brand-300" : ""
+                    )}
+                  >
                     {label}
                   </NavLink>
                 ))}
