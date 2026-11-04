@@ -107,7 +107,7 @@ function Hero() {
         </div>
 
         <div className="relative hidden lg:col-span-5 lg:block">
-          <motion.div initial={{ opacity: 0, x: 60 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.7, duration: 0.9 }} className="glass ml-auto max-w-sm rounded-3xl p-6 text-white">
+          <motion.div initial={{ opacity: 0, x: 60 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.7, duration: 0.9 }} className="glass ml-auto max-w-sm rounded-3xl p-6 text-white" style={{ background: "rgb(161 18 18 / 12%)" }}>
             <div className="flex items-center gap-3">
               <div className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-500"><Activity /></div>
               <div>
