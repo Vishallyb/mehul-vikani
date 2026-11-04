@@ -2,7 +2,7 @@ export const CONTACT = {
   phone: "+91 98750 98484",
   phoneRaw: "+919875098484",
   whatsapp: "919875098484",
-  email: "contact@drmehulvikani.com",
+  email: "contact@drmvobesitycentre.com",
   address: "Mahapujadham Chowk, 150 Ft. Ring Road, Near Balaji Hall, Dholakiya School Road, Rajkot - 360004",
   hours: "Mon – Sat : 10:00 AM – 7:00 PM",
   emergency: "24×7 Emergency Support",
@@ -12,7 +12,12 @@ const px = (id: number, w = 1200, h = 800) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`;
 
 export const IMG = {
-  doctor: px(17686797, 900, 1200),
+  hospital: "/images/hospital-img.webp",
+  hospital1: "/images/hospital-img1.webp",
+  hospital2: "/images/hospital-img2.webp",
+  hospital3: "/images/hospital-img3.webp",
+  hospital4: "/images/hospital-img4.webp",
+  doctor: "/images/doctor.jpeg",
   surgeonFocus: px(39299840, 900, 1200),
   surgeryTeam: px(33907383, 1600, 1000),
   surgeryTeam2: px(33916261, 1600, 1000),

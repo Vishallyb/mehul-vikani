@@ -22,16 +22,12 @@ export function LogoMark({ className, light = false }: { className?: string; lig
 
 export default function Logo({ light = false, className }: { light?: boolean; className?: string }) {
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <LogoMark className="h-11 w-auto shrink-0" light={light} />
-      <div className="leading-none">
-        <div className={cn("font-display text-[15px] font-extrabold tracking-[0.14em] sm:text-[17px]", light ? "text-white" : "text-ink")}>
-          DR. MEHUL VIKANI
-        </div>
-        <div className={cn("mt-1.5 font-display text-[9.5px] font-bold tracking-[0.3em] sm:text-[10.5px]", light ? "text-white/60" : "text-steel")}>
-          BARIATRIC SURGEON
-        </div>
-      </div>
+    <div className={cn("flex items-center", className)}>
+      <img
+        src="/images/logo-mehul.png"
+        alt="Dr. Mehul Vikani Bariatric Surgeon"
+        className={cn("h-11 w-auto object-contain", light && "brightness-0 invert")}
+      />
     </div>
   );
 }

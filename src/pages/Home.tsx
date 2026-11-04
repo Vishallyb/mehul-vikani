@@ -36,7 +36,7 @@ function Hero() {
   const cur = i % slides.length;
   const s = slides[cur];
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-ink pt-28">
+    <section className="relative flex h-[550px] items-center overflow-hidden bg-ink pt-20">
       <AnimatePresence mode="sync">
         <motion.img
           key={cur}
@@ -66,7 +66,7 @@ function Hero() {
         ))}
       </div>
 
-      <div className="hero-content-readable relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-12">
+      <div className="hero-content-readable relative z-10 mx-auto grid w-full max-w-7xl items-center gap-8 px-5 py-8 sm:px-8 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-7">
           <AnimatePresence mode="wait">
             <motion.div key={cur} initial="h" animate="s" exit="x" variants={{ s: { transition: { staggerChildren: 0.12 } } }}>
@@ -84,13 +84,13 @@ function Hero() {
               ))}
             </motion.div>
           </AnimatePresence>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6 }} className="mt-9 flex flex-wrap gap-4">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6 }} className="mt-6 flex flex-wrap gap-4">
             <Button onClick={() => open()}>{hero.primaryButton}</Button>
             <Button to="/obesity-treatment-options" variant="light">{hero.secondaryButton}</Button>
           </motion.div>
 
           {(hero.rating || hero.avatars.length > 0) && (
-            <div className="mt-12 flex items-center gap-6">
+            <div className="mt-6 flex items-center gap-6">
               {hero.avatars.length > 0 && (
                 <div className="flex -space-x-3">
                   {hero.avatars.map((a, k) => (
@@ -130,7 +130,7 @@ function Hero() {
             </div>
           </motion.div>
           {hero.badgeTitle && (
-            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2 }} className="animate-float absolute -bottom-20 left-4 flex items-center gap-3 rounded-2xl bg-white p-4 text-ink shadow-2xl">
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2 }} className="animate-float absolute -bottom-20 left-4 flex items-center gap-3 rounded-2xl bg-brand-50 p-4 text-ink shadow-2xl">
               <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600"><ShieldCheck /></div>
               <div><div className="text-sm font-extrabold">{hero.badgeTitle}</div><div className="text-xs text-steel">{hero.badgeText}</div></div>
             </motion.div>
@@ -370,7 +370,18 @@ function BMIQuick() {
   const [h, setH] = useState(165);
   const [w, setW] = useState(95);
   const bmi = w / (h / 100) ** 2;
-  const cat = bmi < 18.5 ? ["Underweight", "#7bc59a"] : bmi < 23 ? ["Normal", "#2b8c57"] : bmi < 27.5 ? ["Overweight", "#237447"] : bmi < 32.5 ? ["Obese Class I", "#1d5d3a"] : bmi < 37.5 ? ["Obese Class II", "#174a2f"] : ["Obese Class III", "#0f3320"];
+  const displayedBmi = Number(bmi.toFixed(1));
+  const cat = displayedBmi < 18.5
+    ? ["Underweight", "#7bc59a"]
+    : displayedBmi < 25
+      ? ["Normal Weight", "#2b8c57"]
+      : displayedBmi < 30
+        ? ["Overweight", "#237447"]
+        : displayedBmi < 35
+          ? ["Obese class 1", "#f0df00"]
+          : displayedBmi < 40
+            ? ["Obese class 2", "#ffb900"]
+            : ["Obese class 3", "#e94b2c"];
   const pct = Math.min(100, Math.max(0, ((bmi - 15) / 30) * 100));
   return (
     <section className="py-24 sm:py-32">
@@ -389,7 +400,7 @@ function BMIQuick() {
           <div className="flex items-center justify-between rounded-2xl bg-mist p-6">
             <div>
               <div className="text-xs font-bold uppercase tracking-widest text-steel">Your BMI</div>
-              <div className="font-display text-5xl font-black">{bmi.toFixed(1)}</div>
+              <div className="font-display text-5xl font-black">{displayedBmi.toFixed(1)}</div>
             </div>
             <span className="rounded-full px-4 py-2 text-sm font-bold text-white" style={{ background: cat[1] }}>{cat[0]}</span>
           </div>

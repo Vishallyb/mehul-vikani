@@ -14,9 +14,11 @@ const DOCTOR_BIO = [
 export const HOME = {
   hero: {
     slides: [
-      { img: IMG.surgeryTeam, eyebrow: "Advanced Bariatric Surgery", title: "Lose the weight.", highlight: "Gain your life.", desc: "Safe, keyhole weight-loss & metabolic surgery by Dr. Mehul Vikani — trusted by 5,000+ patients for life-changing results." },
-      { img: IMG.celebrate, eyebrow: "Metabolic & Diabetes Surgery", title: "Freedom from", highlight: "Type-2 Diabetes.", desc: "Evidence-based metabolic procedures that help up to 80% of patients reduce or stop insulin and diabetes medicines." },
-      { img: IMG.healthyWall, eyebrow: "Holistic Lifelong Care", title: "A healthier you,", highlight: "every step.", desc: "From your first consult to lifelong follow-up — nutrition, fitness and emotional support under one roof." },
+      { img: IMG.hospital, eyebrow: "Advanced Bariatric Surgery", title: "Lose the weight.", highlight: "Gain your life.", desc: "Safe, keyhole weight-loss & metabolic surgery by Dr. Mehul Vikani — trusted by 5,000+ patients for life-changing results." },
+      { img: IMG.hospital1, eyebrow: "Metabolic & Diabetes Surgery", title: "Freedom from", highlight: "Type-2 Diabetes.", desc: "Evidence-based metabolic procedures that help up to 80% of patients reduce or stop insulin and diabetes medicines." },
+      { img: IMG.hospital2, eyebrow: "Holistic Lifelong Care", title: "A healthier you,", highlight: "every step.", desc: "From your first consult to lifelong follow-up — nutrition, fitness and emotional support under one roof." },
+      { img: IMG.hospital3, eyebrow: "Expert Surgical Care", title: "Care that puts", highlight: "you first.", desc: "Personalised bariatric care, advanced surgical expertise and lifelong support from consultation to recovery." },
+      { img: IMG.hospital4, eyebrow: "Complete Weight-Loss Care", title: "Your journey to", highlight: "better health.", desc: "Thoughtful treatment planning and dedicated support to help you achieve lasting health outcomes." },
     ],
     primaryButton: "Book Consultation",
     secondaryButton: "Explore Treatments",
@@ -24,7 +26,7 @@ export const HOME = {
     rating: "4.9/5",
     ratingText: "from 1,200+ Google reviews",
     resultLabel: "Average Result",
-    resultValue: "-35 kg",
+    resultValue: "-70 to 80% EBWL",
     resultNote: "in 12 months",
     metrics: [
       { label: "Diabetes remission", value: 80 },
@@ -105,7 +107,7 @@ export const HOME = {
     eyebrow: "Quick BMI Check",
     title: "Are you a candidate for",
     highlight: "weight-loss surgery?",
-    desc: "Move the sliders to instantly calculate your Body Mass Index using Asian-Indian guidelines.",
+    desc: "Move the sliders to instantly calculate your Body Mass Index using standard BMI categories.",
     button: "Explore Treatment Options",
   },
   testimonials: { show: true, eyebrow: "Patient Stories", title: "Real people. Real transformations." },

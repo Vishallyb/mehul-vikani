@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import Logo from "./Logo";
-import { IMG } from "../data/site";
 import { useAppointment } from "./AppointmentContext";
 import { cn } from "../utils/cn";
 import "../styles/header.css";
@@ -19,17 +18,20 @@ const NAV = [
 ];
 
 const TREATMENT_MENU = [
-  { n: "01", label: "Diet and Lifestyle", to: "/obesity-treatment-options/diet-and-lifestyle", image: IMG.salad, desc: "Nutrition, activity, sleep and sustainable lifestyle support." },
-  { n: "02", label: "Weight-Loss Medications & Injections", to: "/obesity-treatment-options/weight-loss-medications", image: IMG.healthyWall2, desc: "Supervised medication and injection treatment options." },
-  { n: "03", label: "Intragastric Balloon", to: "/treatments/intragastric-balloon", image: IMG.consult1, desc: "A temporary, non-surgical endoscopic treatment option." },
-  { n: "04", label: "Sleeve Gastrectomy", to: "/treatments/sleeve-gastrectomy", image: IMG.or1, desc: "A laparoscopic procedure that creates a smaller stomach." },
-  { n: "05", label: "Mini Gastric Bypass", to: "/treatments/mini-gastric-bypass", image: IMG.or3, desc: "One Anastomosis Gastric Bypass for selected patients." },
-  { n: "06", label: "Roux-en-Y Gastric Bypass", to: "/treatments/gastric-bypass", image: IMG.or2, desc: "A metabolic procedure with a small stomach pouch." },
-];
+  ["Diet and Lifestyle", "/obesity-treatment-options/diet-and-lifestyle"],
+  ["Weight-Loss Medications & Injections", "/obesity-treatment-options/weight-loss-medications"],
+  ["Intragastric Balloon", "/treatments/intragastric-balloon"],
+  ["Sleeve Gastrectomy", "/treatments/sleeve-gastrectomy"],
+  ["Mini Gastric Bypass", "/treatments/mini-gastric-bypass"],
+  ["Roux-en-Y Gastric Bypass", "/treatments/gastric-bypass"],
+] as const;
 
 export default function Header() {
   const [mobile, setMobile] = useState(false);
   const [treatmentsOpen, setTreatmentsOpen] = useState(false);
+  const [surgeryOpen, setSurgeryOpen] = useState(false);
+  const [mobileTreatmentsOpen, setMobileTreatmentsOpen] = useState(false);
+  const [mobileSurgeryOpen, setMobileSurgeryOpen] = useState(false);
   const { pathname } = useLocation();
   const { open } = useAppointment();
 
@@ -59,32 +61,31 @@ export default function Header() {
                   <ChevronDown size={14} className={cn("transition", treatmentsOpen && "rotate-180")} />
                 </NavLink>
                 {treatmentsOpen && (
-                  <div className="treatment-mega-menu absolute top-full pt-3">
-                    <div className="mx-auto grid max-w-7xl grid-cols-12 gap-8 rounded-3xl bg-white p-8 shadow-2xl ring-1 ring-ink/10">
-                      <div className="col-span-8 min-w-0 grid grid-cols-2 gap-3">
-                        {TREATMENT_MENU.map((item) => (
-                          <Link key={item.to} to={item.to} className="treatment-menu-card group flex min-w-0 min-h-28 items-start gap-4 overflow-hidden rounded-2xl p-4 transition">
-                            <img src={item.image} alt="" className="h-14 w-14 shrink-0 rounded-xl object-cover" />
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-start gap-2 text-sm font-bold leading-snug text-ink group-hover:text-white">
-                                <span>{item.label}</span>
-                                <ArrowRight size={14} className="mt-0.5 shrink-0 opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
-                              </div>
-                              <p className="mt-2 block max-w-full whitespace-normal break-normal text-xs leading-relaxed text-steel group-hover:text-white/80">{item.desc}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="relative col-span-4 min-h-[280px] overflow-hidden rounded-3xl">
-                        <img src={IMG.jeans} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent" />
-                        <div className="relative flex h-full flex-col justify-end p-7 text-white">
-                          <div className="text-xs font-bold uppercase tracking-widest text-brand-300">Not sure which?</div>
-                          <h4 className="mt-2 max-w-xs whitespace-normal break-words text-lg font-extrabold leading-snug text-white sm:text-xl">Find the right obesity treatment for you.</h4>
-                          <Link to="/obesity-treatment-options" className="mt-4 inline-flex w-fit items-center gap-2 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-bold text-white">
-                            Explore options <ArrowRight size={14} />
-                          </Link>
-                        </div>
+                  <div className="absolute left-0 top-full pt-3">
+                    <div className="w-72 rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-ink/10">
+                      {TREATMENT_MENU.slice(0, 3).map(([label, to]) => (
+                        <Link key={to} to={to} className="block rounded-xl px-4 py-3 text-sm font-semibold text-ink transition hover:bg-brand-500 hover:text-white">
+                          {label}
+                        </Link>
+                      ))}
+                      <div
+                        className="relative mt-1 border-t border-ink/10 pt-1"
+                        onMouseEnter={() => setSurgeryOpen(true)}
+                        onMouseLeave={() => setSurgeryOpen(false)}
+                      >
+                        <button className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-bold text-brand-600 transition hover:bg-brand-500 hover:text-white">
+                          Weight Loss Surgery
+                          <ChevronRight size={16} className={cn("transition", surgeryOpen && "rotate-180")} />
+                        </button>
+                        {surgeryOpen && (
+                          <div className="absolute left-full top-0 w-64 rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-ink/10">
+                            {TREATMENT_MENU.slice(3).map(([label, to]) => (
+                              <Link key={to} to={to} className="block rounded-xl px-4 py-3 text-sm font-semibold text-ink transition hover:bg-brand-500 hover:text-white">
+                                {label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -129,44 +130,70 @@ export default function Header() {
               </button>
             </div>
             <nav className="mt-10 flex flex-col gap-2">
-              {NAV.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.to === "/"}
-                  onClick={() => setMobile(false)}
-                  className={({ isActive }) => cn(
-                    "rounded-xl px-4 py-3 text-lg font-bold text-white transition hover:bg-brand-500",
-                    isActive || (item.to === "/obesity-treatment-options" && pathname.startsWith("/obesity-treatment-options"))
-                      ? "border-b-2 border-brand-400 text-brand-300"
-                      : ""
+              {NAV.map((item) => item.to === "/obesity-treatment-options" ? (
+                <div key={item.to} className="border-b border-white/10 pb-2">
+                  <button
+                    onClick={() => setMobileTreatmentsOpen((open) => !open)}
+                    className={cn(
+                      "flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-lg font-bold text-white transition hover:bg-brand-500",
+                      pathname.startsWith("/obesity-treatment-options") && "text-brand-300"
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown size={20} className={cn("transition", mobileTreatmentsOpen && "rotate-180")} />
+                  </button>
+                  {mobileTreatmentsOpen && (
+                    <div className="mt-1 rounded-2xl bg-white/5 p-2">
+                      {TREATMENT_MENU.slice(0, 3).map(([label, to]) => (
+                        <NavLink
+                          key={to}
+                          to={to}
+                          onClick={() => setMobile(false)}
+                          className={({ isActive }) => cn(
+                            "block rounded-xl px-4 py-2.5 text-sm font-semibold text-white/80 transition hover:bg-brand-500 hover:text-white",
+                            isActive && "bg-brand-500 text-white"
+                          )}
+                        >
+                          {label}
+                        </NavLink>
+                      ))}
+                      <button
+                        onClick={() => setMobileSurgeryOpen((open) => !open)}
+                        className="flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-left text-sm font-bold text-brand-300 transition hover:bg-brand-500 hover:text-white"
+                      >
+                        Weight Loss Surgery
+                        <ChevronDown size={16} className={cn("transition", mobileSurgeryOpen && "rotate-180")} />
+                      </button>
+                      {mobileSurgeryOpen && TREATMENT_MENU.slice(3).map(([label, to]) => (
+                        <NavLink
+                          key={to}
+                          to={to}
+                          onClick={() => setMobile(false)}
+                          className={({ isActive }) => cn(
+                            "block rounded-xl px-7 py-2.5 text-sm font-semibold text-white/70 transition hover:bg-brand-500 hover:text-white",
+                            isActive && "text-brand-300"
+                          )}
+                        >
+                          {label}
+                        </NavLink>
+                      ))}
+                    </div>
                   )}
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-              <div className="mt-2 border-t border-white/10 pt-2">
-                {[
-                  ["Diet and Lifestyle", "/obesity-treatment-options/diet-and-lifestyle"],
-                  ["Weight-Loss Medications", "/obesity-treatment-options/weight-loss-medications"],
-                  ["Intragastric Balloon", "/treatments/intragastric-balloon"],
-                  ["Sleeve Gastrectomy", "/treatments/sleeve-gastrectomy"],
-                  ["Mini Gastric Bypass", "/treatments/mini-gastric-bypass"],
-                  ["Roux-en-Y Gastric Bypass", "/treatments/gastric-bypass"],
-                ].map(([label, to]) => (
+                </div>
+              ) : (
                   <NavLink
-                    key={to}
-                    to={to}
+                    key={item.to}
+                    to={item.to}
+                    end={item.to === "/"}
                     onClick={() => setMobile(false)}
                     className={({ isActive }) => cn(
-                      "block rounded-xl px-4 py-2.5 text-sm font-semibold text-white/75 transition hover:bg-brand-500 hover:text-white",
+                      "rounded-xl px-4 py-3 text-lg font-bold text-white transition hover:bg-brand-500",
                       isActive ? "border-b-2 border-brand-400 text-brand-300" : ""
                     )}
                   >
-                    {label}
+                    {item.label}
                   </NavLink>
-                ))}
-              </div>
+              ))}
             </nav>
             <button onClick={() => { setMobile(false); open(); }} className="mt-8 rounded-full bg-brand-500 py-4 font-bold text-white">
               Book Appointment

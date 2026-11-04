@@ -20,11 +20,9 @@ type AppointmentFormData = {
 
 const DOCX_TREATMENTS = [
   "Diet and Lifestyle",
-  "Weight-Loss Medications and Injections",
+  "Weight Loss Medicines",
   "Intragastric Balloon",
-  "Sleeve Gastrectomy",
-  "Mini Gastric Bypass (OAGB)",
-  "Roux-en-Y Gastric Bypass",
+  "Weight Loss Surgery",
 ];
 
 export function AppointmentProvider({ children }: { children: ReactNode }) {
