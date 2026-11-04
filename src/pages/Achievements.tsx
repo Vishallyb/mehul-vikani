@@ -1,20 +1,22 @@
-import { IMG } from "../data/site";
+import { useSiteData } from "../components/SiteDataContext";
 import { PageHero, Reveal, SectionHeading } from "../components/ui";
 import "../styles/achievements.css";
 
-export default function Achievements() {  return (
+// All text and images on this page are edited in the admin panel (Achievements Page)
+export default function Achievements() {
+  const { hero, awards } = useSiteData().PAGES.achievements;
+  return (
     <>
-      <PageHero eyebrow="Achievements" title={<>Experience built around <span className="text-brand-400">safe outcomes.</span></>} desc="A focused bariatric and metabolic surgery practice grounded in training, assessment and long-term care." image={IMG.surgeons} crumbs={[{ label: "Achievements" }]} />
+      <PageHero eyebrow={hero.eyebrow} title={hero.highlight ? <>{hero.title} <span className="text-brand-400">{hero.highlight}</span></> : hero.title} desc={hero.desc} image={hero.image} crumbs={[{ label: "Achievements" }]} />
       <section className="bg-mist py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <SectionHeading center eyebrow="Recognition" title="Awards and appreciation" desc="Recognition for Dr. Mehul Vikani's contribution to bariatric surgery and patient care." />
+          <SectionHeading center eyebrow={awards.eyebrow} title={awards.title} desc={awards.desc} />
           <div className="mt-14 grid gap-8 md:grid-cols-2">
-            <Reveal className="overflow-hidden rounded-[2rem] bg-white p-4 shadow-xl">
-              <img src="/images/achievement-ossi-certificate.png" alt="OSSI Young OSSI of the Year certificate awarded to Dr. Mehul Vikani" className="h-full w-full rounded-2xl object-cover" />
-            </Reveal>
-            <Reveal delay={0.1} className="overflow-hidden rounded-[2rem] bg-white p-4 shadow-xl">
-              <img src="/images/achievement-siliconindia-certificate.png" alt="Siliconindia Top 10 Prominent Bariatric Surgeons 2025 certificate" className="h-full w-full rounded-2xl object-cover" />
-            </Reveal>
+            {awards.items.map((a, k) => (
+              <Reveal key={`${a.image}-${k}`} delay={(k % 2) * 0.1} className="overflow-hidden rounded-[2rem] bg-white p-4 shadow-xl">
+                <img src={a.image} alt={a.caption} className="h-full w-full rounded-2xl object-cover" />
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
