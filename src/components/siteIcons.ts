@@ -34,5 +34,5 @@ export const siteIcon = (name?: string): LucideIcon => SITE_ICONS[name || ""] ||
 export function youtubeEmbed(url?: string) {
   if (!url) return "";
   const id = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/)?.[1];
-  return id ? `https://www.youtube.com/embed/${id}` : url;
+  return id ? `https://www.youtube-nocookie.com/embed/${id}` : url;
 }

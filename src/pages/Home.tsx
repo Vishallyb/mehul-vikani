@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ArrowLeft, ShieldCheck, Award, Star, Quote, Play, Activity, X } from "lucide-react";
 import { HOME } from "../data/pages";
@@ -283,8 +284,8 @@ function WhyUs() {
           <div className="lg:sticky lg:top-32">
             <SectionHeading eyebrow={w.eyebrow} title={heading(w.title, w.highlight)} desc={w.desc} />
             {w.image && (
-              <Reveal delay={0.2} className="relative mt-10 overflow-hidden rounded-[2rem]">
-                <img src={w.image} alt="" className="h-72 w-full object-cover" />
+              <Reveal delay={0.2} className="relative mt-10 h-72 overflow-hidden rounded-[2rem]">
+                <img src={w.image} alt="" className="pointer-events-none h-full w-full object-cover" />
                 {w.videoUrl && <VideoButton url={w.videoUrl} />}
               </Reveal>
             )}
@@ -315,22 +316,21 @@ function VideoButton({ url }: { url: string }) {
   const embed = youtubeEmbed(url);
   return (
     <>
-      <button onClick={() => setOpen(true)} className="absolute inset-0 grid place-items-center bg-ink/30" aria-label="Play video">
-        <span className="relative grid h-20 w-20 place-items-center rounded-full bg-brand-500 text-white">
-          <span className="absolute inset-0 animate-pulse-ring rounded-full bg-brand-500" />
-          <Play fill="currentColor" className="relative ml-1" />
+      <button type="button" onClick={() => setOpen(true)} className="absolute inset-0 z-20 grid cursor-pointer place-items-center bg-ink/30" aria-label="Play video">
+        <span className="pointer-events-none relative grid h-20 w-20 place-items-center rounded-full bg-brand-500 text-white">
+          <span className="pointer-events-none absolute inset-0 animate-pulse-ring rounded-full bg-brand-500" />
+          <Play fill="currentColor" className="pointer-events-none relative ml-1" />
         </span>
       </button>
-      <AnimatePresence>
-        {open && (
+      {open && createPortal(
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] grid place-items-center bg-ink/90 p-4" onClick={() => setOpen(false)}>
             <button className="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full bg-white/10 text-white" aria-label="Close video"><X /></button>
-            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-ink">
-              <iframe className="h-full w-full" src={`${embed}${embed.includes("?") ? "&" : "?"}autoplay=1`} title="Video" allow="autoplay; encrypted-media" allowFullScreen />
+            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="relative z-10 aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-ink" onClick={(event) => event.stopPropagation()}>
+              <iframe className="h-full w-full" src={`${embed}${embed.includes("?") ? "&" : "?"}autoplay=1&playsinline=1`} title="Video" allow="autoplay; encrypted-media; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
             </motion.div>
-          </motion.div>
+          </motion.div>,
+          document.body,
         )}
-      </AnimatePresence>
     </>
   );
 }
