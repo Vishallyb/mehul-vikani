@@ -10,11 +10,11 @@ import "../styles/bmi-calculator.css";
 
 const BANDS = [
   { max: 18.5, label: "Underweight", color: "#7bc59a", advice: "You're below the healthy range. Consult a physician or nutritionist for a balanced weight-gain plan." },
-  { max: 23, label: "Normal", color: "#2b8c57", advice: "Great! Your BMI is in the healthy range for Asian adults. Keep up a balanced diet and regular activity." },
-  { max: 27.5, label: "Overweight", color: "#237447", advice: "You're at increased risk of metabolic disease. Lifestyle modification is recommended; non-surgical options like intragastric balloon may help." },
-  { max: 32.5, label: "Obese Class I", color: "#1d5d3a", advice: "If you have type-2 diabetes that's poorly controlled, metabolic surgery may be an option. Endoscopic options are also worth considering." },
-  { max: 37.5, label: "Obese Class II", color: "#174a2f", advice: "With conditions like diabetes, hypertension or sleep apnea, you may qualify for bariatric surgery. A consultation is recommended." },
-  { max: 999, label: "Obese Class III", color: "#0f3320", advice: "You are likely a strong candidate for bariatric surgery, which can dramatically improve your health and life expectancy." },
+  { max: 25, label: "Normal Weight", color: "#2b8c57", advice: "Great! Your BMI is in the healthy range. Keep up a balanced diet and regular physical activity." },
+  { max: 30, label: "Overweight", color: "#237447", advice: "You're at increased risk of metabolic disease. Lifestyle modification is recommended; non-surgical options like intragastric balloon may help." },
+  { max: 35, label: "Obese class 1", color: "#f0df00", advice: "If you have type-2 diabetes that's poorly controlled, metabolic surgery may be an option. Endoscopic options are also worth considering." },
+  { max: 40, label: "Obese class 2", color: "#ffb900", advice: "With conditions like diabetes, hypertension or sleep apnea, you may qualify for bariatric surgery. A consultation is recommended." },
+  { max: 999, label: "Obese class 3", color: "#e94b2c", advice: "You are likely a strong candidate for bariatric surgery, which can dramatically improve your health and life expectancy." },
 ];
 
 export default function BMICalculator() {
@@ -36,7 +36,8 @@ export default function BMICalculator() {
     return { bmi: wKg / (hM * hM), hM, wKg };
   }, [unit, cm, kg, ft, inch, lb]);
 
-  const band = BANDS.find((b) => bmi < b.max)!;
+  const displayedBmi = Number(bmi.toFixed(1));
+  const band = BANDS.find((b) => displayedBmi < b.max)!;
   const idealMax = 22.9 * hM * hM;
   const excess = Math.max(0, wKg - idealMax);
   const angle = Math.min(180, Math.max(0, ((bmi - 15) / 30) * 180));
@@ -48,7 +49,7 @@ export default function BMICalculator() {
 
   return (
     <>
-      <PageHero eyebrow="BMI Calculator" title={<>Understand your BMI. <span className="text-brand-400">Explore your options.</span></>} desc="Calculate your Body Mass Index with Asian-Indian cut-offs and check your eligibility for weight-loss surgery." image={IMG.healthyWall} crumbs={[{ label: "BMI Calculator" }]} />
+      <PageHero eyebrow="BMI Calculator" title={<>Understand your BMI. <span className="text-brand-400">Explore your options.</span></>} desc="Calculate your Body Mass Index using standard BMI categories and check your eligibility for weight-loss surgery." image={IMG.healthyWall} crumbs={[{ label: "BMI Calculator" }]} />
 
       <section className="py-24">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-2">
@@ -129,7 +130,7 @@ export default function BMICalculator() {
                   <circle cx="100" cy="100" r="9" fill="#fff" />
                 </svg>
                 <div className="-mt-2 text-center">
-                  <div className="font-display text-6xl font-black">{isFinite(bmi) ? bmi.toFixed(1) : "--"}</div>
+                  <div className="font-display text-6xl font-black">{isFinite(displayedBmi) ? displayedBmi.toFixed(1) : "--"}</div>
                   <span className="mt-2 inline-block rounded-full px-4 py-1.5 text-sm font-bold ring-2 ring-white/40" style={{ background: band.color }}>{band.label}</span>
                 </div>
               </div>
@@ -158,13 +159,13 @@ export default function BMICalculator() {
 
       <section className="bg-mist py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <SectionHeading center eyebrow="Reference" title="BMI categories for Asian adults" />
+          <SectionHeading center eyebrow="Reference" title="Standard BMI categories" />
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
             {BANDS.map((b, k) => (
               <Reveal key={b.label} delay={k * 0.05} className={`rounded-3xl bg-white p-6 transition ${band.label === b.label ? "ring-4 ring-brand-500" : ""}`}>
                 <div className="h-2 w-12 rounded-full" style={{ background: b.color }} />
                 <div className="mt-4 font-display text-lg font-extrabold">{b.label}</div>
-                <div className="text-sm text-steel">{k === 0 ? "< 18.5" : k === BANDS.length - 1 ? "≥ 37.5" : `${BANDS[k - 1].max} – ${(b.max - 0.1).toFixed(1)}`}</div>
+                <div className="text-sm text-steel">{["< 18.5", "18.5 – 24.9", "25.0 – 29.9", "30.0 – 34.9", "35.0 – 39.9", "≥ 40.0"][k]}</div>
               </Reveal>
             ))}
           </div>

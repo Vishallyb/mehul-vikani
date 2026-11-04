@@ -30,6 +30,7 @@ export default function Header() {
   const [mobile, setMobile] = useState(false);
   const [treatmentsOpen, setTreatmentsOpen] = useState(false);
   const [surgeryOpen, setSurgeryOpen] = useState(false);
+  const [mobileTreatmentsOpen, setMobileTreatmentsOpen] = useState(false);
   const [mobileSurgeryOpen, setMobileSurgeryOpen] = useState(false);
   const { pathname } = useLocation();
   const { open } = useAppointment();
@@ -129,61 +130,70 @@ export default function Header() {
               </button>
             </div>
             <nav className="mt-10 flex flex-col gap-2">
-              {NAV.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.to === "/"}
-                  onClick={() => setMobile(false)}
-                  className={({ isActive }) => cn(
-                    "rounded-xl px-4 py-3 text-lg font-bold text-white transition hover:bg-brand-500",
-                    isActive || (item.to === "/obesity-treatment-options" && pathname.startsWith("/obesity-treatment-options"))
-                      ? "border-b-2 border-brand-400 text-brand-300"
-                      : ""
+              {NAV.map((item) => item.to === "/obesity-treatment-options" ? (
+                <div key={item.to} className="border-b border-white/10 pb-2">
+                  <button
+                    onClick={() => setMobileTreatmentsOpen((open) => !open)}
+                    className={cn(
+                      "flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-lg font-bold text-white transition hover:bg-brand-500",
+                      pathname.startsWith("/obesity-treatment-options") && "text-brand-300"
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown size={20} className={cn("transition", mobileTreatmentsOpen && "rotate-180")} />
+                  </button>
+                  {mobileTreatmentsOpen && (
+                    <div className="mt-1 rounded-2xl bg-white/5 p-2">
+                      {TREATMENT_MENU.slice(0, 3).map(([label, to]) => (
+                        <NavLink
+                          key={to}
+                          to={to}
+                          onClick={() => setMobile(false)}
+                          className={({ isActive }) => cn(
+                            "block rounded-xl px-4 py-2.5 text-sm font-semibold text-white/80 transition hover:bg-brand-500 hover:text-white",
+                            isActive && "bg-brand-500 text-white"
+                          )}
+                        >
+                          {label}
+                        </NavLink>
+                      ))}
+                      <button
+                        onClick={() => setMobileSurgeryOpen((open) => !open)}
+                        className="flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-left text-sm font-bold text-brand-300 transition hover:bg-brand-500 hover:text-white"
+                      >
+                        Weight Loss Surgery
+                        <ChevronDown size={16} className={cn("transition", mobileSurgeryOpen && "rotate-180")} />
+                      </button>
+                      {mobileSurgeryOpen && TREATMENT_MENU.slice(3).map(([label, to]) => (
+                        <NavLink
+                          key={to}
+                          to={to}
+                          onClick={() => setMobile(false)}
+                          className={({ isActive }) => cn(
+                            "block rounded-xl px-7 py-2.5 text-sm font-semibold text-white/70 transition hover:bg-brand-500 hover:text-white",
+                            isActive && "text-brand-300"
+                          )}
+                        >
+                          {label}
+                        </NavLink>
+                      ))}
+                    </div>
                   )}
-                >
-                  {item.label}
-                </NavLink>
+                </div>
+              ) : (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.to === "/"}
+                    onClick={() => setMobile(false)}
+                    className={({ isActive }) => cn(
+                      "rounded-xl px-4 py-3 text-lg font-bold text-white transition hover:bg-brand-500",
+                      isActive ? "border-b-2 border-brand-400 text-brand-300" : ""
+                    )}
+                  >
+                    {item.label}
+                  </NavLink>
               ))}
-              <div className="mt-2 border-t border-white/10 pt-2">
-                {[
-                  ["Diet and Lifestyle", "/obesity-treatment-options/diet-and-lifestyle"],
-                  ["Weight-Loss Medications", "/obesity-treatment-options/weight-loss-medications"],
-                  ["Intragastric Balloon", "/treatments/intragastric-balloon"],
-                ].map(([label, to]) => (
-                  <NavLink
-                    key={to}
-                    to={to}
-                    onClick={() => setMobile(false)}
-                    className={({ isActive }) => cn(
-                      "block rounded-xl px-4 py-2.5 text-sm font-semibold text-white/75 transition hover:bg-brand-500 hover:text-white",
-                      isActive ? "border-b-2 border-brand-400 text-brand-300" : ""
-                    )}
-                  >
-                    {label}
-                  </NavLink>
-                ))}
-                <button
-                  onClick={() => setMobileSurgeryOpen((open) => !open)}
-                  className="flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-left text-sm font-bold text-brand-300 transition hover:bg-brand-500 hover:text-white"
-                >
-                  Weight Loss Surgery
-                  <ChevronDown size={16} className={cn("transition", mobileSurgeryOpen && "rotate-180")} />
-                </button>
-                {mobileSurgeryOpen && TREATMENT_MENU.slice(3).map(([label, to]) => (
-                  <NavLink
-                    key={to}
-                    to={to}
-                    onClick={() => setMobile(false)}
-                    className={({ isActive }) => cn(
-                      "block rounded-xl px-8 py-2.5 text-sm font-semibold text-white/75 transition hover:bg-brand-500 hover:text-white",
-                      isActive ? "border-b-2 border-brand-400 text-brand-300" : ""
-                    )}
-                  >
-                    {label}
-                  </NavLink>
-                ))}
-              </div>
             </nav>
             <button onClick={() => { setMobile(false); open(); }} className="mt-8 rounded-full bg-brand-500 py-4 font-bold text-white">
               Book Appointment

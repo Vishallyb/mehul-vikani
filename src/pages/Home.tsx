@@ -11,9 +11,11 @@ import { useAppointment, AppointmentForm } from "../components/AppointmentContex
 import "../styles/home.css";
 
 const SLIDES = [
-  { img: IMG.surgeryTeam, eyebrow: "Advanced Bariatric Surgery", title: <>Lose the weight. <br /><span className="text-brand-400">Gain your life.</span></>, desc: "Safe, keyhole weight-loss & metabolic surgery by Dr. Mehul Vikani — trusted by 5,000+ patients for life-changing results." },
-  { img: IMG.celebrate, eyebrow: "Metabolic & Diabetes Surgery", title: <>Freedom from <br /><span className="text-brand-400">Type-2 Diabetes.</span></>, desc: "Evidence-based metabolic procedures that help up to 80% of patients reduce or stop insulin and diabetes medicines." },
-  { img: IMG.healthyWall, eyebrow: "Holistic Lifelong Care", title: <>A healthier you, <br /><span className="text-brand-400">every step.</span></>, desc: "From your first consult to lifelong follow-up — nutrition, fitness and emotional support under one roof." },
+  { img: IMG.hospital, eyebrow: "Advanced Bariatric Surgery", title: <>Lose the weight. <br /><span className="text-brand-400">Gain your life.</span></>, desc: "Safe, keyhole weight-loss & metabolic surgery by Dr. Mehul Vikani — trusted by 5,000+ patients for life-changing results." },
+  { img: IMG.hospital1, eyebrow: "Metabolic & Diabetes Surgery", title: <>Freedom from <br /><span className="text-brand-400">Type-2 Diabetes.</span></>, desc: "Evidence-based metabolic procedures that help up to 80% of patients reduce or stop insulin and diabetes medicines." },
+  { img: IMG.hospital2, eyebrow: "Holistic Lifelong Care", title: <>A healthier you, <br /><span className="text-brand-400">every step.</span></>, desc: "From your first consult to lifelong follow-up — nutrition, fitness and emotional support under one roof." },
+  { img: IMG.hospital3, eyebrow: "Expert Surgical Care", title: <>Care that puts <br /><span className="text-brand-400">you first.</span></>, desc: "Personalised bariatric care, advanced surgical expertise and lifelong support from consultation to recovery." },
+  { img: IMG.hospital4, eyebrow: "Complete Weight-Loss Care", title: <>Your journey to <br /><span className="text-brand-400">better health.</span></>, desc: "Thoughtful treatment planning and dedicated support to help you achieve lasting health outcomes." },
 ];
 
 const HOME_TREATMENTS = [
@@ -34,7 +36,7 @@ function Hero() {
   }, [i]);
   const s = SLIDES[i];
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-ink pt-28">
+    <section className="relative flex h-[550px] items-center overflow-hidden bg-ink pt-20">
       <AnimatePresence mode="sync">
         <motion.img
           key={i}
@@ -64,7 +66,7 @@ function Hero() {
         ))}
       </div>
 
-      <div className="hero-content-readable relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-12">
+      <div className="hero-content-readable relative z-10 mx-auto grid w-full max-w-7xl items-center gap-8 px-5 py-8 sm:px-8 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-7">
           <AnimatePresence mode="wait">
             <motion.div key={i} initial="h" animate="s" exit="x" variants={{ s: { transition: { staggerChildren: 0.12 } } }}>
@@ -79,12 +81,12 @@ function Hero() {
               ))}
             </motion.div>
           </AnimatePresence>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6 }} className="mt-9 flex flex-wrap gap-4">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6 }} className="mt-6 flex flex-wrap gap-4">
             <Button onClick={() => open()}>Book Consultation</Button>
             <Button to="/obesity-treatment-options" variant="light">Explore Treatments</Button>
           </motion.div>
 
-          <div className="mt-12 flex items-center gap-6">
+          <div className="mt-6 flex items-center gap-6">
             <div className="flex -space-x-3">
               {[IMG.jeans, IMG.consult2, IMG.healthyWall2, IMG.consult5].map((src, k) => (
                 <img key={k} src={src} alt="" className="h-11 w-11 rounded-full border-2 border-ink object-cover" />
@@ -103,7 +105,7 @@ function Hero() {
               <div className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-500"><Activity /></div>
               <div>
                 <div className="text-xs uppercase tracking-widest text-white/60">Average Result</div>
-                <div className="font-display text-2xl font-extrabold">-35 kg <span className="text-sm font-semibold text-brand-300">in 12 months</span></div>
+                <div className="font-display text-2xl font-extrabold">-70 to 80% EBWL <span className="text-sm font-semibold text-brand-300">in 12 months</span></div>
               </div>
             </div>
             <div className="mt-6 space-y-4">
@@ -117,7 +119,7 @@ function Hero() {
               ))}
             </div>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2 }} className="animate-float absolute -bottom-20 left-4 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-2xl">
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2 }} className="animate-float absolute -bottom-20 left-4 flex items-center gap-3 rounded-2xl bg-brand-50 p-4 text-ink shadow-2xl">
             <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600"><ShieldCheck /></div>
             <div><div className="text-sm font-extrabold">NABH Accredited</div><div className="text-xs text-steel">Partner Hospitals</div></div>
           </motion.div>
@@ -354,13 +356,24 @@ function BMIQuick() {
   const [h, setH] = useState(165);
   const [w, setW] = useState(95);
   const bmi = w / (h / 100) ** 2;
-  const cat = bmi < 18.5 ? ["Underweight", "#7bc59a"] : bmi < 23 ? ["Normal", "#2b8c57"] : bmi < 27.5 ? ["Overweight", "#237447"] : bmi < 32.5 ? ["Obese Class I", "#1d5d3a"] : bmi < 37.5 ? ["Obese Class II", "#174a2f"] : ["Obese Class III", "#0f3320"];
+  const displayedBmi = Number(bmi.toFixed(1));
+  const cat = displayedBmi < 18.5
+    ? ["Underweight", "#7bc59a"]
+    : displayedBmi < 25
+      ? ["Normal Weight", "#2b8c57"]
+      : displayedBmi < 30
+        ? ["Overweight", "#237447"]
+        : displayedBmi < 35
+          ? ["Obese class 1", "#f0df00"]
+          : displayedBmi < 40
+            ? ["Obese class 2", "#ffb900"]
+            : ["Obese class 3", "#e94b2c"];
   const pct = Math.min(100, Math.max(0, ((bmi - 15) / 30) * 100));
   return (
     <section className="py-24 sm:py-32">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-2">
         <div>
-          <SectionHeading eyebrow="Quick BMI Check" title={<>Are you a candidate for <span className="text-gradient">weight-loss surgery?</span></>} desc="Move the sliders to instantly calculate your Body Mass Index using Asian-Indian guidelines." />
+          <SectionHeading eyebrow="Quick BMI Check" title={<>Are you a candidate for <span className="text-gradient">weight-loss surgery?</span></>} desc="Move the sliders to instantly calculate your Body Mass Index using standard BMI categories." />
           <Reveal delay={0.2} className="mt-8"><Button to="/obesity-treatment-options" variant="dark">Explore Treatment Options</Button></Reveal>
         </div>
         <Reveal className="rounded-[2rem] border border-ink/5 bg-white p-8 shadow-[0_30px_80px_-30px_rgba(17,75,44,0.2)] sm:p-10">
@@ -373,7 +386,7 @@ function BMIQuick() {
           <div className="flex items-center justify-between rounded-2xl bg-mist p-6">
             <div>
               <div className="text-xs font-bold uppercase tracking-widest text-steel">Your BMI</div>
-              <div className="font-display text-5xl font-black">{bmi.toFixed(1)}</div>
+              <div className="font-display text-5xl font-black">{displayedBmi.toFixed(1)}</div>
             </div>
             <span className="rounded-full px-4 py-2 text-sm font-bold text-white" style={{ background: cat[1] }}>{cat[0]}</span>
           </div>
