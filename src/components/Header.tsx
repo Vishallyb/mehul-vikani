@@ -4,6 +4,7 @@ import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import Logo from "./Logo";
 import { useAppointment } from "./AppointmentContext";
 import { cn } from "../utils/cn";
+import { treatmentLabel, treatmentPath, useTreatmentOptions } from "./treatmentLinks";
 import "../styles/header.css";
 
 const NAV = [
@@ -17,14 +18,6 @@ const NAV = [
   { label: "Contact", to: "/contact" },
 ];
 
-const TREATMENT_MENU = [
-  ["Diet and Lifestyle", "/obesity-treatment-options/diet-and-lifestyle"],
-  ["Weight-Loss Medications & Injections", "/obesity-treatment-options/weight-loss-medications"],
-  ["Intragastric Balloon", "/treatments/intragastric-balloon"],
-  ["Sleeve Gastrectomy", "/treatments/sleeve-gastrectomy"],
-  ["Mini Gastric Bypass", "/treatments/mini-gastric-bypass"],
-  ["Roux-en-Y Gastric Bypass", "/treatments/gastric-bypass"],
-] as const;
 
 export default function Header() {
   const [mobile, setMobile] = useState(false);
@@ -34,6 +27,11 @@ export default function Header() {
   const [mobileSurgeryOpen, setMobileSurgeryOpen] = useState(false);
   const { pathname } = useLocation();
   const { open } = useAppointment();
+  // "Obesity Treatment" menu: non-surgical options, then a "Weight Loss Surgery" submenu (admin panel → Treatments)
+  const options = useTreatmentOptions();
+  const toLink = (t: Parameters<typeof treatmentPath>[0]) => [treatmentLabel(t), treatmentPath(t)] as const;
+  const nonSurgeryMenu = options.nonSurgery.map(toLink);
+  const surgeryMenu = options.surgical.map(toLink);
 
   return (
     <>
@@ -63,7 +61,7 @@ export default function Header() {
                 {treatmentsOpen && (
                   <div className="absolute left-0 top-full pt-3">
                     <div className="w-72 rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-ink/10">
-                      {TREATMENT_MENU.slice(0, 3).map(([label, to]) => (
+                      {nonSurgeryMenu.map(([label, to]) => (
                         <Link key={to} to={to} className="block rounded-xl px-4 py-3 text-sm font-semibold text-ink transition hover:bg-brand-500 hover:text-white">
                           {label}
                         </Link>
@@ -79,7 +77,7 @@ export default function Header() {
                         </button>
                         {surgeryOpen && (
                           <div className="absolute left-full top-0 w-64 rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-ink/10">
-                            {TREATMENT_MENU.slice(3).map(([label, to]) => (
+                            {surgeryMenu.map(([label, to]) => (
                               <Link key={to} to={to} className="block rounded-xl px-4 py-3 text-sm font-semibold text-ink transition hover:bg-brand-500 hover:text-white">
                                 {label}
                               </Link>
@@ -144,7 +142,7 @@ export default function Header() {
                   </button>
                   {mobileTreatmentsOpen && (
                     <div className="mt-1 rounded-2xl bg-white/5 p-2">
-                      {TREATMENT_MENU.slice(0, 3).map(([label, to]) => (
+                      {nonSurgeryMenu.map(([label, to]) => (
                         <NavLink
                           key={to}
                           to={to}
@@ -164,7 +162,7 @@ export default function Header() {
                         Weight Loss Surgery
                         <ChevronDown size={16} className={cn("transition", mobileSurgeryOpen && "rotate-180")} />
                       </button>
-                      {mobileSurgeryOpen && TREATMENT_MENU.slice(3).map(([label, to]) => (
+                      {mobileSurgeryOpen && surgeryMenu.map(([label, to]) => (
                         <NavLink
                           key={to}
                           to={to}

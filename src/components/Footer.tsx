@@ -3,9 +3,10 @@ import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react";
 import { Facebook, Instagram, Youtube, Linkedin } from "./Social";
 import Logo from "./Logo";
 import { useSiteData } from "./SiteDataContext";
+import { treatmentLabel, treatmentPath } from "./treatmentLinks";
 
 export default function Footer() {
-  const { CONTACT, TREATMENTS } = useSiteData();
+  const { CONTACT, TREATMENTS, CARE } = useSiteData();
   return (
     <footer className="relative overflow-hidden bg-ink text-white">
       <div className="pixel-grid absolute inset-0 opacity-20" />
@@ -35,12 +36,8 @@ export default function Footer() {
           <div className="lg:col-span-3">
             <h4 className="text-sm font-bold uppercase tracking-widest text-white">Obesity Treatments</h4>
             <ul className="mt-6 space-y-3 text-sm text-white/70">
-              {[
-                { slug: "obesity-treatment-options/diet-and-lifestyle", title: "Diet and Lifestyle" },
-                { slug: "obesity-treatment-options/weight-loss-medications", title: "Weight-Loss Medications" },
-                ...TREATMENTS.slice(0, 4),
-              ].map((t) => (
-                <li key={t.slug}><Link to={t.slug.startsWith("obesity-") ? `/${t.slug}` : `/treatments/${t.slug}`} className="group flex items-center gap-2 hover:text-white"><ArrowRight size={12} className="text-brand-400 transition group-hover:translate-x-1" />{t.title}</Link></li>
+              {[...CARE, ...TREATMENTS.slice(0, 4)].map((t) => (
+                <li key={t.slug}><Link to={treatmentPath(t)} className="group flex items-center gap-2 hover:text-white"><ArrowRight size={12} className="text-brand-400 transition group-hover:translate-x-1" />{treatmentLabel(t)}</Link></li>
               ))}
             </ul>
           </div>

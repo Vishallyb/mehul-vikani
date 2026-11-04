@@ -57,11 +57,82 @@ export type Treatment = {
   candidates: string[];
   steps: { t: string; d: string }[];
   docxContent?: string[];
+  /** "care" pages (diet, medication) live under /obesity-treatment-options; the rest under /treatments */
+  pageType?: "procedure" | "care";
+  menuLabel?: string;
+  heroTitle?: string;
+  heroHighlight?: string;
+  heroDesc?: string;
+  heading?: string;
+  listHeading?: string;
+  noteTitle?: string;
+  noteText?: string;
 };
+
+// Obesity care pages (diet, medication): overview = intro, benefits = list, docxContent = paragraphs after it
+export const CARE: Treatment[] = [
+  {
+    slug: "diet-and-lifestyle",
+    pageType: "care",
+    title: "Diet and Lifestyle",
+    heading: "Diet and Lifestyle Management",
+    short: "Nutrition, activity, sleep and sustainable lifestyle support.",
+    tag: "Non-Surgical",
+    category: "Non-Surgical",
+    image: IMG.salad,
+    heroTitle: "Build healthier habits for",
+    heroHighlight: "lasting change.",
+    heroDesc: "Personalised diet and lifestyle support for sustainable weight management.",
+    noteTitle: "Lifelong support",
+    noteText: "Your plan is reviewed and adapted as your health and lifestyle needs change.",
+    overview: "Obesity is a chronic health condition influenced by multiple factors, including nutrition, physical activity, sleep, genetics and metabolism. Diet and lifestyle management are important components of its treatment.",
+    listHeading: "An individualised plan may include:",
+    benefits: ["Balanced nutrition with adequate protein and appropriate portion sizes.", "Regular physical activity, including aerobic and strength-based exercises.", "Healthy sleep habits and stress management.", "Behavioural changes to support sustainable eating patterns."],
+    docxContent: [
+      "The plan should be tailored to each individual's health, lifestyle and nutritional requirements. Some individuals may require additional treatment, such as medication, endoscopic procedures or bariatric surgery.",
+      "Long-term follow-up helps monitor progress and modify the treatment plan when required.",
+    ],
+    duration: "",
+    stay: "",
+    loss: "",
+    candidates: [],
+    steps: [],
+  },
+  {
+    slug: "weight-loss-medications",
+    pageType: "care",
+    title: "Weight-Loss Medications & Injections",
+    menuLabel: "Weight-Loss Medications & Injections",
+    heading: "Weight-Loss Medications and Injections",
+    short: "Supervised medication and injection treatment options.",
+    tag: "Medical Care",
+    category: "Non-Surgical",
+    image: IMG.healthyWall2,
+    heroTitle: "Medical support for",
+    heroHighlight: "sustainable weight management.",
+    heroDesc: "Medical treatment options to support clinically supervised weight management.",
+    noteTitle: "Medical supervision",
+    noteText: "Treatment decisions require individual assessment, monitoring and follow-up.",
+    overview: "Prescription medications may be considered as part of obesity management when lifestyle measures alone are insufficient or when additional medical treatment is clinically indicated.",
+    benefits: [],
+    docxContent: [
+      "Some medicines act on hormonal pathways involved in appetite regulation, fullness and blood glucose control. Examples include semaglutide, which acts on the GLP-1 pathway, and tirzepatide, which acts on both GIP and GLP-1 pathways.",
+      "Treatment requires an individual medical assessment and regular monitoring. Common side effects may include nausea, vomiting, diarrhoea, constipation and abdominal discomfort. Certain medicines also have specific contraindications and precautions.",
+      "Medication should only be used under medical supervision, alongside appropriate nutrition, physical activity and follow-up. Weight regain may occur after treatment is stopped.",
+    ],
+    duration: "",
+    stay: "",
+    loss: "",
+    candidates: [],
+    steps: [],
+  },
+];
 
 export const TREATMENTS: Treatment[] = [
   {
     slug: "sleeve-gastrectomy",
+    heroTitle: "A proven surgical path to",
+    heroHighlight: "lasting change.",
     title: "Sleeve Gastrectomy",
     short: "A bariatric and metabolic surgical procedure that creates a narrow, sleeve-shaped stomach.",
     tag: "Most Popular",
@@ -96,6 +167,8 @@ export const TREATMENTS: Treatment[] = [
   },
   {
     slug: "gastric-bypass",
+    heroTitle: "A proven approach to weight and",
+    heroHighlight: "metabolic health.",
     title: "Roux-en-Y Gastric Bypass",
     short: "A bariatric and metabolic procedure that creates a small stomach pouch and a Y-shaped intestinal arrangement.",
     tag: "Gold Standard",
@@ -122,6 +195,9 @@ export const TREATMENTS: Treatment[] = [
   },
   {
     slug: "mini-gastric-bypass",
+    heroTitle: "Powerful metabolic treatment with",
+    heroHighlight: "one connection.",
+    menuLabel: "Mini Gastric Bypass",
     title: "Mini Gastric Bypass (One Anastomosis Gastric Bypass)",
     short: "A bariatric and metabolic procedure using a long, narrow stomach pouch and a single surgical connection.",
     tag: "Advanced",
@@ -148,6 +224,8 @@ export const TREATMENTS: Treatment[] = [
   },
   {
     slug: "intragastric-balloon",
+    heroTitle: "A temporary step toward",
+    heroHighlight: "meaningful progress.",
     title: "Intragastric Balloon",
     short: "A temporary, non-surgical treatment option for selected individuals with obesity.",
     tag: "Non-Surgical",
