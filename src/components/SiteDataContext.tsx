@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { BLOGS, CONTACT, FAQS, STATS, TESTIMONIALS, TREATMENTS, type Treatment } from "../data/site";
+import { BLOGS, CARE, CONTACT, FAQS, STATS, TESTIMONIALS, TREATMENTS, type Treatment } from "../data/site";
 import { PAGES, type PagesContent } from "../data/pages";
 import { apiFetch, assetUrl, resolveHtmlAssets } from "../lib/api";
 
@@ -9,7 +9,10 @@ export type BlogPost = (typeof BLOGS)[number] & { content?: string };
 type SiteData = {
   CONTACT: typeof CONTACT;
   STATS: typeof STATS;
+  /** Procedures (/treatments/:slug) */
   TREATMENTS: Treatment[];
+  /** Obesity care pages (/obesity-treatment-options/:slug): diet, medication */
+  CARE: Treatment[];
   TESTIMONIALS: typeof TESTIMONIALS;
   BLOGS: BlogPost[];
   FAQS: typeof FAQS;
@@ -20,7 +23,7 @@ type SiteData = {
 };
 
 // Bundled content renders instantly; anything managed in the admin panel replaces it once loaded.
-const FALLBACK: SiteData = { CONTACT, STATS, TREATMENTS, TESTIMONIALS, BLOGS, FAQS, PAGES, loaded: false };
+const FALLBACK: SiteData = { CONTACT, STATS, TREATMENTS, CARE, TESTIMONIALS, BLOGS, FAQS, PAGES, loaded: false };
 
 const SiteDataCtx = createContext<SiteData>(FALLBACK);
 export const useSiteData = () => useContext(SiteDataCtx);
@@ -76,10 +79,13 @@ export function SiteDataProvider({ children }: { children: ReactNode }) {
         ...pageKeys.map((key) => load<{ data: Record<string, object> }>(`/pages/${key}`)),
       ]);
 
+      const allTreatments = (treatments?.data || []).map((t) => ({ ...t, image: assetUrl(t.image) }));
+
       setData((prev) => ({
         CONTACT: settings?.data.contact?.phone ? { ...prev.CONTACT, ...settings.data.contact } : prev.CONTACT,
         STATS: settings?.data.stats?.length ? settings.data.stats : prev.STATS,
-        TREATMENTS: treatments?.data.length ? treatments.data.map((t) => ({ ...t, image: assetUrl(t.image) })) : prev.TREATMENTS,
+        TREATMENTS: treatments?.data.length ? allTreatments.filter((t) => t.pageType !== "care") : prev.TREATMENTS,
+        CARE: treatments?.data.length ? allTreatments.filter((t) => t.pageType === "care") : prev.CARE,
         TESTIMONIALS: testimonials?.data.length ? testimonials.data.map((t) => ({ ...t, img: assetUrl(t.img) })) : prev.TESTIMONIALS,
         BLOGS: blogs?.data.length
           ? blogs.data.map((b) => ({ ...b, date: formatDate(b.date), img: assetUrl(b.img), content: b.content ? resolveHtmlAssets(b.content) : "" }))
