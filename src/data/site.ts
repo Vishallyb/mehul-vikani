@@ -253,7 +253,7 @@ export const TREATMENTS: Treatment[] = [
 ];
 
 export const STATS = [
-  { value: 5000, suffix: "+", label: "Successful Surgeries" },
+  { value: 1000, suffix: "+", label: "Successful Surgeries" },
   { value: 15, suffix: "+", label: "Years of Experience" },
   { value: 98, suffix: "%", label: "Patient Satisfaction" },
   { value: 80, suffix: "%", label: "Diabetes Remission" },
