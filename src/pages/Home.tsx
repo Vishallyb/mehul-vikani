@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -411,45 +411,70 @@ function Testimonials() {
   const { TESTIMONIALS } = useSiteData();
   const head = useHome().testimonials;
   const [i, setI] = useState(0);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const [overflowing, setOverflowing] = useState<Record<string, boolean>>({});
+  const reviewMeasureRefs = useRef<Record<string, HTMLParagraphElement | null>>({});
   useEffect(() => {
-    const t = setInterval(() => setI((p) => (p + 1) % TESTIMONIALS.length), 6000);
+    if (!TESTIMONIALS.length || expanded) return;
+    const t = setInterval(() => {
+      setI((p) => (p + 1) % TESTIMONIALS.length);
+    }, 6000);
     return () => clearInterval(t);
-  }, [i, TESTIMONIALS.length]);
+  }, [TESTIMONIALS.length, expanded]);
+  const visibleTestimonials = Array.from({ length: Math.min(3, TESTIMONIALS.length) }, (_, k) => TESTIMONIALS[(i + k) % TESTIMONIALS.length]);
+  useLayoutEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const nextOverflowing: Record<string, boolean> = {};
+      visibleTestimonials.forEach((testimonial) => {
+        const element = reviewMeasureRefs.current[testimonial.name];
+        if (element) nextOverflowing[testimonial.name] = element.scrollHeight > 130;
+      });
+      setOverflowing(nextOverflowing);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [visibleTestimonials.map((testimonial) => testimonial.name).join("|")]);
   if (!TESTIMONIALS.length) return null;
-  const cur = i % TESTIMONIALS.length;
-  const t = TESTIMONIALS[cur];
   return (
     <section className="relative overflow-hidden bg-brand-50 py-24 sm:py-32">
       <div className="pixel-grid absolute inset-0 opacity-50" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading center eyebrow={head.eyebrow} title={head.title} />
-        <div className="mt-16 grid items-center gap-10 lg:grid-cols-12">
-          <div className="relative lg:col-span-5">
-            <AnimatePresence mode="wait">
-              <motion.img key={cur} src={t.img} alt={t.name} initial={{ opacity: 0, scale: 0.95, rotate: -2 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.6 }} className="h-[420px] w-full rounded-[2rem] object-cover shadow-2xl" />
-            </AnimatePresence>
-            <div className="absolute -bottom-6 -right-2 rounded-2xl bg-brand-500 px-6 py-4 text-white shadow-xl sm:right-6">
-              <div className="text-xs uppercase tracking-widest text-white/75">Weight Lost</div>
-              <div className="font-display text-3xl font-black">{t.lost}</div>
-            </div>
-          </div>
-          <div className="lg:col-span-7 lg:pl-10">
-            <Quote size={56} className="text-brand-500" fill="currentColor" />
-            <AnimatePresence mode="wait">
-              <motion.div key={cur} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }}>
-                <p className="mt-6 font-display text-xl font-semibold leading-relaxed text-ink sm:text-2xl">"{t.text}"</p>
-                <div className="mt-8 flex items-center gap-1 text-brand-500">{Array.from({ length: 5 }).map((_, k) => <Star key={k} size={16} fill="currentColor" />)}</div>
-                <div className="mt-3 text-lg font-extrabold">{t.name}, {t.age}</div>
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
+          {visibleTestimonials.map((t, k) => {
+            const isExpanded = expanded === t.name;
+            const isLong = overflowing[t.name] === true;
+            return (
+              <article key={t.name} className={`${k > 0 ? "hidden md:block" : ""} relative h-[370px] rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_-30px_rgba(17,75,44,0.3)]`}>
+                <Quote size={42} className="text-brand-500" fill="currentColor" />
+                <div className="mt-5 h-[145px]">
+                  <p ref={(element) => { reviewMeasureRefs.current[t.name] = element; }} aria-hidden="true" className="pointer-events-none absolute w-[calc(100%-3.5rem)] max-h-[130px] overflow-hidden opacity-0">“{t.text}”</p>
+                  <p className={`text-base leading-relaxed text-steel ${isLong ? "line-clamp-5" : ""}`}>“{t.text}”</p>
+                  {isExpanded && (
+                    <div className="absolute inset-x-5 top-20 z-10 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-brand-100">
+                      <p className="max-h-52 overflow-y-auto text-base leading-relaxed text-steel">“{t.text}”</p>
+                      <button type="button" onClick={() => setExpanded(null)} className="mt-2 text-sm font-bold text-brand-600 hover:text-brand-800">
+                        Hide
+                      </button>
+                    </div>
+                  )}
+                  {isLong && !isExpanded && (
+                    <button type="button" onClick={() => setExpanded(t.name)} className="mt-2 block text-sm font-bold text-brand-600 hover:text-brand-800">
+                      Read more
+                    </button>
+                  )}
+                </div>
+                <div className="mt-5 flex items-center gap-1 text-brand-500">{Array.from({ length: 5 }).map((_, k) => <Star key={k} size={15} fill="currentColor" />)}</div>
+                <div className="mt-4 text-lg font-extrabold">{t.name}, {t.age}</div>
                 <div className="text-sm font-semibold text-brand-600">{t.proc}</div>
-              </motion.div>
-            </AnimatePresence>
-            <div className="mt-10 flex items-center gap-4">
-              <button onClick={() => setI((cur - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)} className="grid h-12 w-12 place-items-center rounded-full border-2 border-ink/10 transition hover:border-brand-500 hover:bg-brand-500 hover:text-white"><ArrowLeft size={18} /></button>
-              <button onClick={() => setI((cur + 1) % TESTIMONIALS.length)} className="grid h-12 w-12 place-items-center rounded-full bg-ink text-white transition hover:bg-brand-500"><ArrowRight size={18} /></button>
-              <div className="ml-4 flex gap-2">
-                {TESTIMONIALS.map((_, k) => <button key={k} onClick={() => setI(k)} className={`h-2 rounded-full transition-all ${k === cur ? "w-8 bg-brand-500" : "w-2 bg-ink/20"}`} />)}
-              </div>
-            </div>
+              </article>
+            );
+          })}
+        </div>
+        <div className="mt-10 flex items-center justify-center gap-4">
+          <button onClick={() => { setExpanded(null); setI((i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length); }} className="grid h-12 w-12 place-items-center rounded-full border-2 border-ink/10 transition hover:border-brand-500 hover:bg-brand-500 hover:text-white" aria-label="Previous reviews"><ArrowLeft size={18} /></button>
+          <button onClick={() => { setExpanded(null); setI((i + 1) % TESTIMONIALS.length); }} className="grid h-12 w-12 place-items-center rounded-full bg-ink text-white transition hover:bg-brand-500" aria-label="Next reviews"><ArrowRight size={18} /></button>
+          <div className="ml-4 flex gap-2">
+            {TESTIMONIALS.map((_, k) => <button key={k} onClick={() => { setExpanded(null); setI(k); }} className={`h-2 rounded-full transition-all ${k === i ? "w-8 bg-brand-500" : "w-2 bg-ink/20"}`} aria-label={`Show reviews starting at ${k + 1}`} />)}
           </div>
         </div>
       </div>

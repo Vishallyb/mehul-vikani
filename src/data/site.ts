@@ -260,7 +260,7 @@ export const STATS = [
 ];
 
 export const TESTIMONIALS = [
-  { name: "Priya Shah", age: 34, lost: "42 kg", proc: "Sleeve Gastrectomy", img: IMG.jeans, text: "I had tried every diet for 10 years. Dr. Vikani and his team gave me my life back. I lost 42 kg in 11 months and my PCOS is under control. The care before and after surgery was outstanding." },
+  { name: "Priya Shah", age: 34, lost: "42 kg", proc: "Sleeve Gastrectomy", img: IMG.jeans, text: "I had tried every diet for 10 years, visited several clinics and struggled to find a plan I could sustain. Dr. Vikani and his team gave me my life back. I lost 42 kg in 11 months, my PCOS is under control, and I finally feel confident and energetic again. The care before and after surgery was outstanding, thoughtful and genuinely personalised." },
   { name: "Rakesh Patel", age: 48, lost: "38 kg", proc: "Gastric Bypass", img: IMG.consult2, text: "I was on insulin for 8 years. Three months after surgery I stopped all diabetes medicines. Dr. Vikani explained everything patiently — I felt safe at every step." },
   { name: "Neha Desai", age: 29, lost: "31 kg", proc: "Mini Gastric Bypass", img: IMG.healthyWall2, text: "The hospital stay was just two days, and I was walking the same evening. The dietician follow-ups kept me on track. Best decision of my life!" },
   { name: "Imran Sheikh", age: 41, lost: "55 kg", proc: "Sleeve Gastrectomy", img: IMG.consult5, text: "My sleep apnea and knee pain are gone. I can play with my kids again. Huge thanks to Dr. Mehul Vikani — truly a world-class surgeon with a kind heart." },
