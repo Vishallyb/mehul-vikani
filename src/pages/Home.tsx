@@ -464,7 +464,7 @@ function Testimonials() {
                   )}
                 </div>
                 <div className="mt-5 flex items-center gap-1 text-brand-500">{Array.from({ length: 5 }).map((_, k) => <Star key={k} size={15} fill="currentColor" />)}</div>
-                <div className="mt-4 text-lg font-extrabold">{t.name}, {t.age}</div>
+                <div className="mt-4 text-lg font-extrabold">{t.name}</div>
                 <div className="text-sm font-semibold text-brand-600">{t.proc}</div>
               </article>
             );
