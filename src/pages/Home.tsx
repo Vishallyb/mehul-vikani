@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, ShieldCheck, Award, Star, Quote, Play, Activity, X } from "lucide-react";
+import { ArrowRight, ArrowLeft, Award, Star, Quote, Play, Activity, X } from "lucide-react";
 import { HOME } from "../data/pages";
 import { useSiteData } from "../components/SiteDataContext";
 import { siteIcon, youtubeEmbed } from "../components/siteIcons";
@@ -130,12 +130,6 @@ function Hero() {
               })}
             </div>
           </motion.div>
-          {hero.badgeTitle && (
-            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2 }} className="animate-float absolute -bottom-20 left-4 flex items-center gap-3 rounded-2xl bg-brand-50 p-4 text-ink shadow-2xl">
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600"><ShieldCheck /></div>
-              <div><div className="text-sm font-extrabold">{hero.badgeTitle}</div><div className="text-xs text-steel">{hero.badgeText}</div></div>
-            </motion.div>
-          )}
         </div>
       </div>
 
@@ -391,7 +385,7 @@ function BMIQuick() {
           <Reveal delay={0.2} className="mt-8"><Button to="/obesity-treatment-options" variant="dark">{b.button}</Button></Reveal>
         </div>
         <Reveal className="rounded-[2rem] border border-ink/5 bg-white p-8 shadow-[0_30px_80px_-30px_rgba(17,75,44,0.2)] sm:p-10">
-          {[["Height", h, setH, 130, 210, "cm"], ["Weight", w, setW, 40, 200, "kg"]].map(([l, v, set, min, max, u]) => (
+          {[["Height", h, setH, 130, 210, "cm"], ["Weight", w, setW, 40, 300, "kg"]].map(([l, v, set, min, max, u]) => (
             <div key={l as string} className="mb-8">
               <div className="mb-3 flex justify-between font-semibold"><span>{l as string}</span><span className="font-display text-xl font-extrabold text-brand-600">{v as number} <span className="text-sm text-steel">{u as string}</span></span></div>
               <input type="range" min={min as number} max={max as number} value={v as number} onChange={(e) => (set as (n: number) => void)(+e.target.value)} className="w-full accent-[#2b8c57]" />

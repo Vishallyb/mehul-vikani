@@ -33,8 +33,6 @@ export const HOME = {
       { label: "BP normalised", value: 72 },
       { label: "Sleep apnea resolved", value: 85 },
     ],
-    badgeTitle: "NABH Accredited",
-    badgeText: "Partner Hospitals",
   },
   marquee: {
     show: true,
