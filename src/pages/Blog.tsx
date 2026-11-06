@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Calendar, Clock, Share2 } from "lucide-react";
-import { BLOG_CATEGORIES, IMG } from "../data/site";
+import { IMG } from "../data/site";
 import { useSiteData, PageLoading } from "../components/SiteDataContext";
 import { PageHero, Reveal, Eyebrow } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
@@ -10,9 +10,7 @@ import "../styles/blog.css";
 
 export default function Blog() {
   const { BLOGS } = useSiteData();
-  const knownCategories = new Set<string>(BLOG_CATEGORIES);
-  const extraCategories = Array.from(new Set(BLOGS.map((b) => b.cat))).filter((category) => !knownCategories.has(category));
-  const cats = ["All", ...BLOG_CATEGORIES, ...extraCategories];
+  const cats = ["All", ...Array.from(new Set(BLOGS.map((b) => b.cat)))];
   const [cat, setCat] = useState("All");
   const [feat, ...rest] = BLOGS;
   const list = (cat === "All" ? rest : BLOGS.filter((b) => b.cat === cat));

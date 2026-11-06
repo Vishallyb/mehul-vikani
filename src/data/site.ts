@@ -272,20 +272,11 @@ export const TESTIMONIALS = [
   { name: "K**** S*****", age: 31, lost: "24 kg", proc: "Metabolic Surgery", img: IMG.healthyWall2, text: "Choosing Dr. Vikani was one of the best decisions I have made for my health. My sugar levels are much better, I feel active again, and the follow-up support has been excellent." },
 ];
 
-export const BLOG_CATEGORIES = [
-  "Local & Community",
-  "Myths & Trust-Building",
-  "Lifestyle & Outcomes",
-  "Procedure Deep-Dive",
-  "Patient FAQ",
-  "Awareness",
-] as const;
-
 export const BLOGS = [
   {
     slug: "is-bariatric-surgery-safe",
     title: "Is Bariatric Surgery Safe? Myths vs Facts",
-    cat: "Myths & Trust-Building",
+    cat: "Awareness",
     date: "12 Jan 2026",
     read: "6 min",
     img: IMG.or2,
@@ -301,7 +292,7 @@ export const BLOGS = [
   {
     slug: "diet-after-sleeve",
     title: "Your Diet Roadmap After Sleeve Gastrectomy",
-    cat: "Lifestyle & Outcomes",
+    cat: "Nutrition",
     date: "28 Dec 2025",
     read: "8 min",
     img: IMG.food1,
@@ -317,7 +308,7 @@ export const BLOGS = [
   {
     slug: "diabetes-surgery-explained",
     title: "Can Surgery Really Cure Type-2 Diabetes?",
-    cat: "Lifestyle & Outcomes",
+    cat: "Metabolic",
     date: "10 Dec 2025",
     read: "5 min",
     img: IMG.consult3,
@@ -347,7 +338,7 @@ export const BLOGS = [
   {
     slug: "exercise-after-surgery",
     title: "Getting Active Again: Exercise After Bariatric Surgery",
-    cat: "Lifestyle & Outcomes",
+    cat: "Lifestyle",
     date: "05 Nov 2025",
     read: "5 min",
     img: IMG.jeans2,
@@ -362,7 +353,7 @@ export const BLOGS = [
   {
     slug: "choosing-right-procedure",
     title: "Sleeve vs Bypass: Choosing the Right Procedure",
-    cat: "Procedure Deep-Dive",
+    cat: "Procedures",
     date: "18 Oct 2025",
     read: "7 min",
     img: IMG.or3,
