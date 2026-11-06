@@ -265,6 +265,11 @@ export const TESTIMONIALS = [
   { name: "Neha Desai", age: 29, lost: "31 kg", proc: "Mini Gastric Bypass", img: IMG.healthyWall2, text: "The hospital stay was just two days, and I was walking the same evening. The dietician follow-ups kept me on track. Best decision of my life!" },
   { name: "Imran Sheikh", age: 41, lost: "55 kg", proc: "Sleeve Gastrectomy", img: IMG.consult5, text: "My sleep apnea and knee pain are gone. I can play with my kids again. Huge thanks to Dr. Mehul Vikani — truly a world-class surgeon with a kind heart." },
   { name: "Kavita Joshi", age: 52, lost: "27 kg", proc: "Metabolic Surgery", img: IMG.salad, text: "My HbA1c went from 9.8 to 5.9. The team's guidance on food and exercise was so practical. I recommend Dr. Vikani to everyone struggling with weight and sugar." },
+  { name: "S**** P*****", age: 37, lost: "35 kg", proc: "Sleeve Gastrectomy", img: IMG.jeans2, text: "From my first consultation to every follow-up, the team made me feel supported and informed. Recovery was smoother than I expected, and I now have the energy to enjoy everyday life again." },
+  { name: "A**** M****", age: 44, lost: "29 kg", proc: "Gastric Bypass", img: IMG.consult3, text: "Dr. Vikani listened to all my concerns and explained the treatment clearly. The nursing staff and dietician were kind, responsive and always available when I needed guidance." },
+  { name: "D**** R****", age: 39, lost: "41 kg", proc: "Mini Gastric Bypass", img: IMG.healthyWall, text: "I can climb stairs without getting tired and my confidence has completely changed. The regular follow-ups helped me build healthy habits that I can maintain long term." },
+  { name: "N**** P*****", age: 46, lost: "33 kg", proc: "Sleeve Gastrectomy", img: IMG.food1, text: "The entire process was professional and reassuring. I received practical advice at every stage, and the team's care after surgery gave me confidence throughout my transformation." },
+  { name: "K**** S*****", age: 31, lost: "24 kg", proc: "Metabolic Surgery", img: IMG.healthyWall2, text: "Choosing Dr. Vikani was one of the best decisions I have made for my health. My sugar levels are much better, I feel active again, and the follow-up support has been excellent." },
 ];
 
 export const BLOGS = [

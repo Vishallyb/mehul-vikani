@@ -439,12 +439,12 @@ function Testimonials() {
       <div className="pixel-grid absolute inset-0 opacity-50" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading center eyebrow={head.eyebrow} title={head.title} />
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-16 grid min-w-0 gap-6 md:grid-cols-3">
           {visibleTestimonials.map((t, k) => {
             const isExpanded = expanded === t.name;
             const isLong = overflowing[t.name] === true;
             return (
-              <article key={t.name} className={`${k > 0 ? "hidden md:block" : ""} relative h-[370px] rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_-30px_rgba(17,75,44,0.3)]`}>
+              <article key={t.name} className={`${k > 0 ? "hidden md:block" : ""} relative min-w-0 h-[370px] rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_-30px_rgba(17,75,44,0.3)]`}>
                 <Quote size={42} className="text-brand-500" fill="currentColor" />
                 <div className="mt-5 h-[145px]">
                   <p ref={(element) => { reviewMeasureRefs.current[t.name] = element; }} aria-hidden="true" className="pointer-events-none absolute w-[calc(100%-3.5rem)] max-h-[130px] overflow-hidden opacity-0">“{t.text}”</p>
@@ -470,10 +470,10 @@ function Testimonials() {
             );
           })}
         </div>
-        <div className="mt-10 flex items-center justify-center gap-4">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <button onClick={() => { setExpanded(null); setI((i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length); }} className="grid h-12 w-12 place-items-center rounded-full border-2 border-ink/10 transition hover:border-brand-500 hover:bg-brand-500 hover:text-white" aria-label="Previous reviews"><ArrowLeft size={18} /></button>
           <button onClick={() => { setExpanded(null); setI((i + 1) % TESTIMONIALS.length); }} className="grid h-12 w-12 place-items-center rounded-full bg-ink text-white transition hover:bg-brand-500" aria-label="Next reviews"><ArrowRight size={18} /></button>
-          <div className="ml-4 flex gap-2">
+          <div className="ml-0 flex max-w-full flex-wrap justify-center gap-2 sm:ml-4">
             {TESTIMONIALS.map((_, k) => <button key={k} onClick={() => { setExpanded(null); setI(k); }} className={`h-2 rounded-full transition-all ${k === i ? "w-8 bg-brand-500" : "w-2 bg-ink/20"}`} aria-label={`Show reviews starting at ${k + 1}`} />)}
           </div>
         </div>
