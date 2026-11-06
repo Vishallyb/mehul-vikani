@@ -421,18 +421,22 @@ function Testimonials() {
     }, 6000);
     return () => clearInterval(t);
   }, [TESTIMONIALS.length, expanded]);
-  const visibleTestimonials = Array.from({ length: Math.min(3, TESTIMONIALS.length) }, (_, k) => TESTIMONIALS[(i + k) % TESTIMONIALS.length]);
+  const visibleTestimonials = Array.from({ length: Math.min(3, TESTIMONIALS.length) }, (_, k) => {
+    const index = (i + k) % TESTIMONIALS.length;
+    return { testimonial: TESTIMONIALS[index], index };
+  });
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(() => {
       const nextOverflowing: Record<string, boolean> = {};
-      visibleTestimonials.forEach((testimonial) => {
-        const element = reviewMeasureRefs.current[testimonial.name];
-        if (element) nextOverflowing[testimonial.name] = element.scrollHeight > 130;
+      visibleTestimonials.forEach(({ testimonial, index }) => {
+        const key = `${testimonial.name}-${index}`;
+        const element = reviewMeasureRefs.current[key];
+        if (element) nextOverflowing[key] = element.scrollHeight > 130;
       });
       setOverflowing(nextOverflowing);
     });
     return () => cancelAnimationFrame(frame);
-  }, [visibleTestimonials.map((testimonial) => testimonial.name).join("|")]);
+  }, [visibleTestimonials.map(({ testimonial, index }) => `${testimonial.name}-${index}`).join("|")]);
   if (!TESTIMONIALS.length) return null;
   return (
     <section className="relative overflow-hidden bg-brand-50 py-24 sm:py-32">
@@ -440,14 +444,15 @@ function Testimonials() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading center eyebrow={head.eyebrow} title={head.title} />
         <div className="mt-16 grid min-w-0 gap-6 md:grid-cols-3">
-          {visibleTestimonials.map((t, k) => {
-            const isExpanded = expanded === t.name;
-            const isLong = overflowing[t.name] === true;
+          {visibleTestimonials.map(({ testimonial: t, index }, k) => {
+            const testimonialKey = `${t.name}-${index}`;
+            const isExpanded = expanded === testimonialKey;
+            const isLong = overflowing[testimonialKey] === true;
             return (
-              <article key={t.name} className={`${k > 0 ? "hidden md:block" : ""} relative min-w-0 h-[370px] rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_-30px_rgba(17,75,44,0.3)]`}>
+              <article key={testimonialKey} className={`${k > 0 ? "hidden md:block" : ""} relative min-w-0 h-[370px] rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_-30px_rgba(17,75,44,0.3)]`}>
                 <Quote size={42} className="text-brand-500" fill="currentColor" />
                 <div className="mt-5 h-[145px]">
-                  <p ref={(element) => { reviewMeasureRefs.current[t.name] = element; }} aria-hidden="true" className="pointer-events-none absolute w-[calc(100%-3.5rem)] max-h-[130px] overflow-hidden opacity-0">“{t.text}”</p>
+                  <p ref={(element) => { reviewMeasureRefs.current[testimonialKey] = element; }} aria-hidden="true" className="pointer-events-none absolute w-[calc(100%-3.5rem)] max-h-[130px] overflow-hidden opacity-0">“{t.text}”</p>
                   <p className={`text-base leading-relaxed text-steel ${isLong ? "line-clamp-5" : ""}`}>“{t.text}”</p>
                   {isExpanded && (
                     <div className="absolute inset-x-5 top-20 z-10 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-brand-100">
@@ -458,7 +463,7 @@ function Testimonials() {
                     </div>
                   )}
                   {isLong && !isExpanded && (
-                    <button type="button" onClick={() => setExpanded(t.name)} className="mt-2 block text-sm font-bold text-brand-600 hover:text-brand-800">
+                    <button type="button" onClick={() => setExpanded(testimonialKey)} className="mt-2 block text-sm font-bold text-brand-600 hover:text-brand-800">
                       Read more
                     </button>
                   )}
