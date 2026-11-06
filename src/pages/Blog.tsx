@@ -2,17 +2,22 @@ import { useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Calendar, Clock, Share2 } from "lucide-react";
-import { IMG } from "../data/site";
+import { BLOGS as LOCAL_BLOGS, IMG } from "../data/site";
 import { useSiteData, PageLoading } from "../components/SiteDataContext";
 import { PageHero, Reveal, Eyebrow } from "../components/ui";
 import { useAppointment } from "../components/AppointmentContext";
 import "../styles/blog.css";
 
+const LEGACY_COMORBIDITIES_SLUG = "bariatric-surgery-comorbidities";
+const COMORBIDITIES_SLUG = "how-bariatric-surgery-helps-with-diabetes-blood-pressure-and-joint-pain";
+const FEATURED_BLOG_SLUG = "is-bariatric-surgery-right-for-you-eligibility-guide";
+
 export default function Blog() {
   const { BLOGS } = useSiteData();
   const cats = ["All", ...Array.from(new Set(BLOGS.map((b) => b.cat)))];
   const [cat, setCat] = useState("All");
-  const [feat, ...rest] = BLOGS;
+  const feat = BLOGS.find((b) => b.slug === FEATURED_BLOG_SLUG) || BLOGS[0];
+  const rest = BLOGS.filter((b) => b.slug !== feat?.slug);
   const list = (cat === "All" ? rest : BLOGS.filter((b) => b.cat === cat));
   return (
     <>
@@ -63,7 +68,10 @@ export default function Blog() {
 export function BlogPost() {
   const { BLOGS, loaded } = useSiteData();
   const { slug } = useParams();
-  const b = BLOGS.find((x) => x.slug === slug);
+  const isComorbiditiesPost = slug === LEGACY_COMORBIDITIES_SLUG || slug === COMORBIDITIES_SLUG;
+  const b = isComorbiditiesPost
+    ? LOCAL_BLOGS.find((x) => x.slug === COMORBIDITIES_SLUG)
+    : BLOGS.find((x) => x.slug === slug);
   const { open } = useAppointment();
   if (!b) return loaded ? <Navigate to="/blog" replace /> : <PageLoading />;
   return (
