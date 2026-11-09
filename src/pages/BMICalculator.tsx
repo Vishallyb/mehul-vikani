@@ -95,7 +95,7 @@ export default function BMICalculator() {
               {unit === "metric" ? (
                 <>
                   <input type="number" value={kg} onChange={(e) => setKg(+e.target.value || 0)} className={input} />
-                  <input type="range" min={35} max={220} value={kg} onChange={(e) => setKg(+e.target.value)} className="mt-3 w-full accent-[#2b8c57]" />
+                  <input type="range" min={35} max={300} value={kg} onChange={(e) => setKg(+e.target.value)} className="mt-3 w-full accent-[#2b8c57]" />
                 </>
               ) : (
                 <div className="relative"><input type="number" value={lb} onChange={(e) => setLb(+e.target.value || 0)} className={input} /><span className="absolute right-4 top-1/2 -translate-y-1/2 text-steel">lb</span></div>

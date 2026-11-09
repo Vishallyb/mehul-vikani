@@ -33,8 +33,6 @@ export const HOME = {
       { label: "BP normalised", value: 72 },
       { label: "Sleep apnea resolved", value: 85 },
     ],
-    badgeTitle: "NABH Accredited",
-    badgeText: "Partner Hospitals",
   },
   marquee: {
     show: true,
@@ -78,7 +76,7 @@ export const HOME = {
     highlight: "trust.",
     desc: "We combine surgical expertise, cutting-edge technology and heartfelt care to deliver the best possible outcomes — safely.",
     image: IMG.or3,
-    videoUrl: "https://www.youtube.com/embed/0YVj6b5mT4Q",
+    videoUrl: "https://www.youtube.com/embed/zPAZQTuPTAc",
     items: [
       { icon: "shield", title: "Safety First Protocols", desc: "International safety checklists, ICU backup and experienced anaesthesia team." },
       { icon: "microscope", title: "Advanced 4K Laparoscopy", desc: "Latest HD/4K systems and energy devices for precise, bloodless surgery." },

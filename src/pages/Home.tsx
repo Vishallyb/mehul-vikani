@@ -1,7 +1,8 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, ShieldCheck, Award, Star, Quote, Play, Activity, X } from "lucide-react";
+import { ArrowRight, ArrowLeft, Award, Star, Quote, Play, Activity, X } from "lucide-react";
 import { HOME } from "../data/pages";
 import { useSiteData } from "../components/SiteDataContext";
 import { siteIcon, youtubeEmbed } from "../components/siteIcons";
@@ -129,12 +130,6 @@ function Hero() {
               })}
             </div>
           </motion.div>
-          {hero.badgeTitle && (
-            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2 }} className="animate-float absolute -bottom-20 left-4 flex items-center gap-3 rounded-2xl bg-brand-50 p-4 text-ink shadow-2xl">
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600"><ShieldCheck /></div>
-              <div><div className="text-sm font-extrabold">{hero.badgeTitle}</div><div className="text-xs text-steel">{hero.badgeText}</div></div>
-            </motion.div>
-          )}
         </div>
       </div>
 
@@ -283,8 +278,8 @@ function WhyUs() {
           <div className="lg:sticky lg:top-32">
             <SectionHeading eyebrow={w.eyebrow} title={heading(w.title, w.highlight)} desc={w.desc} />
             {w.image && (
-              <Reveal delay={0.2} className="relative mt-10 overflow-hidden rounded-[2rem]">
-                <img src={w.image} alt="" className="h-72 w-full object-cover" />
+              <Reveal delay={0.2} className="relative mt-10 h-72 overflow-hidden rounded-[2rem]">
+                <img src={w.image} alt="" className="pointer-events-none h-full w-full object-cover" />
                 {w.videoUrl && <VideoButton url={w.videoUrl} />}
               </Reveal>
             )}
@@ -315,22 +310,21 @@ function VideoButton({ url }: { url: string }) {
   const embed = youtubeEmbed(url);
   return (
     <>
-      <button onClick={() => setOpen(true)} className="absolute inset-0 grid place-items-center bg-ink/30" aria-label="Play video">
-        <span className="relative grid h-20 w-20 place-items-center rounded-full bg-brand-500 text-white">
-          <span className="absolute inset-0 animate-pulse-ring rounded-full bg-brand-500" />
-          <Play fill="currentColor" className="relative ml-1" />
+      <button type="button" onClick={() => setOpen(true)} className="absolute inset-0 z-20 grid cursor-pointer place-items-center bg-ink/30" aria-label="Play video">
+        <span className="pointer-events-none relative grid h-20 w-20 place-items-center rounded-full bg-brand-500 text-white">
+          <span className="pointer-events-none absolute inset-0 animate-pulse-ring rounded-full bg-brand-500" />
+          <Play fill="currentColor" className="pointer-events-none relative ml-1" />
         </span>
       </button>
-      <AnimatePresence>
-        {open && (
+      {open && createPortal(
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] grid place-items-center bg-ink/90 p-4" onClick={() => setOpen(false)}>
             <button className="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full bg-white/10 text-white" aria-label="Close video"><X /></button>
-            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-ink">
-              <iframe className="h-full w-full" src={`${embed}${embed.includes("?") ? "&" : "?"}autoplay=1`} title="Video" allow="autoplay; encrypted-media" allowFullScreen />
+            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="relative z-10 aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-ink" onClick={(event) => event.stopPropagation()}>
+              <iframe className="h-full w-full" src={`${embed}${embed.includes("?") ? "&" : "?"}autoplay=1&playsinline=1`} title="Video" allow="autoplay; encrypted-media; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
             </motion.div>
-          </motion.div>
+          </motion.div>,
+          document.body,
         )}
-      </AnimatePresence>
     </>
   );
 }
@@ -391,7 +385,7 @@ function BMIQuick() {
           <Reveal delay={0.2} className="mt-8"><Button to="/obesity-treatment-options" variant="dark">{b.button}</Button></Reveal>
         </div>
         <Reveal className="rounded-[2rem] border border-ink/5 bg-white p-8 shadow-[0_30px_80px_-30px_rgba(17,75,44,0.2)] sm:p-10">
-          {[["Height", h, setH, 130, 210, "cm"], ["Weight", w, setW, 40, 200, "kg"]].map(([l, v, set, min, max, u]) => (
+          {[["Height", h, setH, 130, 210, "cm"], ["Weight", w, setW, 40, 300, "kg"]].map(([l, v, set, min, max, u]) => (
             <div key={l as string} className="mb-8">
               <div className="mb-3 flex justify-between font-semibold"><span>{l as string}</span><span className="font-display text-xl font-extrabold text-brand-600">{v as number} <span className="text-sm text-steel">{u as string}</span></span></div>
               <input type="range" min={min as number} max={max as number} value={v as number} onChange={(e) => (set as (n: number) => void)(+e.target.value)} className="w-full accent-[#2b8c57]" />
@@ -417,45 +411,75 @@ function Testimonials() {
   const { TESTIMONIALS } = useSiteData();
   const head = useHome().testimonials;
   const [i, setI] = useState(0);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const [overflowing, setOverflowing] = useState<Record<string, boolean>>({});
+  const reviewMeasureRefs = useRef<Record<string, HTMLParagraphElement | null>>({});
   useEffect(() => {
-    const t = setInterval(() => setI((p) => (p + 1) % TESTIMONIALS.length), 6000);
+    if (!TESTIMONIALS.length || expanded) return;
+    const t = setInterval(() => {
+      setI((p) => (p + 1) % TESTIMONIALS.length);
+    }, 6000);
     return () => clearInterval(t);
-  }, [i, TESTIMONIALS.length]);
+  }, [TESTIMONIALS.length, expanded]);
+  const visibleTestimonials = Array.from({ length: Math.min(3, TESTIMONIALS.length) }, (_, k) => {
+    const index = (i + k) % TESTIMONIALS.length;
+    return { testimonial: TESTIMONIALS[index], index };
+  });
+  useLayoutEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const nextOverflowing: Record<string, boolean> = {};
+      visibleTestimonials.forEach(({ testimonial, index }) => {
+        const key = `${testimonial.name}-${index}`;
+        const element = reviewMeasureRefs.current[key];
+        if (element) nextOverflowing[key] = element.scrollHeight > 130;
+      });
+      setOverflowing(nextOverflowing);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [visibleTestimonials.map(({ testimonial, index }) => `${testimonial.name}-${index}`).join("|")]);
   if (!TESTIMONIALS.length) return null;
-  const cur = i % TESTIMONIALS.length;
-  const t = TESTIMONIALS[cur];
   return (
     <section className="relative overflow-hidden bg-brand-50 py-24 sm:py-32">
       <div className="pixel-grid absolute inset-0 opacity-50" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading center eyebrow={head.eyebrow} title={head.title} />
-        <div className="mt-16 grid items-center gap-10 lg:grid-cols-12">
-          <div className="relative lg:col-span-5">
-            <AnimatePresence mode="wait">
-              <motion.img key={cur} src={t.img} alt={t.name} initial={{ opacity: 0, scale: 0.95, rotate: -2 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.6 }} className="h-[420px] w-full rounded-[2rem] object-cover shadow-2xl" />
-            </AnimatePresence>
-            <div className="absolute -bottom-6 -right-2 rounded-2xl bg-brand-500 px-6 py-4 text-white shadow-xl sm:right-6">
-              <div className="text-xs uppercase tracking-widest text-white/75">Weight Lost</div>
-              <div className="font-display text-3xl font-black">{t.lost}</div>
-            </div>
-          </div>
-          <div className="lg:col-span-7 lg:pl-10">
-            <Quote size={56} className="text-brand-500" fill="currentColor" />
-            <AnimatePresence mode="wait">
-              <motion.div key={cur} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }}>
-                <p className="mt-6 font-display text-xl font-semibold leading-relaxed text-ink sm:text-2xl">"{t.text}"</p>
-                <div className="mt-8 flex items-center gap-1 text-brand-500">{Array.from({ length: 5 }).map((_, k) => <Star key={k} size={16} fill="currentColor" />)}</div>
-                <div className="mt-3 text-lg font-extrabold">{t.name}, {t.age}</div>
+        <div className="mt-16 grid min-w-0 gap-6 md:grid-cols-3">
+          {visibleTestimonials.map(({ testimonial: t, index }, k) => {
+            const testimonialKey = `${t.name}-${index}`;
+            const isExpanded = expanded === testimonialKey;
+            const isLong = overflowing[testimonialKey] === true;
+            return (
+              <article key={testimonialKey} className={`${k > 0 ? "hidden md:block" : ""} relative min-w-0 h-[370px] rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_-30px_rgba(17,75,44,0.3)]`}>
+                <Quote size={42} className="text-brand-500" fill="currentColor" />
+                <div className="mt-5 h-[145px]">
+                  <p ref={(element) => { reviewMeasureRefs.current[testimonialKey] = element; }} aria-hidden="true" className="pointer-events-none absolute w-[calc(100%-3.5rem)] max-h-[130px] overflow-hidden opacity-0">“{t.text}”</p>
+                  <p className={`text-base leading-relaxed text-steel ${isLong ? "line-clamp-5" : ""}`}>“{t.text}”</p>
+                  {isExpanded && (
+                    <div className="absolute inset-x-5 top-20 z-10 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-brand-100">
+                      <p className="max-h-52 overflow-y-auto text-base leading-relaxed text-steel">“{t.text}”</p>
+                      <button type="button" onClick={() => setExpanded(null)} className="mt-2 text-sm font-bold text-brand-600 hover:text-brand-800">
+                        Hide
+                      </button>
+                    </div>
+                  )}
+                  {isLong && !isExpanded && (
+                    <button type="button" onClick={() => setExpanded(testimonialKey)} className="mt-2 block text-sm font-bold text-brand-600 hover:text-brand-800">
+                      Read more
+                    </button>
+                  )}
+                </div>
+                <div className="mt-5 flex items-center gap-1 text-brand-500">{Array.from({ length: 5 }).map((_, k) => <Star key={k} size={15} fill="currentColor" />)}</div>
+                <div className="mt-4 text-lg font-extrabold">{t.name}</div>
                 <div className="text-sm font-semibold text-brand-600">{t.proc}</div>
-              </motion.div>
-            </AnimatePresence>
-            <div className="mt-10 flex items-center gap-4">
-              <button onClick={() => setI((cur - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)} className="grid h-12 w-12 place-items-center rounded-full border-2 border-ink/10 transition hover:border-brand-500 hover:bg-brand-500 hover:text-white"><ArrowLeft size={18} /></button>
-              <button onClick={() => setI((cur + 1) % TESTIMONIALS.length)} className="grid h-12 w-12 place-items-center rounded-full bg-ink text-white transition hover:bg-brand-500"><ArrowRight size={18} /></button>
-              <div className="ml-4 flex gap-2">
-                {TESTIMONIALS.map((_, k) => <button key={k} onClick={() => setI(k)} className={`h-2 rounded-full transition-all ${k === cur ? "w-8 bg-brand-500" : "w-2 bg-ink/20"}`} />)}
-              </div>
-            </div>
+              </article>
+            );
+          })}
+        </div>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <button onClick={() => { setExpanded(null); setI((i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length); }} className="grid h-12 w-12 place-items-center rounded-full border-2 border-ink/10 transition hover:border-brand-500 hover:bg-brand-500 hover:text-white" aria-label="Previous reviews"><ArrowLeft size={18} /></button>
+          <button onClick={() => { setExpanded(null); setI((i + 1) % TESTIMONIALS.length); }} className="grid h-12 w-12 place-items-center rounded-full bg-ink text-white transition hover:bg-brand-500" aria-label="Next reviews"><ArrowRight size={18} /></button>
+          <div className="ml-0 flex max-w-full flex-wrap justify-center gap-2 sm:ml-4">
+            {TESTIMONIALS.map((_, k) => <button key={k} onClick={() => { setExpanded(null); setI(k); }} className={`h-2 rounded-full transition-all ${k === i ? "w-8 bg-brand-500" : "w-2 bg-ink/20"}`} aria-label={`Show reviews starting at ${k + 1}`} />)}
           </div>
         </div>
       </div>
